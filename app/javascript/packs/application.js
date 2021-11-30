@@ -12,11 +12,10 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
-
 // External imports:
 
 // Internal imports:
-// import { initSelect2 } from '../components/init_select2';
+import "controllers"
 
 document.addEventListener('turbolinks:load', () => {
   // initSelect2();
