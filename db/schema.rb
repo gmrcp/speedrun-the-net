@@ -15,11 +15,20 @@ ActiveRecord::Schema.define(version: 2021_11_30_152352) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "lobbies", force: :cascade do |t|
-    t.string "code"
-    t.string "category"
+  create_table "games", force: :cascade do |t|
+    t.bigint "lobby_id", null: false
+    t.string "category", default: "default"
     t.string "start_url"
     t.string "end_url"
+    t.boolean "running?", default: false
+    t.string "winner"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["lobby_id"], name: "index_games_on_lobby_id"
+  end
+
+  create_table "lobbies", force: :cascade do |t|
+    t.string "code"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -37,14 +46,15 @@ ActiveRecord::Schema.define(version: 2021_11_30_152352) do
   end
 
   create_table "sessions", force: :cascade do |t|
-    t.bigint "lobby_id", null: false
+    t.bigint "game_id", null: false
     t.bigint "user_id", null: false
     t.datetime "started_at"
     t.datetime "ended_at"
     t.string "clicks", default: [], array: true
+    t.boolean "ready?", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["lobby_id"], name: "index_sessions_on_lobby_id"
+    t.index ["game_id"], name: "index_sessions_on_game_id"
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
@@ -60,9 +70,10 @@ ActiveRecord::Schema.define(version: 2021_11_30_152352) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "games", "lobbies"
   add_foreign_key "lobbies", "users"
   add_foreign_key "messages", "lobbies"
   add_foreign_key "messages", "users"
-  add_foreign_key "sessions", "lobbies"
+  add_foreign_key "sessions", "games"
   add_foreign_key "sessions", "users"
 end
