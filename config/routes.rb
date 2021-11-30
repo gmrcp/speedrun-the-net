@@ -10,5 +10,6 @@ Rails.application.routes.draw do
 
   # Check gem 'devise-guests' and 'auth discord'...
   resources :users, only: %i[create destroy]
+
   # ActionCable messages ???
 end
