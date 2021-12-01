@@ -4,7 +4,8 @@ Rails.application.routes.draw do
 
   get '/session', to: 'sessions#show'
 
-  resources :lobbies, only: %i[show create update destroy] do
+  resource :lobby, only: :show
+  resources :lobbies, only: %i[create update destroy] do
     resources :sessions, only: %i[show create update]
   end
 
