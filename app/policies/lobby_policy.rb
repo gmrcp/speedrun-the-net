@@ -9,6 +9,10 @@ class LobbyPolicy < ApplicationPolicy
     return true
   end
 
+  def show
+    return true
+  end
+
   def update?
     record.owner == user
   end
