@@ -29,10 +29,10 @@ ActiveRecord::Schema.define(version: 2021_11_30_152352) do
 
   create_table "lobbies", force: :cascade do |t|
     t.string "code"
-    t.bigint "user_id", null: false
+    t.bigint "owner_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_lobbies_on_user_id"
+    t.index ["owner_id"], name: "index_lobbies_on_owner_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 2021_11_30_152352) do
   end
 
   add_foreign_key "games", "lobbies"
-  add_foreign_key "lobbies", "users"
+  add_foreign_key "lobbies", "users", column: "owner_id"
   add_foreign_key "messages", "lobbies"
   add_foreign_key "messages", "users"
   add_foreign_key "sessions", "games"
