@@ -52,13 +52,9 @@ ActiveRecord::Schema.define(version: 2021_12_01_113034) do
     t.datetime "ended_at"
     t.string "clicks", default: [], array: true
     t.boolean "ready?", default: false
-    t.string "session_id", null: false
-    t.text "data"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["game_id"], name: "index_sessions_on_game_id"
-    t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
-    t.index ["updated_at"], name: "index_sessions_on_updated_at"
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
