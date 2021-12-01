@@ -29,11 +29,13 @@ gem 'redis', '~> 4.0'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'devise'
+gem 'omniauth'
 gem 'omniauth-rails_csrf_protection'
-gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-discord'
+gem 'omniauth-facebook'
 gem 'activerecord-session_store'
+
 gem 'font-awesome-sass'
 gem 'simple_form'
 gem 'bootstrap', '~> 5.1.3'

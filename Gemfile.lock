@@ -313,6 +313,7 @@ DEPENDENCIES
   font-awesome-sass
   jbuilder (~> 2.7)
   listen (~> 3.3)
+  omniauth
   omniauth-discord
   omniauth-facebook
   omniauth-google-oauth2
