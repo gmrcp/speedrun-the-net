@@ -5,5 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :sessions
-  has_many :lobbies, foreign_key: :owner_id
+  has_many :lobbies # , foreign_key: :owner_id
+  has_many :users, trough: :sessions
 end
