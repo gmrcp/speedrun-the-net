@@ -272,9 +272,19 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-  config.omniauth :facebook, Rails.application.credentials.dig(:facebook, facebook_client_id),
-  Rails.application.credentials.dig(:facebook, facebook_client_secret), scope: 'public_profile,email',
-  info_fields: 'email, first_name, last_name, picture'
+
+  # config.omniauth :facebook, Rails.application.credentials.dig(:facebook, facebook_client_id),
+  # Rails.application.credentials.dig(:facebook, facebook_client_secret), scope: 'public_profile,email'
+
+  # config.omniauth :google_oauth2, Rails.application.credentials.dig(:google, google_client_id),
+  # Rails.application.credentials.dig(:google, google_client_secret), scope: 'userinfo.email,userinfo.profile'
+
+  config.omniauth :google_oauth2, Rails.application.credentials.dig(:google, :google_client_id),
+  Rails.application.credentials.dig(:google, :google_client_secret), scope: 'userinfo.email,userinfo.profile'
+
+  Rails.application.config.middleware.use OmniAuth::Builder do
+    provider :discord, ENV['discord_client_id'], ENV['discord_client_secret'], scope: 'email identify', callback_url: 'https://someurl.com/users/auth/discord/callback'
+  end
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
