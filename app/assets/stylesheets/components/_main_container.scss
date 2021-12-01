@@ -1,0 +1,31 @@
+#main-overlay {
+  background-color: $offwhite;
+  height: 66vh;
+  min-width: 32rem;
+  border-radius: 40px 0 5px 5px;
+  box-shadow: $shadow-main;
+}
+
+#title-banner {
+  position: absolute;
+  top: -3rem;
+  left: 0;
+  width: clamp(32rem, 70%, 40rem);
+  height: 10rem;
+  z-index: -1;
+  padding: 0.1rem 4rem;
+  background-color: $purple-primary;
+  color: $offwhite;
+  border-radius: 40px;
+  h1, p {
+    margin: 0;
+  }
+  h1 {
+    font-size: 2.5rem;
+  }
+  p {
+    margin-left: 2rem;
+    letter-spacing: 1rem;
+    white-space: nowrap;
+  }
+}
