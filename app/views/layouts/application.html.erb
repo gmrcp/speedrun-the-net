@@ -3,6 +3,8 @@
   <head>
     <title>SpeedrunTheNet</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -11,8 +13,19 @@
   </head>
 
   <body>
-   <!-- <%= render 'shared/flashes' %> -->
-      <%= yield %>
+    <div class="d-flex flex-column h-100 justify-content-center">
+      <div class="container-md position-relative">
+        <div id="title-banner">
+          <div class="d-flex align-items-center">
+            <h1>SPEEDRUN</h1>
+            <p>THE NET</p>
+          </div>
+        </div>
+        <div id="main-overlay" class="row justify-content-center">
+          <%= yield %>
+        </div>
+      </div>
     </div>
+   <!-- <%= render 'shared/flashes' %> -->
   </body>
 </html>

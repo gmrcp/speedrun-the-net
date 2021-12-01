@@ -1,6 +1,7 @@
 #main-overlay {
   background-color: $offwhite;
   height: 66vh;
+  min-height: 10rem;
   min-width: 32rem;
   border-radius: 40px 0 5px 5px;
   box-shadow: $shadow-main;
@@ -11,7 +12,7 @@
   top: -3rem;
   left: 0;
   width: clamp(32rem, 70%, 40rem);
-  height: 10rem;
+  height: 7rem;
   z-index: -1;
   padding: 0.1rem 4rem;
   background-color: $purple-primary;
