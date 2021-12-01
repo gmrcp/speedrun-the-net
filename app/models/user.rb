@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:google_oauth2, :discord]
 
-  has_many :sessions
+  has_many :game_sessions
   has_many :lobbies, foreign_key: :owner_id
 end
 
