@@ -279,9 +279,9 @@ Devise.setup do |config|
   config.omniauth :google_oauth2, Rails.application.credentials.dig(:google, :google_client_id),
   Rails.application.credentials.dig(:google, :google_client_secret), scope: 'userinfo.email,userinfo.profile'
 
-  # Rails.application.config.middleware.use OmniAuth::Builder do
-  #   provider :discord, ENV['discord_client_id'], ENV['discord_client_secret'], scope: 'email identify', callback_url: 'https://someurl.com/users/auth/discord/callback'
-  # end
+  Rails.application.config.middleware.use OmniAuth::Builder do
+    provider :discord, ENV['discord_client_id'], ENV['discord_client_secret'], scope: 'email identify', callback_url: 'https://someurl.com/users/auth/discord/callback'
+  end
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
