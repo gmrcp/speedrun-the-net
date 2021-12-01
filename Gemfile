@@ -40,6 +40,7 @@ gem 'font-awesome-sass'
 gem 'simple_form'
 gem 'bootstrap', '~> 5.1.3'
 gem 'pundit'
+gem 'devise-guests'
 
 group :development, :test do  gem 'pry-byebug'
   gem 'pry-rails'
