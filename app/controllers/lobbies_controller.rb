@@ -3,6 +3,8 @@ class LobbiesController < ApplicationController
   end
 
   def show
+    @lobby = Lobby.find(params[:id])
+    @message = Message.new
   end
 
   def update
