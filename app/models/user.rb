@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: [:google_oauth2, :discord]
 
   has_many :sessions
+  has_many :lobbies, foreign_key: :owner_id
 end
 
 def self.create_from_provider_data(provider_data)

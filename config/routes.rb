@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {omniauth_callbacks: 'omniauth'}
   root to: 'pages#home'
 
-  resources :lobbies, only: %i[show create update destroy] do
+  resource :lobby, only: :show
+  resources :lobbies, only: %i[create update destroy] do
     resources :sessions, only: %i[show create update]
   end
 
