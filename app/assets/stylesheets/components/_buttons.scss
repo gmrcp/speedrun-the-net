@@ -1,0 +1,48 @@
+.button {
+  border-radius: 10px;
+  text-decoration: none;
+  font-family: 'Source Sans Pro', sans-serif;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.button.large {
+  letter-spacing: 2px;
+}
+
+.button.large.filled {
+  background: $purple-gradient;
+  color: white;
+  font-size: 20px;
+  padding: 7px 45px;
+}
+
+.button.large.empty {
+  background-color: $button-gray;
+  border-color: $purple-primary;
+  border-width: 2px;
+  border-style: solid;
+  color: $purple-primary;
+  font-weight: bolder;
+  font-size: 22px;
+  padding: 5px 45px;
+}
+
+.button.small {
+  padding: 7px 20px;
+  font-size: 17px;
+  letter-spacing: 2px;
+}
+
+.button.small.filled {
+  background-color: #FD4E18;
+  color: white;
+}
+
+.button.small.empty {
+  background-color: $button-gray;
+  border-color: #FD4E18;
+  border-width: 2px;
+  border-style: solid;
+  color: #FD4E18;
+  border-width: thin;
+}
