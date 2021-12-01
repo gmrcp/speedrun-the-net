@@ -16,11 +16,6 @@ class LobbiesController < ApplicationController
   private
 
   def generate_lobby
-    @lobby = Lobby.create(owner: current_user, code: generate_code)
-  end
-
-  def generate_code
-    # SecureRandom.hex(2)
-    (0...6).map { ('A'..'Z').to_a[rand(26)] }.join
+    @lobby = current_user.lobbies.create
   end
 end

@@ -7,7 +7,6 @@ class Lobby < ApplicationRecord
   def generate_code
     return if code.present?
 
-    self.code = SecureRandom.hex(2) # change the number for different size
+    self.code = SecureRandom.hex(2).upcase # change the number for different size
   end
-
 end
