@@ -1,3 +1,32 @@
 <h1>Lobbies#show</h1>
-<p>Find me in app/views/lobbies/show.html.erb</p>
-<%= @lobby.code %>
+
+<div class="container">
+  <div class="row justify-content-md-center p-3">
+    <div class="col-md-3 p-2 mx-4">
+      <div class="players">
+        <div class="players-cards"></div>
+        <div class="players-cards"></div>
+        <div class="players-cards"></div>
+        <div class="players-cards"></div>
+        <div class="players-cards"></div>
+      </div>
+      <div class="buttons">
+        <a href="#" class="button large filled">INVITE</a>
+        <a href="#" class="button large empty">JOIN</a>
+      </div>
+    </div>
+
+    <div class="col-md-7 p-2 mx-4">Game mode
+      <div class="cards-container">
+        <div class="cards"></div>
+        <div class="cards"></div>
+        <div class="cards"></div>
+        <div class="cards"></div>
+      </div>
+      <div class="message_board">
+        This is the message board
+      </div>
+    </div>
+  </div>
+</div>
+ <%= @lobby.code %>
