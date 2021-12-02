@@ -1,26 +1,21 @@
 .avatar {
-  width: 45px;
   border-radius: 50%;
-  border-style: solid;
-  border-color: #3F369B;
-  border-width: 2px;
+  &-small {
+    @extend .avatar;
+    width: 45px;
+    height: 45px;
+  }
+  &-large {
+    @extend .avatar;
+    width: 56px;
+    height: 56px;
+  }
 }
-.avatar-large {
-  width: 56px;
-  border-radius: 50%;
-  border-image: 2px, solid, #3F369B;
-}
-.avatar-bordered {
-  width: 40px;
-  border-radius: 50%;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-  border-style: solid;
-  border-color: #3F369B;
-  border-width: 2px;
-}
+
 .avatar-square {
-  width: 40px;
   border-radius: 0px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-  border: white 1px solid;
+}
+
+.avatar-border {
+border: 2px solid $purple-primary;
 }

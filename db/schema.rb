@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_30_152352) do
+ActiveRecord::Schema.define(version: 2021_12_01_202950) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "game_sessions", force: :cascade do |t|
+    t.bigint "game_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "started_at"
+    t.datetime "ended_at"
+    t.string "clicks", default: [], array: true
+    t.boolean "ready?", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["game_id"], name: "index_game_sessions_on_game_id"
+    t.index ["user_id"], name: "index_game_sessions_on_user_id"
+  end
 
   create_table "games", force: :cascade do |t|
     t.bigint "lobby_id", null: false
@@ -46,16 +59,12 @@ ActiveRecord::Schema.define(version: 2021_11_30_152352) do
   end
 
   create_table "sessions", force: :cascade do |t|
-    t.bigint "game_id", null: false
-    t.bigint "user_id", null: false
-    t.datetime "started_at"
-    t.datetime "ended_at"
-    t.string "clicks", default: [], array: true
-    t.boolean "ready?", default: false
+    t.string "session_id", null: false
+    t.text "data"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["game_id"], name: "index_sessions_on_game_id"
-    t.index ["user_id"], name: "index_sessions_on_user_id"
+    t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
+    t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
 
   create_table "users", force: :cascade do |t|
@@ -66,14 +75,16 @@ ActiveRecord::Schema.define(version: 2021_11_30_152352) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "provider", limit: 50, default: "", null: false
+    t.string "uid", limit: 50, default: "", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "game_sessions", "games"
+  add_foreign_key "game_sessions", "users"
   add_foreign_key "games", "lobbies"
   add_foreign_key "lobbies", "users", column: "owner_id"
   add_foreign_key "messages", "lobbies"
   add_foreign_key "messages", "users"
-  add_foreign_key "sessions", "games"
-  add_foreign_key "sessions", "users"
 end
