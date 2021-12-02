@@ -2,5 +2,6 @@
 <p>Find me in app/views/lobbies/show.html.erb</p>
 <p>Logged in as: <%= current_user.email %></p>
 <p>Lobby owner: <%= @lobby.owner.email %></p>
+<p>Lobby owner: <%= @lobby.owner.username %></p>
 <p>Lobby code: <%= @lobby.code %></p>
 <%= link_to 'Start', start_path, class: 'button small empty' %>
