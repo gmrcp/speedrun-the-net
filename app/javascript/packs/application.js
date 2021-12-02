@@ -16,7 +16,10 @@ ActiveStorage.start()
 
 // Internal imports:
 import "controllers"
+import { bootstrapTooltips } from '../components/tooltip';
 
 document.addEventListener('turbolinks:load', () => {
-  // initSelect2();
+  if (document.getElementById('game-page')) {
+    bootstrapTooltips();
+  }
 });
