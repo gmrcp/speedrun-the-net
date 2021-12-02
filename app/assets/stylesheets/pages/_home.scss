@@ -91,6 +91,7 @@
     display: flex;
     width: 100%;
     justify-content: space-around;
+    margin-bottom: 10px;
 
     .icon {
       width: 35px;
@@ -111,4 +112,44 @@
       }
     }
   }
+
+  .btn-enter {
+    position: relative;
+    align-items: center;
+    padding: 10px 30px;
+    border-radius: 100px;
+    color: #fff;
+    font-size: 18px;
+    text-decoration: none;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+    background: linear-gradient(180deg, #FE8C00 0%, #F83600 100%);
+    transition: box-shadow .15s ease-in-out;
+
+    ::before {
+      content: '';
+      background: linear-gradient(180deg, #FE8C00 0%, #F83600 100%);
+    }
+
+    ::after {
+      content: '';
+      background: linear-gradient(180deg, #f83600 0%, #f83600 100%);
+      transition: all 1s linear;
+      opacity: 0;
+
+      &:hover {
+        opacity: 1;
+        transition: all 1s linear;
+      }
+    }
+
+    &:hover {
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.45);
+      background: linear-gradient(180deg, #f83600 0%, #f83600 100%);
+      transition: all .15s ease-in-out;
+    }
+  }
+}
+
+.rules-instructions-container{
+  width: 100%;
 }
