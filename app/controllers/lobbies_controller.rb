@@ -16,6 +16,8 @@ class LobbiesController < ApplicationController
   private
 
   def generate_lobby
-    @lobby = current_user.lobbies.create
+    @lobby = Lobby.new
+    @lobby.owner = current_user
+    @lobby.save
   end
 end
