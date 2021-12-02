@@ -1,4 +1,4 @@
-class SessionsController < ApplicationController
+class GameSessionsController < ApplicationController
   def create
   end
 
