@@ -4,6 +4,7 @@
       <p>play anonymously
       as a guest
       </p>
+      <form action="#" method="post">
       <input type="text" name="username" placeholder='enter username' id="guest-username">
     </div>
     <div class="spacer">
@@ -16,11 +17,19 @@
       account
       </p>
       <div class="icons">
+        <%= link_to "#", method: :post do%>
         <div class="icon icon_twitch"><i class="fab fa-twitch"></i></div>
+        <% end %>
+        <%= link_to "#", method: :post do%>
         <div class="icon icon_discord"><i class="fab fa-discord"></i></div>
+        <% end%>
+        <%= link_to "#", method: :post do%>
+        <div class="icon icon_google"><i class="fab fa-google"></i></div>
+        <% end%>
       </div>
     </div>
-    <a href='#' class='btn-enter'>ENTER</a>
+    <input type="submit" value="ENTER" class='btn-enter'>
+    </form>
   </div>
   <div class="rules-instructions-container">
     <%= render 'carousel' %>
