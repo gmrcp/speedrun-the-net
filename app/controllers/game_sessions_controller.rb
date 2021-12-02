@@ -61,7 +61,6 @@ class GameSessionsController < ApplicationController
         link['data-bs-toggle'] = 'tooltip'
         link['data-bs-placement'] = 'top'
         link['title'] = "These aren't the links you're looking for..."
-        # TODO, Add class that calls popup with message "CANT CLICK THIS"
       else
         href = href.split('/').last
         link[:href] = "/game_session/#{@game_session.id}/#{href}" # Prepend every href stay in 'user_session/:id' path

@@ -7,23 +7,24 @@ import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
+import "controllers"
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
+// External imports:
 //= require jquery3
 //= require popper
 //= require bootstrap
 
-// External imports:
-
 // Internal imports:
-import "controllers"
-import { bootstrapTooltips } from '../components/tooltip';
+import { bootstrapTooltips } from '../components/bootstrap_tooltips';
+import { changeMainContainerHeight } from '../components/change_main_container_height'
 
 document.addEventListener('turbolinks:load', () => {
   if (document.getElementById('game-page')) {
+    changeMainContainerHeight();
     bootstrapTooltips();
   }
 });

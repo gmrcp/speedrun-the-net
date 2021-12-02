@@ -5,33 +5,35 @@
         <img class="avatar-large me-2" src="https://via.placeholder.com/80" alt="">
         <div>
           <p>START</p>
-          <h3>Biden</h3>
+          <h3><%= @game_session.game.start_url.gsub(%r{_}, ' ') %></h3>
         </div>
       </div>
       <div class="d-flex align-items-center">
         <img class="avatar-large me-2" src="https://via.placeholder.com/80" alt="">
         <div>
           <p>GOAL</p>
-          <h3>Jazz</h3>
+          <h3><%= @game_session.game.end_url %></h3>
         </div>
       </div>
     </div>
     <div id="game-stats">
       <div>
         <p class="border-bottom border-secondary"><strong>CLICKS</strong></p>
-        <p>2</p>
+        <p><%= @game_session.clicks.count %></p>
       </div>
       <div>
         <p class="border-bottom border-secondary"><strong>TIMER</strong></p>
-        <p>0:12</p>
+        <p><%= 'TIME' %></p>
       </div>
     </div>
     <div id="player-list">
-      <div class="d-flex align-items-center mb-1">
-        <h5 class="flex-fill">Mizkif</h5>
-        <p>1</p>
-        <i class="fas fa-hand-point-up"></i>
-      </div>
+      <% @game_session.game.users.each do |player| %>
+        <div class="d-flex align-items-center mb-1">
+          <h5 class="flex-fill text-truncate"><%= player.email %></h5>
+          <p><%= 2 %></p>
+          <i class="fas fa-hand-point-up"></i>
+        </div>
+      <% end  %>
       <div class="d-flex align-items-center mb-1">
         <h5 class="flex-fill">XqcOW</h5>
         <p>0</p>
@@ -44,9 +46,7 @@
       </div>
     </div>
     <div class="d-flex justify-content-center">
-      <a href="#" class="button small empty">
-        EXIT
-      </a>
+      <%= link_to 'EXIT', lobby_path, class: 'button small empty' %>
     </div>
   </div>
 </div>
