@@ -5,9 +5,11 @@ class GameSessionsController < ApplicationController
   end
 
   def start_game
-    @game_session = GameSession.last({ game: Game.last,
-                                         user: current_user,
-                                         started_at: Time.now })
+    @game_session = GameSession.create!({
+      user: current_user,
+      game: Game.first,
+      started_at: Time.now
+    })
     redirect_to play_path(@game_session, @game_session.game.start_url)
   end
 
