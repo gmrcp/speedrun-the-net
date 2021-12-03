@@ -21,10 +21,20 @@ ActiveStorage.start()
 // Internal imports:
 import { bootstrapTooltips } from '../components/bootstrap_tooltips';
 import { changeMainContainerHeight } from '../components/change_main_container_height'
+import { displayTime, finishTime } from '../components/timer';
 
 document.addEventListener('turbolinks:load', () => {
   if (document.getElementById('game-page')) {
     changeMainContainerHeight();
     bootstrapTooltips();
   }
+
+  if (document.getElementById('timer')) {
+    displayTime();
+  }
+
+  if (document.getElementById('finish')) {
+    finishTime();
+  }
+
 });

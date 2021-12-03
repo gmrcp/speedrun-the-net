@@ -12,15 +12,14 @@
             </div>
             <div class="spacer">
               <hr>
-                <img class="avatar" src="https://via.placeholder.com/60" alt="Jazz">
-                <p>Jazz</p>
+                <img class="avatar" src="https://via.placeholder.com/60">
+                <p><%= @game_session.game.end_url.gsub(/_/, ' ') %></p>
               <hr>
               </div>
-                <p>with 3 clicks in 27 seconds!
+                <p>with <%= @game_session.clicks.count %> clicks in <span id="finish"></span>!
                 </p>
             <div class="modal-footer">
-              <input type="button" value="PLAY AGAIN" class='button large filled' href="/start"></a>
-              <input type="button" value="BACK TO LOBBY" class='button large filled' data-bs-dismiss="modal"></button>
+              <%= link_to "BACK TO LOBBY", lobby_path, class: 'button large filled'  %>
             <%# <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary">Save changes</button> %>
           </div>

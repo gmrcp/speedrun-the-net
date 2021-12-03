@@ -4,6 +4,7 @@
   width: 50px;
   background-size: cover;
   background-position: center;
+  object-fit: cover;
 
   &-small {
     @extend .avatar;

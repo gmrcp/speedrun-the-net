@@ -5,8 +5,11 @@ class GameSessionsController < ApplicationController
   end
 
   def start_game
-    @game_session = GameSession.first
-    @game_session.update!(user: current_user, started_at: Time.now)
+    @game_session = GameSession.create!({
+      user: current_user,
+      game: Game.first,
+      started_at: Time.now
+    })
     redirect_to play_path(@game_session, @game_session.game.start_url)
   end
 
@@ -41,6 +44,11 @@ class GameSessionsController < ApplicationController
       redirect_to win_path(@game_session)
     end
 
+    game = @game_session.game
+
+    @img_start_url = get_image_wiki(game.start_url)
+    @img_end_url = get_image_wiki(game.end_url)
+
     # TODO, add geolocation to modify behaviour for different wikipedia languages
     url = "https://en.wikipedia.org/wiki/#{params[:article]}"
     html_file = URI.parse(url).open
@@ -63,12 +71,32 @@ class GameSessionsController < ApplicationController
         link['title'] = "These aren't the links you're looking for..."
       else
         href = href.split('/').last
-        link[:href] = "/game_session/#{@game_session.id}/#{href}" # Prepend every href stay in 'user_session/:id' path
+        # TODO, REMOVE THIS CONDITION, TEMPORARY
+        if href == @game_session.game.end_url
+          link['data-bs-toggle'] = "modal"
+          link['data-bs-target'] = "#scoreModal"
+        else
+          link[:href] = "/game_session/#{@game_session.id}/#{href}" # Prepend every href stay in 'user_session/:id' path
+        end
+        # TODO, STIMULUS
+        # link['data-action'] = 'click->play-page#changeArticle'
+        # link['data-play-page-target'] = 'link'
         # TODO, Add link to check_available_links in current page
         # @user_sesion.available_links << link[:href].gsub(/#wiki\//, '')
       end
     end
 
     @html_game = html_doc.to_s
+  end
+
+  def get_image_wiki(option)
+    url = "https://en.wikipedia.org/w/api.php?action=query&titles=#{option}&prop=pageimages&format=json&pithumbsize=100"
+    html = URI.parse(url).open
+    json = JSON.parse(html.read)
+    begin
+      return json['query']['pages'].values[0]['thumbnail']['source']
+    rescue
+      return "https://via.placeholder.com/80"
+    end
   end
 end
