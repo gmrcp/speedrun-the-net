@@ -19,6 +19,16 @@ user = User.new(
 )
 user.save!
 
+admins = %w[Gonçalo, Sérgio, Wellington, James].each do |name|
+  user = User.create!(
+    email: "#{name}@admin.com",
+    password: '123123',
+    password_confirmation: '123123',
+    username: name
+  )
+end
+byebug
+
 lobby = Lobby.create!(
   owner: user
 )
@@ -29,6 +39,7 @@ game = Game.create!(
   end_url: 'Jazz'
 )
 
+admins.each
 game_session = GameSession.create!(
   game: game,
   user: user

@@ -6,3 +6,7 @@ changeArticle() {
       this.articleTarget.innerHTML = data;
     })
 }
+
+thumbnails() {
+  const url= `https://en.wikipedia.org/w/api.php?action=query&titles=${}&prop=pageimages&format=json&pithumbsize=100`;
+}

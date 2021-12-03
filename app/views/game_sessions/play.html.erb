@@ -2,14 +2,14 @@
   <div id="game-banner">
     <div>
       <div class="d-flex align-items-center mb-2">
-        <img class="avatar-large me-2" src="https://via.placeholder.com/80" alt="">
+        <img class="avatar-large me-2" src="<%= @img_start_url %>" alt="">
         <div>
           <p>START</p>
           <h3><%= @game_session.game.start_url.gsub(%r{_}, ' ') %></h3>
         </div>
       </div>
       <div class="d-flex align-items-center">
-        <img class="avatar-large me-2" src="https://via.placeholder.com/80" alt="">
+        <img class="avatar-large me-2" src="<%= @img_end_url %>" alt="">
         <div>
           <p>GOAL</p>
           <h3><%= @game_session.game.end_url %></h3>
@@ -29,7 +29,7 @@
     <div id="player-list">
       <% @game_session.game.users.each do |player| %>
         <div class="d-flex align-items-center mb-1">
-          <h5 class="flex-fill text-truncate"><%= player.email %></h5>
+          <h5 class="flex-fill text-truncate"><%= player.username %></h5>
           <p><%= 2 %></p>
           <i class="fas fa-hand-point-up"></i>
         </div>

@@ -5,8 +5,9 @@ class GameSessionsController < ApplicationController
   end
 
   def start_game
-    @game_session = GameSession.first
-    @game_session.update!(user: current_user, started_at: Time.now)
+    @game_session = GameSession.last({ game: Game.last,
+                                         user: current_user,
+                                         started_at: Time.now })
     redirect_to play_path(@game_session, @game_session.game.start_url)
   end
 
@@ -41,6 +42,11 @@ class GameSessionsController < ApplicationController
       redirect_to win_path(@game_session)
     end
 
+    game = @game_session.game
+
+    @img_start_url = get_image_wiki(game.start_url)
+    @img_end_url = get_image_wiki(game.end_url)
+
     # TODO, add geolocation to modify behaviour for different wikipedia languages
     url = "https://en.wikipedia.org/wiki/#{params[:article]}"
     html_file = URI.parse(url).open
@@ -72,5 +78,16 @@ class GameSessionsController < ApplicationController
     end
 
     @html_game = html_doc.to_s
+  end
+
+  def get_image_wiki(option)
+    url = "https://en.wikipedia.org/w/api.php?action=query&titles=#{option}&prop=pageimages&format=json&pithumbsize=100"
+    html = URI.parse(url).open
+    json = JSON.parse(html.read)
+    begin
+      return json['query']['pages'].values[0]['thumbnail']['source']
+    rescue
+      return "https://via.placeholder.com/80"
+    end
   end
 end
