@@ -64,6 +64,8 @@ class GameSessionsController < ApplicationController
       else
         href = href.split('/').last
         link[:href] = "/game_session/#{@game_session.id}/#{href}" # Prepend every href stay in 'user_session/:id' path
+        link['data-action'] = 'click->play-page#changeArticle'
+        link['data-play-page-target'] = 'link'
         # TODO, Add link to check_available_links in current page
         # @user_sesion.available_links << link[:href].gsub(/#wiki\//, '')
       end
