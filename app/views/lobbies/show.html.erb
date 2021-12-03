@@ -1,7 +1,76 @@
-<h1>Lobbies#show</h1>
+<div class="container-lobby">
+  <div class="row">
+    <div class="col-3">
+      <div class="overflow-auto bg-light p-2 players-container" style="max-height: 350px">
+        <% 10.times do %>
+          <div class="d-flex py-3 bg-white p-1 mb-1 lobby-owner">
+            <div class="avatar avatar-small me-3">
+              <%= image_tag "avatar.png", class: 'img-fluid rounded-circle border-2 border-primary border' %>
+            </div>
+            <div class="name flex-grow-1">
+              <p class="lh-1">user.level</p>
+              <h4 class="m-0 lh-1">user.name</h4>
+            </div>
+            <div class="d-flex flex-column justify-content-between align-items-center">
+              <div class="rounded-circle bg-body p-1 hstack">
+                <i class="far fa-check-circle"></i>
+              </div>
+              <div class="rounded-circle bg-body p-1 hstack ml-1">
+                <%= image_tag "Vector.svg" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col d-flex justify-content-center">
+          <a href="#" class="button large filled me-3">INVITE</a>
+          <a href="#" class="button large empty">JOIN</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-9" >
+      <div class="d-flex justify-content-between mb-1">
+        <h2 class="text-uppercase font-weight-bold"> Game mode</h2>
+        <%= link_to 'Start', start_path, class: 'button small filled' %>
+      </div>
+      <div class="row">
+        <div class="col-6 bg-light rounded-3">
+          <div class="bg-white d-flex justify-content-center align-items-center bg-light m-2 rounded-3"  style="height: 100px">
+            <h2>👼</h2>
+            <p>Easy peasy</p>
+          </div>
+          <div class="bg-white d-flex justify-content-center align-items-center bg-light m-2 rounded-3"  style="height: 100px">
+            <h2>🤓</h2>
+            <p>Master level</p>
+          </div>
+        </div>
+        <div class="col-6 bg-light">
+          <div class="bg-white d-flex justify-content-center align-items-center bg-light m-2 rounded-3"  style="height: 100px">
+            <h2>💣</h2>
+            <p>No help</p>
+          </div>
+          <div class="bg-white d-flex justify-content-center align-items-center bg-light m-2 rounded-3"  style="height: 100px">
+            <h2>💀</h2>
+            <p>R.I.P</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="message_board">
+          This is the message board
+          <%= @lobby.code %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <h1>Lobbies#show</h1>
 <p>Find me in app/views/lobbies/show.html.erb</p>
 <p>Logged in as: <%= current_user.email %></p>
 <p>Lobby owner: <%= @lobby.owner.email %></p>
 <p>Lobby owner: <%= @lobby.owner.username %></p>
-<p>Lobby code: <%= @lobby.code %></p>
-<%= link_to 'Start', start_path, class: 'button small empty' %>
+<p>Lobby code: <%= @lobby.code %></p>  –– >

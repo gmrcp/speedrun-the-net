@@ -1,5 +1,10 @@
 .avatar {
+  //flex-grow: 1;
   border-radius: 50%;
+  width: 50px;
+  background-size: cover;
+  background-position: center;
+
   &-small {
     @extend .avatar;
     width: 45px;
