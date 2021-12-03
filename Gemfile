@@ -39,6 +39,7 @@ gem 'activerecord-session_store'
 gem 'font-awesome-sass'
 gem 'simple_form'
 gem 'bootstrap', '~> 5.1.3'
+gem 'jquery-rails'
 gem 'pundit'
 gem 'devise-guests'
 

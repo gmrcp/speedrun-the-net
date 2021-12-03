@@ -9,9 +9,9 @@
 @import "font-awesome";
 
 // Your CSS partials
+@import 'components/carousel';
 @import "components/index";
 @import "pages/index";
-@import "sessions/index";
 
 body {
   height: 100vh;

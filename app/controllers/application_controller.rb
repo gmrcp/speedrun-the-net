@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
   private
 
   def after_sign_in_path_for(_resource)
+    current_user.username = current_user.email[/(.+)@/, 1]
+    current_user.save!
     lobby_path
   end
 
