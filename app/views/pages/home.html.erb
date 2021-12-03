@@ -1,37 +1,39 @@
-<div class="content">
-  <div class='loginform-container'>
-    <div class="guest-container">
-      <p>play anonymously
-      as a guest
-      </p>
-      <form action="#" method="post">
-      <input type="text" name="username" placeholder='enter username' id="guest-username">
-    </div>
-    <div class="spacer">
-      <hr>
-      <p>or</p>
-      <hr>
-    </div>
-    <div class="connect-account">
-      <p>connect your
-      account
-      </p>
-      <div class="icons">
-        <%= link_to "#", method: :post do%>
-        <div class="icon icon_twitch"><i class="fab fa-twitch"></i></div>
-        <% end %>
-        <%= link_to "#", method: :post do%>
-        <div class="icon icon_discord"><i class="fab fa-discord"></i></div>
-        <% end%>
-        <%= link_to "users/auth/google_oauth2", method: :post, class: "icon icon_google" do %>
-          <div class="icon icon_google"><i class="fab fa-google"></i></div>
-        <% end %>
+<div class="container-md align-self-center">
+  <div class="row align-items-center justify-content-around">
+    <div class='loginform-container col-4 p-5'>
+      <div class="guest-container">
+        <p>play anonymously
+        as a guest
+        </p>
+        <form action="#" method="post">
+        <input type="text" name="username" placeholder='username' id="guest-username" class='form-control p-3'>
       </div>
+      <div class="spacer my-2">
+        <hr>
+        <p class='px-2'>or</p>
+        <hr>
+      </div>
+      <div class="connect-account">
+        <p>connect your
+        account
+        </p>
+        <div class="icons">
+          <%= link_to "#", method: :post do%>
+          <div class="icon icon_twitch"><i class="fab fa-twitch"></i></div>
+          <% end %>
+          <%= link_to "#", method: :post do%>
+          <div class="icon icon_discord"><i class="fab fa-discord"></i></div>
+          <% end%>
+          <%= link_to "users/auth/google_oauth2", method: :post, class: "icon icon_google" do %>
+            <div class="icon icon_google"><i class="fab fa-google"></i></div>
+          <% end %>
+        </div>
+      </div>
+      <input type="submit" value="ENTER" class='btn-enter'>
+      </form>
     </div>
-    <input type="submit" value="ENTER" class='btn-enter'>
-    </form>
-  </div>
-  <div class="rules-instructions-container">
-    <%= render 'carousel' %>
+    <div class="rules-instructions-container col-8">
+      <%= render 'carousel' %>
+    </div>
   </div>
 </div>
