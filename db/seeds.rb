@@ -14,7 +14,8 @@ User.delete_all
 user = User.new(
   email: 'admin@admin.com',
   password: '123123',
-  password_confirmation: '123123'
+  password_confirmation: '123123',
+  username: 'admin'
 )
 user.save!
 
