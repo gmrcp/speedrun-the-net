@@ -23,9 +23,7 @@
       </div>
       <div>
         <p class="border-bottom border-secondary"><strong>TIMER</strong></p>
-        <span id="s_minutes">00</span> :
-        <span id="s_seconds">00</span> :
-        <span id="s_ms">000</span>
+        <p id="timer"></p>
       </div>
     </div>
     <div id="player-list">
@@ -48,3 +46,4 @@
   </div>
 </div>
 <div class="d-none" id="start-time"><%= @game_session.started_at %></div>
+<%= render 'shared/modal' %>

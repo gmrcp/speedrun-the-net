@@ -1,49 +1,27 @@
-const timer = () => {
-  let offset = 0,
-    paused = false;
+const startTime = document.getElementById('start-time').innerText
 
-  render();
+const displayTime = async () => {
+  const timer = document.getElementById('timer')
+  for (let i = 0; i < 100000; i++) {
+    formatTime(startTime, timer);
+    await new Promise(r => setTimeout(r, 1000));
+  };
+};
 
-  function startStopwatch(evt) {
-    if (paused) {
-      paused = false;
-      offset -= Date.now();
-      render();
-    }
-  }
-
-  function stopStopwatch(evt) {
-    if (!paused) {
-      paused = true;
-      offset += Date.now();
-    }
-  }
-
-  function resetStopwatch(evt) {
-    if (paused) {
-      offset = 0;
-      render();
-    } else {
-      offset = -Date.now();
-    }
-  }
-
-  function format(value, scale, modulo, padding) {
-    value = Math.floor(value / scale) % modulo;
-    return value.toString().padStart(padding, 0);
-  }
-
-  function render() {
-    var value = paused ? offset : Date.now() + offset;
-
-    document.getElementById('s_ms').textContent = format(value, 1, 1000, 3);
-    document.getElementById('s_seconds').textContent = format(value, 1000, 60, 2);
-    document.getElementById('s_minutes').textContent = format(value, 60000, 60, 2);
-
-    if(!paused) {
-      requestAnimationFrame(render);
-    }
-  }
+const finishTime = () => {
+  const modalDisplay = document.getElementById('finish')
+  formatTime(startTime, modalDisplay)
 }
 
-export { timer }
+const formatTime = (startTime, element) => {
+  const total = Date.now() - Date.parse(startTime);
+  // let milliseconds = total % 1000;
+  let seconds = Math.floor(total / 1000 % 60);
+  let minutes = Math.floor(seconds / 60);
+  // milliseconds = milliseconds.toString().padStart(3, "0");
+  seconds = seconds.toString().padStart(2, "0");
+  minutes = minutes.toString().padStart(2, "0");
+  element.innerText= `${minutes}:${seconds}`;
+}
+
+export { displayTime, finishTime }

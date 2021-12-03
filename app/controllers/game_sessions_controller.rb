@@ -71,9 +71,16 @@ class GameSessionsController < ApplicationController
         link['title'] = "These aren't the links you're looking for..."
       else
         href = href.split('/').last
-        link[:href] = "/game_session/#{@game_session.id}/#{href}" # Prepend every href stay in 'user_session/:id' path
-        link['data-action'] = 'click->play-page#changeArticle'
-        link['data-play-page-target'] = 'link'
+        # TODO, REMOVE THIS CONDITION, TEMPORARY
+        if href == @game_session.game.end_url
+          link['data-bs-toggle'] = "modal"
+          link['data-bs-target'] = "#scoreModal"
+        else
+          link[:href] = "/game_session/#{@game_session.id}/#{href}" # Prepend every href stay in 'user_session/:id' path
+        end
+        # TODO, STIMULUS
+        # link['data-action'] = 'click->play-page#changeArticle'
+        # link['data-play-page-target'] = 'link'
         # TODO, Add link to check_available_links in current page
         # @user_sesion.available_links << link[:href].gsub(/#wiki\//, '')
       end
