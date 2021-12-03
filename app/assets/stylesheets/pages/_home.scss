@@ -11,13 +11,28 @@
   font-size: 1rem;
   border-radius: 30px;
   text-align: center;
+  padding: 2.5rem;
+
+  @media (max-height: 800px) {
+
+    max-height: 29rem;
+
+    p {
+      margin: .2rem;
+    }
+
+    input {
+      margin: .3rem;
+    }
+  }
 
   @media (max-width: 1200px) {
     padding: 65px;
   }
 
   @media (max-width: 991px) {
-    padding: 20px;
+    font-size: .6rem;
+    padding: 1.25rem;
   }
 
   p {
@@ -45,6 +60,16 @@
       letter-spacing: 0.1em;
       margin: .8rem;
     }
+
+    @media (max-height: 800px) {
+      p {
+        margin: .2rem;
+      }
+
+      input {
+        margin: .3rem;
+      }
+    }
   }
 
   .spacer {
@@ -53,7 +78,7 @@
     align-items: center;
 
     hr {
-      width: 35px;
+      width: 2.2rem ;
     }
 
     p {
@@ -67,11 +92,20 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    padding: 0.625rem;
 
     p {
       white-space: pre-line;
-      margin: 10px;
+      margin: 0.625rem;
+    }
+
+    @media (max-height: 800px) {
+
+      padding: .3rem;
+
+      p {
+        margin: .1rem;
+      }
     }
   }
 
@@ -79,20 +113,25 @@
     display: flex;
     width: 100%;
     justify-content: space-around;
-    margin-bottom: 10px;
-    margin: 10px;
+    margin-bottom: 0.625rem;
+    margin: 0.625rem;
+
+    @media (max-height: 800px) {
+      margin: .2rem;
+      margin-bottom: .1rem;
+    }
 
     a {
       text-decoration: none;
     }
 
     .icon {
-      width: 35px;
-      height: 35px;
+      width: 2.2rem;
+      height: 2.2rem;
       align-items: center;
       display: flex;
       border-radius: 50%;
-      font-size: 16px;
+      font-size: 1rem;
       color: $white;
       justify-content: center;
 
@@ -113,17 +152,17 @@
   .btn-enter {
     position: relative;
     align-items: center;
-    padding: 10px 30px;
+    padding: 0.625rem 1.9rem;
     border-radius: 100px;
     color: $white;
-    font-size: 18px;
+    font-size: 1.125rem;
     text-decoration: none;
     box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
     background: $fire-gradient;
     transition: box-shadow 0.15s ease-in-out;
     border: none;
-    margin-top: 15px;
-    margin-bottom: 25px;
+    margin-top: 0.9rem;
+    margin-bottom: 1rem;
 
     &:hover {
       box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.45);
