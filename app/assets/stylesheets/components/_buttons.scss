@@ -1,5 +1,5 @@
 .button {
-  border-radius: 10px;
+  border-radius: 30px;
   text-decoration: none;
   font-family: 'Source Sans Pro', sans-serif;
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
@@ -12,8 +12,8 @@
 .button.large.filled {
   background: $purple-gradient;
   color: white;
-  font-size: 20px;
-  padding: 7px 45px;
+  font-size: 16px;
+  padding: 10px 35px;
 }
 
 .button.large.empty {
@@ -23,8 +23,8 @@
   border-style: solid;
   color: $purple-primary;
   font-weight: bolder;
-  font-size: 22px;
-  padding: 5px 45px;
+  font-size: 18px;
+  padding: 7px 35px;
 }
 
 .button.small {

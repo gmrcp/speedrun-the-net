@@ -1,22 +1,37 @@
-<h1>Lobbies#show</h1>
-
-<div class="container">
-  <div class="row justify-content-md-center p-3">
-    <div class="col-md-3 p-2 mx-4">
-      <div class="players">
-        <div class="players-cards"></div>
-        <div class="players-cards"></div>
-        <div class="players-cards"></div>
-        <div class="players-cards"></div>
-        <div class="players-cards"></div>
+<div class="container-lobby">
+  <div class="row">
+    <div class="col-3">
+      <div class="overflow-auto bg-dark bg-opacity-10 p-2 rounded-3" style="max-height: 350px">
+        <% 10.times do %>
+          <div class="d-flex py-3">
+            <div class="avatar avatar-small me-3">
+              <%= image_tag "avatar.png", class: 'img-fluid rounded-circle border-2 border-primary border' %>
+            </div>
+            <div class="name flex-grow-1">
+              <p class="lh-1">user.level</p>
+              <h4 class="m-0 lh-1">user.name</h4>
+            </div>
+            <div class="d-flex flex-column justify-content-between align-items-center">
+              <div class="rounded-circle bg-body p-1 hstack">
+                <i class="far fa-check-circle"></i>
+              </div>
+              <div class="rounded-circle bg-body p-1 hstack ml-1">
+                <%= image_tag "Vector.svg" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
       </div>
-      <div class="buttons">
-        <a href="#" class="button large filled">INVITE</a>
-        <a href="#" class="button large empty">JOIN</a>
+
+      <div class="row mt-2">
+        <div class="col d-flex">
+          <a href="#" class="button large filled me-3">INVITE</a>
+          <a href="#" class="button large empty">JOIN</a>
+        </div>
       </div>
     </div>
 
-    <div class="col-md-7 p-2 mx-4">Game mode
+    <div class="col-9">Game mode
       <div class="cards-container">
         <div class="cards"></div>
         <div class="cards"></div>
@@ -25,8 +40,8 @@
       </div>
       <div class="message_board">
         This is the message board
+        <%= @lobby.code %>
       </div>
     </div>
   </div>
 </div>
- <%= @lobby.code %>
