@@ -1,28 +1,4 @@
-// Specific CSS for your home-page
 .content {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  padding: 90px;
-  justify-content: space-between;
-
-  font-family: Source Sans Pro;
-  font-size: 16px;
-  color: $dark-text;
-
-  @media (max-width: 1200px) {
-    padding: 30px;
-  }
-
-  @media (max-width: 991) {
-    justify-content: space-between;
-    padding: 30px;
-  }
-
-  h5 {
-    font-size: 18px;
-    text-align: center;
-  }
 }
 
 .loginform-container {
@@ -30,10 +6,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 50px;
-  background: #fff;
+  background: $white;
   box-shadow: 15px 25px 20px rgba(63, 54, 155, 0.1);
-  font-size: 16px;
+  font-size: 1rem;
   border-radius: 30px;
   text-align: center;
 
@@ -55,40 +30,27 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 10px;
 
     p {
-      margin: 10px;
+      margin: .8rem;
       white-space: pre-line;
     }
 
     input {
       border: none;
-      color: #9ea7be;
-      background: #f6f6fe;
+      color: $gray-text;
+      background: $button-gray;
       border-radius: 15px;
-      padding: 15px;
       text-align: center;
       letter-spacing: 0.1em;
-      margin: 10px;
+      margin: .8rem;
     }
-  }
-
-  .rules-instructions-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 55px;
-    border-radius: 40px;
-
   }
 
   .spacer {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 15px 0;
 
     hr {
       width: 35px;
@@ -96,8 +58,7 @@
 
     p {
       margin: 0;
-      color: #9ea7be;
-      padding: 0 15px;
+      color: $gray-text;
     }
   }
 
@@ -132,7 +93,7 @@
       display: flex;
       border-radius: 50%;
       font-size: 16px;
-      color: white;
+      color: $white;
       justify-content: center;
 
       &_discord {
@@ -154,36 +115,19 @@
     align-items: center;
     padding: 10px 30px;
     border-radius: 100px;
-    color: #fff;
+    color: $white;
     font-size: 18px;
     text-decoration: none;
     box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
-    background: linear-gradient(180deg, #fe8c00 0%, #f83600 100%);
+    background: $fire-gradient;
     transition: box-shadow 0.15s ease-in-out;
     border: none;
     margin-top: 15px;
     margin-bottom: 25px;
 
-    ::before {
-      content: "";
-      background: linear-gradient(180deg, #fe8c00 0%, #f83600 100%);
-    }
-
-    ::after {
-      content: "";
-      background: linear-gradient(180deg, #f83600 0%, #f83600 100%);
-      transition: all 1s linear;
-      opacity: 0;
-
-      &:hover {
-        opacity: 1;
-        transition: all 1s linear;
-      }
-    }
-
     &:hover {
       box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.45);
-      background: linear-gradient(180deg, #f83600 0%, #f83600 100%);
+      background: linear-gradient(180deg, $orange-dark 0%, $orange-dark 100%);
       transition: all 0.15s ease-in-out;
     }
   }
