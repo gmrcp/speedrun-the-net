@@ -1,6 +1,5 @@
-const startTime = document.getElementById('start-time').innerText
-
 const displayTime = async () => {
+  const startTime = document.getElementById('start-time').innerText
   const timer = document.getElementById('timer')
   for (let i = 0; i < 100000; i++) {
     formatTime(startTime, timer);
@@ -9,6 +8,7 @@ const displayTime = async () => {
 };
 
 const finishTime = () => {
+  const startTime = document.getElementById('start-time').innerText
   const modalDisplay = document.getElementById('finish')
   formatTime(startTime, modalDisplay)
 }
