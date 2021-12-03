@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  flex-shrink: 1;
   align-items: center;
   background: $white;
   box-shadow: 15px 25px 20px rgba(63, 54, 155, 0.1);
@@ -13,7 +14,7 @@
   text-align: center;
   padding: 2.5rem;
 
-  @media (max-height: 800px) {
+  @media (max-height: 900px) {
 
     max-height: 29rem;
 
@@ -31,7 +32,7 @@
   }
 
   @media (max-width: 991px) {
-    font-size: .6rem;
+    font-size: .75rem;
     padding: 1.25rem;
   }
 
@@ -48,7 +49,7 @@
 
     p {
       margin: .8rem;
-      white-space: pre-line;
+      max-width: 150px;
     }
 
     input {
@@ -95,7 +96,7 @@
     padding: 0.625rem;
 
     p {
-      white-space: pre-line;
+      max-width: 150px;
       margin: 0.625rem;
     }
 
