@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/stimulusreflex/cable_ready.git
+  revision: a28891adfc117b40e0ed19b55df8ea77da663e77
+  specs:
+    cable_ready (5.0.0.pre8)
+      rails (>= 5.2)
+      thread-local (>= 1.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -132,6 +140,10 @@ GEM
     globalid (1.0.0)
       activesupport (>= 5.0)
     hashie (5.0.0)
+    hotwire-rails (0.1.3)
+      rails (>= 6.0.0)
+      stimulus-rails
+      turbo-rails
     i18n (1.8.11)
       concurrent-ruby (~> 1.0)
     jbuilder (2.11.3)
@@ -275,8 +287,13 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    stimulus-rails (0.7.3)
+      rails (>= 6.0.0)
     thor (1.1.0)
+    thread-local (1.1.0)
     tilt (2.0.10)
+    turbo-rails (0.9.0)
+      rails (>= 6.0.0)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
@@ -313,11 +330,13 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   bootstrap (~> 5.1.3)
   byebug
+  cable_ready!
   capybara (>= 3.26)
   devise
   devise-guests
   dotenv-rails
   font-awesome-sass
+  hotwire-rails (~> 0.1.3)
   jbuilder (~> 2.7)
   jquery-rails
   listen (~> 3.3)

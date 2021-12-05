@@ -4,14 +4,25 @@
 // that code so it'll be compiled.
 
 import Rails from "@rails/ujs"
-import Turbolinks from "turbolinks"
+// import Turbolinks from "turbolinks"
+
+import mrujs from "mrujs";
+import CableReady from "cable_ready"
+import { CableCar } from "mrujs/plugins"
+import * as Turbo from "@hotwired/turbo"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "controllers"
 
 Rails.start()
-Turbolinks.start()
+window.Turbo = Turbo;
+// Turbolinks.start()
 ActiveStorage.start()
+mrujs.start({
+  plugins: [
+    new CableCar(CableReady)
+  ]
+})
 
 // External imports:
 //= require jquery3
