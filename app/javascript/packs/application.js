@@ -34,6 +34,8 @@ import { bootstrapTooltips } from '../components/bootstrap_tooltips';
 import { changeMainContainerHeight } from '../components/change_main_container_height'
 import { displayTime, finishTime } from '../components/timer';
 
+$(document).on('turbolinks:load', function(){ $.rails.refreshCSRFTokens(); });
+
 document.addEventListener('turbolinks:load', () => {
   if (document.getElementById('game-page')) {
     changeMainContainerHeight();

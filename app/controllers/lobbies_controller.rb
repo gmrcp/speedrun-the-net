@@ -1,4 +1,5 @@
 class LobbiesController < ApplicationController
+  before_action :authenticate_user!
   before_action :generate_lobby, only: :show
 
   def create
