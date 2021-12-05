@@ -3,8 +3,6 @@ Rails.application.routes.draw do
 
   root to: 'pages#home'
 
-  get '/session', to: 'sessions#show'
-
   get :start, to: 'game_sessions#start_game'
 
   get 'game_session/:id/:article', to: 'game_sessions#play', as: :play

@@ -1,28 +1,22 @@
-<div class="modal fade" id="scoreModal">
+<div class="modal fade" id="scoreModal" data-modal-target="container" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title">CONGRATULATIONS</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-              <div class="modal-body">
-            <div>
-              <h2 class= "bg-modal">You have reached the goal</h2>
-              </div>
-            </div>
-            <div class="spacer">
-              <hr>
-                <img class="avatar" src="https://via.placeholder.com/60">
-                <p><%= @game_session.game.end_url.gsub(/_/, ' ') %></p>
-              <hr>
-              </div>
-                <p>with <%= @game_session.clicks.count %> clicks in <span id="finish"></span>!
-                </p>
-            <div class="modal-footer">
-              <%= link_to "BACK TO LOBBY", lobby_path, class: 'button large filled'  %>
-            <%# <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button> %>
-          </div>
+      </div>
+      <div class="modal-body">
+        <p>You have reached the goal</p>
+        <div class="spacer">
+          <hr>
+          <img class="avatar" src="https://via.placeholder.com/60">
+          <p><%= @game_session.game.end_url.gsub(/_/, ' ') %></p>
+          <hr>
+        </div>
+        <p>with <strong><%= @game_session.clicks.count %></strong> clicks in <span id="finish" class="fw-bold"></span>!</p>
+      </div>
+      <div class="modal-footer">
+        <%= link_to "BACK TO LOBBY", lobby_path, class: 'button large filled'  %>
       </div>
     </div>
+  </div>
 </div>

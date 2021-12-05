@@ -3,26 +3,25 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-import Rails from "@rails/ujs"
-// import Turbolinks from "turbolinks"
-
+import Rails from "@rails/ujs";
 import mrujs from "mrujs";
-import CableReady from "cable_ready"
-import { CableCar } from "mrujs/plugins"
-import * as Turbo from "@hotwired/turbo"
-import * as ActiveStorage from "@rails/activestorage"
-import "channels"
-import "controllers"
+// import Turbolinks from "turbolinks"
+import CableReady from "cable_ready";
+import { CableCar } from "mrujs/plugins";
+import * as Turbo from "@hotwired/turbo";
+import * as ActiveStorage from "@rails/activestorage";
+import "channels";
+import "controllers";
 
-Rails.start()
+Rails.start();
 window.Turbo = Turbo;
 // Turbolinks.start()
-ActiveStorage.start()
+ActiveStorage.start();
 mrujs.start({
   plugins: [
     new CableCar(CableReady)
   ]
-})
+});
 
 // External imports:
 //= require jquery3
@@ -33,13 +32,15 @@ mrujs.start({
 import { bootstrapTooltips } from '../components/bootstrap_tooltips';
 import { changeMainContainerHeight } from '../components/change_main_container_height'
 import { displayTime, finishTime } from '../components/timer';
+import { preventBack } from '../components/prevent_back'
 
-$(document).on('turbolinks:load', function(){ $.rails.refreshCSRFTokens(); });
+// $(document).on('turbolinks:load', function(){ $.rails.refreshCSRFTokens(); });
 
-document.addEventListener('turbolinks:load', () => {
+document.addEventListener('turbo:load', () => {
   if (document.getElementById('game-page')) {
     changeMainContainerHeight();
     bootstrapTooltips();
+    preventBack();
   }
 
   if (document.getElementById('timer')) {
