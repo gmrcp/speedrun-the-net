@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
+  protect_from_forgery prepend: true
   before_action :authenticate_user!
+  before_action :configure_permitted_parameters, if: :devise_controller?
   include Pundit
 
   # Pundit: white-list approach.
@@ -8,9 +10,12 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_in, keys: [:login])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[username email])
+  end
+
   def after_sign_in_path_for(_resource)
-    current_user.username = current_user.email[/(.+)@/, 1]
-    current_user.save!
     lobby_path
   end
 
