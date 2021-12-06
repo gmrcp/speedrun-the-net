@@ -2,25 +2,40 @@
   <div class="row mh-100">
     <div class="col-5 col-md-5 col-lg-4 col-xl-3">
       <div class="overflow-scroll bg-light p-2 players-container">
-        <%# 10.times do %>
+        <div class="d-flex align-items-center py-3 bg-white p-1 mb-1 lobby-owner lobby-player">
+          <div class="avatar avatar-small me-3">
+            <%= image_tag "avatar.png", class: 'img-fluid rounded-circle border-2 border-primary border' %>
+          </div>
+          <div class="name flex-grow-1">
+            <p class="lh-1">Apprentice</p>
+            <h4 class="m-0 lh-1"><%= @lobby.owner.username %></h4>
+          </div>
+          <div class="d-flex flex-column justify-content-between align-items-center">
+            <div class="user-badge mb-2">
+              <%= image_tag "Vector.svg" %>
+            </div>
+            <div class="user-badge">
+              <i class="far fa-check-circle"></i>
+            </div>
+          </div>
+        </div>
+        <% @lobby.games[0].users.each do |player| %>
+          <% next if player == @lobby.owner %>
           <div class="d-flex align-items-center py-3 bg-white p-1 mb-1 lobby-owner lobby-player">
             <div class="avatar avatar-small me-3">
               <%= image_tag "avatar.png", class: 'img-fluid rounded-circle border-2 border-primary border' %>
             </div>
             <div class="name flex-grow-1">
               <p class="lh-1">Apprentice</p>
-              <h4 class="m-0 lh-1"><%= @lobby.owner.username %></h4>
+              <h4 class="m-0 lh-1"><%= player.username %></h4>
             </div>
             <div class="d-flex flex-column justify-content-between align-items-center">
-              <div class="user-badge mb-2">
-                <%= image_tag "Vector.svg" %>
-              </div>
               <div class="user-badge">
                 <i class="far fa-check-circle"></i>
               </div>
             </div>
           </div>
-        <%# end %>
+        <% end %>
       </div>
 
       <div class="row mt-2">
@@ -56,7 +71,14 @@
           </div>
         </div>
       </div>
-
+      <%= @lobby.code %>
+      <%= simple_form_for(@lobby, url: lobby_code_path(@lobby.code)) do |f| %>
+        <%= f.input :code,
+                    required: true,
+                    class: 'form-control p-2',
+                    placeholder: 'lobby code' %>
+        <%= f.submit 'enter', class: 'ml-2 btn btn-primary' %>
+      <% end %>
       <%#  <div class="row">
         <div class="message_board">
           This is the message board
