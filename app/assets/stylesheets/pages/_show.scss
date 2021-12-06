@@ -96,6 +96,23 @@
     }
   }
 
+  .message_board {
+    border-radius: 10px;
+    background: linear-gradient(179.75deg, #fefefe 50.19%, #f0f0f9 99.76%);
+    box-shadow: 25px 25px 34px rgba(63, 54, 155, 0.08);
+  }
+
+  .input-group-text {
+    background: white;
+    border-left: white;
+    color: $purple-primary;
+    border-radius: 10px;
+  }
+
+  .form-control {
+    background: white;
+    border-right: white;
+    border-radius: 10px;
   button {
     border: none;
   }

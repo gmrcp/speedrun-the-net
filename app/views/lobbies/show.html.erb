@@ -45,6 +45,8 @@
       </div>
     </div>
 
+    <div class="col-7 col-md-7 col-lg-8 col-xl-9 d-flex flex-column mt-2" style="height: 60vh;">
+      <div class="d-flex mb-2 ms-5 align-items-center justify-content-between">
     <!-- Modal -->
     <div class="modal fade" id="askLobby" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -67,32 +69,35 @@
         </div>
           <%= link_to 'Start', start_path, class: 'btn-enter me-5' %>
       </div>
-      <div class="container w-100 overflow-scroll" style="height: 80%;">
+      <div class="container w-100 overflow-scroll" style="height: 70%;">
         <div class="col-6 bg-light d-flex w-100 p-3 modes-container" style="flex-wrap: wrap;">
-          <div class="col-12 col-lg-5 d-flex justify-content-center align-items-center m-1 rounded-3 game-mode"  <%#  %>style="height: 190px">
+          <div class="col-12 col-lg-5 d-flex justify-content-center align-items-center m-1 rounded-3 game-mode"  <%#  %>style="height: 170px">
             <h2>👼</h2>
             <p>Easy peasy</p>
           </div>
-          <div class="col-12 col-lg-5 d-flex justify-content-center align-items-center m-1 rounded-3 game-mode"  <%#  %>style="height: 190px">
+          <div class="col-12 col-lg-5 d-flex justify-content-center align-items-center m-1 rounded-3 game-mode"  <%#  %>style="height: 170px">
             <h2>🤓</h2>
             <p>Master level</p>
           </div>
-          <div class="col-12 col-lg-5 d-flex justify-content-center align-items-center m-1 rounded-3 game-mode"  <%#  %>style="height: 190px">
+          <div class="col-12 col-lg-5 d-flex justify-content-center align-items-center m-1 rounded-3 game-mode"  <%#  %>style="height: 170px">
             <h2>💣</h2>
             <p>No help</p>
           </div>
-          <div class="col-12 col-lg-5 d-flex justify-content-center align-items-center m-1 rounded-3 game-mode"  <%#  %>style="height: 190px">
+          <div class="col-12 col-lg-5 d-flex justify-content-center align-items-center m-1 rounded-3 game-mode"  <%#  %>style="height: 170px">
             <h2>💀</h2>
             <p>R.I.P</p>
           </div>
         </div>
       </div>
-      <%#  <div class="row">
-        <div class="message_board">
-          This is the message board
-          <%= @lobby.code %>
-        <%#</div>
-      </div>%>
+        <div class="col-11 align-self-center mt-4">
+          <div class="overflow-scroll row message_board" style="height:25vh">
+            This is the message board
+            <div class="input-group align-content-end mb-2">
+              <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
+              <span class="input-group-text"><i class="fas fa-paper-plane"></i></span>
+            </div>
+          </div>
+        </div>
     </div>
   </div>
 </div>
@@ -101,4 +106,4 @@
 <p>Logged in as: <%= current_user.email %></p>
 <p>Lobby owner: <%= @lobby.owner.email %></p>
 <p>Lobby owner: <%= @lobby.owner.username %></p>
-<p>Lobby code: <%= @lobby.code %></p>  –– >
+<p>Lobby code: <%= @lobby.code %></p>  ––>
