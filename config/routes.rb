@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'game_session/:id/:article', to: 'game_sessions#play', as: :play
 
   resource :lobby, only: :show
+
   resources :lobbies, only: %i[create update destroy] do
     resources :game_sessions, only: %i[show create update]
   end
