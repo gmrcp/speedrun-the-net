@@ -1,7 +1,12 @@
 const preventBack = () => {
-  window.onpopstate = function (event) {
-    alert("This way you'll leave the game!\nAre you sure?");
-  };
+  window.addEventListener('popstate', function (event) {
+    const leavePage = confirm("you want to go ahead ?");
+    if (leavePage) {
+      history.back();
+    } else {
+      event.preventDefault();
+    }
+  });
 }
 
 export { preventBack }

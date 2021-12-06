@@ -55,12 +55,6 @@ GEM
     activerecord (6.1.4.1)
       activemodel (= 6.1.4.1)
       activesupport (= 6.1.4.1)
-    activerecord-session_store (2.0.0)
-      actionpack (>= 5.2.4.1)
-      activerecord (>= 5.2.4.1)
-      multi_json (~> 1.11, >= 1.11.2)
-      rack (>= 2.0.8, < 3)
-      railties (>= 5.2.4.1)
     activestorage (6.1.4.1)
       actionpack (= 6.1.4.1)
       activejob (= 6.1.4.1)
@@ -140,6 +134,7 @@ GEM
     globalid (1.0.0)
       activesupport (>= 5.0)
     hashie (5.0.0)
+    hiredis (0.6.3)
     i18n (1.8.11)
       concurrent-ruby (~> 1.0)
     jbuilder (2.11.3)
@@ -320,7 +315,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord-session_store
   bootsnap (>= 1.4.4)
   bootstrap (~> 5.1.3)
   byebug
@@ -330,6 +324,7 @@ DEPENDENCIES
   devise-guests
   dotenv-rails
   font-awesome-sass
+  hiredis (~> 0.6.0)
   jbuilder (~> 2.7)
   jquery-rails
   listen (~> 3.3)
@@ -344,7 +339,7 @@ DEPENDENCIES
   puma (~> 5.0)
   pundit
   rails (~> 6.1.4, >= 6.1.4.1)
-  redis (~> 4.0)
+  redis (>= 3.2.0)
   sass-rails (>= 6)
   selenium-webdriver
   simple_form

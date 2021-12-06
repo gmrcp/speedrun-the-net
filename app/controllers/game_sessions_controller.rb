@@ -15,7 +15,7 @@ class GameSessionsController < ApplicationController
   end
 
   def play
-    @game_session = GameSession.find(params[:id])
+    @game_session = GameSession.includes(:game).find(params[:id])
     if params[:article] == @game_session.game.end_url
       @game_session.ended_at = Time.now
       @game_session.save
@@ -38,6 +38,12 @@ class GameSessionsController < ApplicationController
 
     @game_session.clicks << params[:article]
     @game_session.save
+
+
+    cable_ready[PlayChannel].text_content(
+      selector: dom_id(@game_session),
+      text: @game_session.clicks.count.to_s # render(partial: "games/game_detail", locals: { game: self})
+    ).broadcast_to(@game_session)
 
     # Check win condition
 

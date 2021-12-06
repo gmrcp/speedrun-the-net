@@ -18,7 +18,8 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
-gem 'redis', '~> 4.0'
+gem 'hiredis', "~> 0.6.0"
+gem 'redis', ">= 3.2.0", require: ["redis", "redis/connection/hiredis"]
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -38,7 +39,7 @@ gem 'omniauth-rails_csrf_protection'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-discord'
 gem 'omniauth-facebook'
-gem 'activerecord-session_store'
+# gem 'activerecord-session_store'
 
 gem 'font-awesome-sass'
 gem 'simple_form'

@@ -19,15 +19,19 @@
     <div id="game-stats">
       <div>
         <p class="border-bottom border-secondary"><strong>CLICKS</strong></p>
-        <p><%= @game_session.clicks.count %></p>
+        <p data-controller="play-page"
+           id="<%= dom_id(@game_session) %>"
+           data-play-page-id-value="<%= @game_session.id %>">
+           <%= @game_session.clicks.count %>
+        </p>
       </div>
       <div>
         <p class="border-bottom border-secondary"><strong>TIMER</strong></p>
         <p id="timer" data-start-time="<%= @game_session.started_at %>"></p>
       </div>
     </div>
-    <div id="player-list">
-      <p class="text-center fw-bold">LOBBY</p>
+    <p class="text-center fw-bold">LOBBY</p>
+    <div id="player-list" data-play-page-target="players">
       <% @game_session.game.users.each do |player| %>
         <%= render 'player_card', { player: player, game_session: @game_session } %>
       <% end  %>
