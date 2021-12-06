@@ -3,25 +3,35 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-import Rails from "@rails/ujs"
+import "controllers"
+import "channels"
+// import Rails from "@rails/ujs"
+import CableReady from "cable_ready"
+import mrujs from "mrujs";
+import { CableCar } from "mrujs/plugins"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
-import "channels"
-import "controllers"
 
-Rails.start()
-Turbolinks.start()
+// Rails.start()
 ActiveStorage.start()
+mrujs.start({
+  plugins: [
+    new CableCar(CableReady)
+  ]
+})
+Turbolinks.start()
 
 // External imports:
 //= require jquery3
+//= require jquery_ujs
 //= require popper
 //= require bootstrap
 
 // Internal imports:
 import { bootstrapTooltips } from '../components/bootstrap_tooltips';
 import { changeMainContainerHeight } from '../components/change_main_container_height'
-import { displayTime, finishTime } from '../components/timer';
+import { displayTime } from '../components/timer';
+import { preventBack } from '../components/prevent_back'
 
 // $(document).on('turbolinks:load', function(){ $.rails.refreshCSRFTokens(); });
 
@@ -29,14 +39,10 @@ document.addEventListener('turbolinks:load', () => {
   if (document.getElementById('game-page')) {
     changeMainContainerHeight();
     bootstrapTooltips();
+    preventBack();
   }
 
   if (document.getElementById('timer')) {
     displayTime();
   }
-
-  if (document.getElementById('finish')) {
-    finishTime();
-  }
-
 });
