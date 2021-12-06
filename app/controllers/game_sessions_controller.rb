@@ -17,7 +17,12 @@ class GameSessionsController < ApplicationController
 
   def play
     @game_session = GameSession.find(params[:id])
-    if @game_session.game.category == 'default'
+    if params[:article] == @game_session.game.end_url
+      @game_session.ended_at = Time.now
+      @game_session.save
+      render operations: cable_car
+        .dispatch_event(name: 'win:game')
+    else
       html_game = wiki
       render operations: cable_car
         .inner_html('#game-page', html: html_game)
@@ -34,11 +39,6 @@ class GameSessionsController < ApplicationController
     @game_session.save
 
     # Check win condition
-    if params[:article] == @game_session.game.end_url
-      @game_session.ended_at = Time.now
-      @game_session.save
-      redirect_to win_path(@game_session)
-    end
 
     return format_wiki_article(params[:article])
   end
@@ -77,18 +77,8 @@ class GameSessionsController < ApplicationController
         link['title'] = "These aren't the links you're looking for..."
       else
         href = href.split('/').last
-        # TODO, REMOVE THIS CONDITION, TEMPORARY
-        if href == @game_session.game.end_url
-          link['data-bs-toggle'] = "modal"
-          link['data-bs-target'] = "#scoreModal"
-        else
-          link['data-remote'] = "true"
-          link['data-turbo'] = "false"
-          link[:href] = "/game_session/#{@game_session.id}/#{href}" # Prepend every href stay in 'user_session/:id' path
-        end
-        # TODO, STIMULUS
-        # link['data-action'] = 'click->play-page#changeArticle'
-        # link['data-play-page-target'] = 'link'
+        link['data-remote'] = "true"
+        link[:href] = "/game_session/#{@game_session.id}/#{href}"
       end
     end
     return html_doc.to_s.html_safe

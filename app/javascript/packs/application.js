@@ -3,25 +3,23 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-import Rails from "@rails/ujs";
+import "controllers"
+import "channels"
+// import Rails from "@rails/ujs"
+import CableReady from "cable_ready"
 import mrujs from "mrujs";
-// import Turbolinks from "turbolinks"
-import CableReady from "cable_ready";
-import { CableCar } from "mrujs/plugins";
-import * as Turbo from "@hotwired/turbo";
-import * as ActiveStorage from "@rails/activestorage";
-import "channels";
-import "controllers";
+import { CableCar } from "mrujs/plugins"
+import Turbolinks from "turbolinks"
+import * as ActiveStorage from "@rails/activestorage"
 
-Rails.start();
-window.Turbo = Turbo;
-// Turbolinks.start()
-ActiveStorage.start();
+// Rails.start()
+ActiveStorage.start()
 mrujs.start({
   plugins: [
     new CableCar(CableReady)
   ]
-});
+})
+Turbolinks.start()
 
 // External imports:
 //= require jquery3
@@ -36,7 +34,7 @@ import { preventBack } from '../components/prevent_back'
 
 // $(document).on('turbolinks:load', function(){ $.rails.refreshCSRFTokens(); });
 
-document.addEventListener('turbo:load', () => {
+document.addEventListener('turbolinks:load', () => {
   if (document.getElementById('game-page')) {
     changeMainContainerHeight();
     bootstrapTooltips();

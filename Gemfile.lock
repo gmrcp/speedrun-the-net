@@ -140,10 +140,6 @@ GEM
     globalid (1.0.0)
       activesupport (>= 5.0)
     hashie (5.0.0)
-    hotwire-rails (0.1.3)
-      rails (>= 6.0.0)
-      stimulus-rails
-      turbo-rails
     i18n (1.8.11)
       concurrent-ruby (~> 1.0)
     jbuilder (2.11.3)
@@ -292,8 +288,6 @@ GEM
     thor (1.1.0)
     thread-local (1.1.0)
     tilt (2.0.10)
-    turbo-rails (0.9.0)
-      rails (>= 6.0.0)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
@@ -336,7 +330,6 @@ DEPENDENCIES
   devise-guests
   dotenv-rails
   font-awesome-sass
-  hotwire-rails (~> 0.1.3)
   jbuilder (~> 2.7)
   jquery-rails
   listen (~> 3.3)
@@ -356,6 +349,7 @@ DEPENDENCIES
   selenium-webdriver
   simple_form
   spring
+  stimulus-rails
   turbolinks (~> 5)
   tzinfo-data
   web-console (>= 4.1.0)

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: {omniauth_callbacks: 'omniauth'}
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
   root to: 'pages#home'
 
@@ -15,7 +15,5 @@ Rails.application.routes.draw do
   resources :games, only: %i[create update]
 
   # Check gem 'devise-guests' and 'auth discord'...
-  resources :users, only: %i[create destroy]
-
   # ActionCable messages ???
 end

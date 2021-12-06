@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :omniauthable, omniauth_providers: [:google_oauth2, :discord, :facebook]
+         :omniauthable, omniauth_providers: %i[google_oauth2 discord]
 
   has_many :sessions
   has_many :lobbies # , foreign_key: :owner_id
@@ -17,9 +17,9 @@ class User < ApplicationRecord
     @login || username || email
   end
 
-  def self.create_from_provider_data(provider_data)
-    where(provider: provider_data.provider, uid: provider_data.uid).first_or_create do |user|
-      user.email = provider_data.info.email
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
       user.username = user.email[/(.+)@/, 1].truncate(10)
       user.password = Devise.friendly_token[0, 20]
     end

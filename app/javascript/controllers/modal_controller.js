@@ -7,6 +7,9 @@ export default class extends Controller {
 
   connect() {
     const modal = new bootstrap.Modal(document.getElementById('scoreModal'));
+    document.addEventListener("win:game", () => {
+      this.open()
+    }, { once: true });
   }
 
   open() {
