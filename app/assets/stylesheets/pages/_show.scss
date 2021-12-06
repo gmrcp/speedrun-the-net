@@ -72,4 +72,23 @@
       transition: all 0.15s ease-in-out;
     }
   }
+
+  button {
+    border: none;
+  }
+
+  .modal-dialog {
+    top: 40vh;
+  }
+
+  .modal-content {
+    border-radius: 20px;
+    width: 250px;
+    height: 200px;
+    letter-spacing: 0.1rem;
+
+    abbr {
+      display: none;
+    }
+  }
 }
