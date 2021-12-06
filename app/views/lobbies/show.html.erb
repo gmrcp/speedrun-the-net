@@ -49,6 +49,7 @@
     <div class="col-7 col-md-7 col-lg-8 col-xl-9 d-flex flex-column mt-3" style="height: 60vh;">
       <div class="d-flex mb-3 ms-5 align-items-center justify-content-between">
         <h2 class="text-uppercase font-weight-bold me-5 fs-4"> Game modes</h2>
+        <%= button_to 'Log out', destroy_user_session_path, method: "delete", class: 'btn-enter me-5', data: {remote: false} %>
         <%= link_to 'Start', start_path, class: 'btn-enter me-5' %>
       </div>
       <div class="container w-100 overflow-scroll" style="height: 80%;">

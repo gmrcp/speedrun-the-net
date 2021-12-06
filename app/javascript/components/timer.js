@@ -7,13 +7,6 @@ const displayTime = async () => {
   };
 };
 
-const finishTime = () => {
-  const timer = document.getElementById('timer')
-  const startTime = timer.dataset.startTime
-  const modalDisplay = document.getElementById('finish')
-  formatTime(startTime, modalDisplay)
-}
-
 const formatTime = (startTime, element) => {
   const total = Date.now() - Date.parse(startTime);
   // let milliseconds = total % 1000;
@@ -25,4 +18,4 @@ const formatTime = (startTime, element) => {
   element.innerText= `${minutes}:${seconds}`;
 }
 
-export { displayTime, finishTime }
+export { displayTime }

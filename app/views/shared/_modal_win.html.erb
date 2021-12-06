@@ -9,7 +9,7 @@
     <p><%= @game_session.game.end_url.gsub(/_/, ' ') %></p>
     <hr>
   </div>
-  <p>with <strong><%= @game_session.clicks.count %></strong> clicks in <span id="finish" class="fw-bold"></span>!</p>
+  <p>with <strong><%= @game_session.clicks.count %></strong> clicks in <strong><%= @game_session.calculate_finish_time %></strong>!</p>
 </div>
 <div class="modal-footer">
   <%= link_to "BACK TO LOBBY", lobby_path, class: 'button large filled'  %>

@@ -12,7 +12,6 @@ class GameSessionsController < ApplicationController
     @img_end_url = get_image_wiki(game.end_url)
     @html_game = format_wiki_article(game.start_url)
     render :play
-    # redirect_to play_path(@game_session, @game_session.game.start_url)
   end
 
   def play
@@ -20,7 +19,9 @@ class GameSessionsController < ApplicationController
     if params[:article] == @game_session.game.end_url
       @game_session.ended_at = Time.now
       @game_session.save
+      html = render_to_string(partial: 'shared/modal_win', locals: { game_session: @game_session })
       render operations: cable_car
+        .inner_html('#score-modal', html: html)
         .dispatch_event(name: 'win:game')
     else
       html_game = wiki

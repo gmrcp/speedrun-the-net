@@ -23,13 +23,14 @@ Turbolinks.start()
 
 // External imports:
 //= require jquery3
+//= require jquery_ujs
 //= require popper
 //= require bootstrap
 
 // Internal imports:
 import { bootstrapTooltips } from '../components/bootstrap_tooltips';
 import { changeMainContainerHeight } from '../components/change_main_container_height'
-import { displayTime, finishTime } from '../components/timer';
+import { displayTime } from '../components/timer';
 import { preventBack } from '../components/prevent_back'
 
 // $(document).on('turbolinks:load', function(){ $.rails.refreshCSRFTokens(); });
@@ -44,9 +45,4 @@ document.addEventListener('turbolinks:load', () => {
   if (document.getElementById('timer')) {
     displayTime();
   }
-
-  if (document.getElementById('finish')) {
-    finishTime();
-  }
-
 });
