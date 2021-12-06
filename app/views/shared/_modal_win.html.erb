@@ -1,0 +1,16 @@
+<div class="modal-header">
+  <h1 class="modal-title">CONGRATULATIONS</h1>
+</div>
+<div class="modal-body">
+  <p>You have reached the goal</p>
+  <div class="spacer">
+    <hr>
+    <img class="avatar" src="https://via.placeholder.com/60">
+    <p><%= @game_session.game.end_url.gsub(/_/, ' ') %></p>
+    <hr>
+  </div>
+  <p>with <strong><%= @game_session.clicks.count %></strong> clicks in <strong><%= @game_session.calculate_finish_time %></strong>!</p>
+</div>
+<div class="modal-footer">
+  <%= link_to "BACK TO LOBBY", lobby_path, class: 'button large filled'  %>
+</div>

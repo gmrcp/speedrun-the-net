@@ -1,17 +1,11 @@
 const displayTime = async () => {
-  const startTime = document.getElementById('start-time').innerText
   const timer = document.getElementById('timer')
+  const startTime = timer.dataset.startTime
   for (let i = 0; i < 100000; i++) {
     formatTime(startTime, timer);
     await new Promise(r => setTimeout(r, 1000));
   };
 };
-
-const finishTime = () => {
-  const startTime = document.getElementById('start-time').innerText
-  const modalDisplay = document.getElementById('finish')
-  formatTime(startTime, modalDisplay)
-}
 
 const formatTime = (startTime, element) => {
   const total = Date.now() - Date.parse(startTime);
@@ -24,4 +18,4 @@ const formatTime = (startTime, element) => {
   element.innerText= `${minutes}:${seconds}`;
 }
 
-export { displayTime, finishTime }
+export { displayTime }

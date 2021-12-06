@@ -12,6 +12,8 @@
                       placeholder: 'username',
                       id: 'guest-username',
                       input_html: { autocomplete: "username" }%>
+                            <%= f.submit "ENTER", class:'btn-enter' %>
+      <% end %>
       </div>
       <div class="spacer my-2">
         <hr>
@@ -26,16 +28,15 @@
           <%= link_to "#", method: :post do%>
           <div class="icon icon_twitch"><i class="fab fa-twitch"></i></div>
           <% end %>
-          <%= link_to "#", method: :post do%>
+          <%= button_to user_discord_omniauth_authorize_path, data: {turbo: false, local: true }, method: :post do%>
           <div class="icon icon_discord"><i class="fab fa-discord"></i></div>
           <% end%>
-          <%= link_to user_google_oauth2_omniauth_authorize_path, method: :post, class: "icon icon_google" do %>
+          <%= button_to user_google_oauth2_omniauth_authorize_path, method: :post, data: {turbo: false, local: true }, class: "icon icon_google" do %>
             <div class="icon icon_google"><i class="fab fa-google"></i></div>
           <% end %>
         </div>
       </div>
-      <%= f.submit "ENTER", class:'btn-enter' %>
-      <% end %>
+
       </form>
     </div>
     <div class="rules-instructions-container col-8">
