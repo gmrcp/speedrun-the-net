@@ -29,9 +29,10 @@ Turbolinks.start()
 
 // Internal imports:
 import { bootstrapTooltips } from '../components/bootstrap_tooltips';
-import { changeMainContainerHeight } from '../components/change_main_container_height'
+import { changeMainContainerHeight } from '../components/change_main_container_height';
 import { displayTime } from '../components/timer';
-import { preventBack } from '../components/prevent_back'
+import { preventBack } from '../components/prevent_back';
+import { copyCode } from '../components/copy_clipboard';
 
 // $(document).on('turbolinks:load', function(){ $.rails.refreshCSRFTokens(); });
 
@@ -44,5 +45,9 @@ document.addEventListener('turbolinks:load', () => {
 
   if (document.getElementById('timer')) {
     displayTime();
+  }
+
+  if (document.getElementById("lobbyCode")) {
+    document.getElementById("lobbyCode").addEventListener('click', copyCode);
   }
 });

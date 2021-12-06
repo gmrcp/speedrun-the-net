@@ -39,7 +39,7 @@
       </div>
       <div class="row mt-2">
         <div class="col d-flex justify-content-center">
-          <a href="#" class="button large empty me-3">INVITE</a>
+         <%= button_tag 'INVITE', value: @lobby.code, id: 'lobbyCode', sclass: 'button large empty me-3' %>
           <%= button_tag "JOIN", data: { bs_toggle: "modal", bs_target: '#askLobby' }, class: 'button large filled' %>
         </div>
       </div>
@@ -60,10 +60,12 @@
       </div>
     </div>
     <div class="col-7 col-md-7 col-lg-8 col-xl-9 d-flex flex-column mt-3" style="height: 60vh;">
-      <div class="d-flex mb-3 ms-5 align-items-center justify-content-between">
+      <div class="d-flex mb-2 ms-4 align-items-center justify-content-between mt-2">
+        <div class="d-flex justify-content-center align-items-center position-relative">
+        <%= button_to '← Back', destroy_user_session_path, method: "delete", class: 'btn-enter-outline', data: {remote: false} %>
         <h2 class="text-uppercase font-weight-bold me-5 fs-4"> Game modes</h2>
-        <%= button_to 'Log out', destroy_user_session_path, method: "delete", class: 'btn-enter me-5', data: {remote: false} %>
-        <%= link_to 'Start', start_path, class: 'btn-enter me-5' %>
+        </div>
+          <%= link_to 'Start', start_path, class: 'btn-enter me-5' %>
       </div>
       <div class="container w-100 overflow-scroll" style="height: 80%;">
         <div class="col-6 bg-light d-flex w-100 p-3 modes-container" style="flex-wrap: wrap;">
