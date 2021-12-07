@@ -1,20 +1,22 @@
 <div data-controller="lobby"
      data-lobby-code-value="<%= @lobby.code %>"
-     id="<%= dom_id(@lobby) %>">
+     id="<%= dom_id(@lobby) %>"
+     class='lobby-div'
+>
 <div class="container-lobby mh-100">
-  <div class="row mh-100">
-    <div class="col-5 col-md-5 col-lg-4 col-xl-3">
+  <div class="row mh-100" style="height: 100%;">
+    <div class="col-5 col-md-5 col-lg-4 col-xl-3" style="height: 100%;">
       <div class="overflow-scroll bg-light p-2 players-container">
         <div class="d-flex align-items-center py-3 bg-white p-1 mb-1 lobby-owner lobby-player">
-          <div class="avatar avatar-small me-3">
+          <div class="avatar avatar-small me-3 ms-2">
             <%= image_tag "avatar.png", class: 'img-fluid rounded-circle border-2 border-primary border' %>
           </div>
           <div class="name flex-grow-1">
             <p class="lh-1">Apprentice</p>
             <h4 class="m-0 lh-1"><%= @lobby.owner.username %></h4>
           </div>
-          <div class="d-flex flex-column justify-content-between align-items-center">
-            <div class="user-badge mb-2">
+          <div class="d-flex flex-column justify-content-between align-items-center me-2">
+            <div class="user-badge mb-3">
               <%= image_tag "Vector.svg" %>
             </div>
             <div class="user-badge">
@@ -23,7 +25,7 @@
           </div>
         </div>
         <div id="players">
-          <%= render partial: 'player', collection: @lobby.games[0].users, as: :player %>
+          <%= render partial: 'player', locals: { lobby: @lobby }%>
         </div>
       </div>
       <div class="row mt-2">

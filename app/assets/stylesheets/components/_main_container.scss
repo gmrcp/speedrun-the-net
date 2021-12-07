@@ -6,6 +6,7 @@
   border-radius: 40px;
   box-shadow: $shadow-main;
   padding: 1.2rem 0.5rem;
+   overflow: hidden;
 }
 
 #title-banner {
@@ -30,5 +31,11 @@
     margin-left: 2rem;
     letter-spacing: 1rem;
     white-space: nowrap;
+  }
+}
+
+#subwrapper-master, #main-overlay {
+  @media (max-width: 767px) {
+    height: 85% !important;
   }
 }
