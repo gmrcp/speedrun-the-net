@@ -5,10 +5,12 @@ export default class extends Controller {
   static values = { id: Number }
 
   connect() {
+    console.log('coiso');
+    // debugger
     this.channel = this.application.consumer.subscriptions.create(
       {
-        channel: 'LobbyChannel',
-        code: document.querySelector('#lobbyCode').value
+        channel: 'PlayersChannel',
+        id: this.idValue
       },
       {
         received (data) { if (data.cableReady) CableReady.perform(data.operations) }

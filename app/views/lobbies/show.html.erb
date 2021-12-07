@@ -1,5 +1,5 @@
 <div data-controller="lobby"
-     data-lobby-code-value="<%= @lobby.code %>"
+     data-lobby-id-value="<%= @lobby.id %>"
      id="<%= dom_id(@lobby) %>"
      class='lobby-div'
 >
@@ -24,8 +24,7 @@
             </div>
           </div>
         </div>
-        <div id="players">
-          <%= render partial: 'player', locals: { lobby: @lobby }%>
+        <div class='players' id='lobby-<%= @lobby.id %>'>
         </div>
       </div>
       <div class="row mt-2">

@@ -10,9 +10,9 @@ Rails.application.routes.draw do
 
   get 'game_session/:id/:article', to: 'game_sessions#play', as: :play
 
-  get 'lobby', to: 'lobbies#join_lobby', as: :lobby
-  get 'lobby/:code', to: 'lobbies#show', as: :lobby_code
-  patch 'lobby/:code', to: 'lobbies#update'
+  get 'lobby', to: 'lobbies#create_lobby', as: :lobby
+  get 'lobby/:code', to: 'lobbies#join_lobby', as: :lobby_code
+  patch 'lobby/:code', to: 'lobbies#join_lobby'
   # resource :lobby, only: :show
 
   resources :lobbies, only: %i[create update destroy] do
