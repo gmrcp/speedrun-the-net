@@ -10,7 +10,7 @@
     padding-right: 2rem;
   }
   img {
-    @media (max-width:767px) {
+    @media (max-width: 767px) {
       height: 45px;
       width: 45px;
     }
@@ -20,7 +20,7 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    @media (max-width:767px) {
+    @media (max-width: 767px) {
       font-size: 24px;
     }
   }
@@ -34,6 +34,9 @@
   @media (max-width: 767px) {
     flex-direction: column;
   }
+  div {
+    width: 60px;
+  }
 }
 
 #player-list {
@@ -44,12 +47,14 @@
 }
 
 #game-page {
+  width: 100%;
   height: 100%;
   float: left;
 	background: #F5F5F5;
   padding-right: 10px;
-
+  border-radius: 4px;
 }
+
 
 #game-page, #player-list {
   overflow-y: scroll;
@@ -77,4 +82,29 @@
 #current-player {
   color: $offwhite;
   background: $purple-gradient;
+}
+
+.change-height-on-play {
+  height: 85vh !important;
+  border-radius: 40px 20px 20px 40px !important;
+}
+
+#spinner-wrapper {
+  position: absolute;
+  height: inherit;
+  width: inherit;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading {
+  filter: contrast(1);
+  animation: 200ms ease-in 0s forwards greyout;
+}
+
+@keyframes greyout {
+  0% { filter: contrast(1); }
+  100% { filter: contrast(0.5); }
 }

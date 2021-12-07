@@ -33,3 +33,9 @@
     white-space: nowrap;
   }
 }
+
+#subwrapper-master, #main-overlay {
+  @media (max-width: 767px) {
+    height: 85% !important;
+  }
+}

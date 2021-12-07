@@ -27,6 +27,7 @@ class GameSessionsController < ApplicationController
       html_game = wiki
       render operations: cable_car
         .inner_html('#game-page', html: html_game)
+        .dispatch_event(name: 'article:refresh')
     end
   end
 
@@ -70,8 +71,7 @@ class GameSessionsController < ApplicationController
     # Display only article
     html_doc = html_doc.search('#content')
     # Remove references list and category links
-    html_doc.search('div.reflist', '#catlinks').remove
-
+    html_doc.search('div.reflist', '#catlinks', '.printfooter').remove
     html_doc.search('a').map do |link|
       next unless link.attributes.include?('href')
 
@@ -85,6 +85,7 @@ class GameSessionsController < ApplicationController
       else
         href = href.split('/').last
         link['data-remote'] = "true"
+        link['data-action'] = "play-article#loading"
         link[:href] = "/game_session/#{@game_session.id}/#{href}"
       end
     end
