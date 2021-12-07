@@ -50,35 +50,59 @@
       </div>
     </div>
     <!-- MODAL -->
-    <div class="col-7 col-md-7 col-lg-8 col-xl-9 d-flex flex-column mt-3" style="height: 60vh;">
-      <div class="d-flex mb-2 ms-4 align-items-center justify-content-between mt-2">
+    <div class="col-7 col-md-7 col-lg-8 col-xl-9 d-flex flex-column mt-2" style="height: 60vh;">
+      <div class="d-flex mb-1 ms-4 align-items-center justify-content-between mt-2">
         <div class="d-flex justify-content-center align-items-center position-relative">
-        <%= button_to '← Back', destroy_user_session_path, method: "delete", class: 'btn-enter-outline', data: {remote: false} %>
-        <h2 class="text-uppercase font-weight-bold me-5 fs-4"> Game modes</h2>
+          <h2 class="text-uppercase font-weight-bold me-5 fs-4"> Game modes</h2>
         </div>
-          <%= link_to 'Start', start_path, class: 'btn-enter me-5' %>
-      </div>
-      <div class="container w-100 overflow-scroll" style="height: 70%;">
-        <div class="col-6 bg-light d-flex w-100 p-3 modes-container" style="flex-wrap: wrap;">
-          <div class="col-12 col-lg-5 d-flex justify-content-center align-items-center m-1 rounded-3 game-mode"  <%#  %>style="height: 170px">
-            <h2>👼</h2>
-            <p>Easy peasy</p>
-          </div>
-          <div class="col-12 col-lg-5 d-flex justify-content-center align-items-center m-1 rounded-3 game-mode"  <%#  %>style="height: 170px">
-            <h2>🤓</h2>
-            <p>Master level</p>
-          </div>
-          <div class="col-12 col-lg-5 d-flex justify-content-center align-items-center m-1 rounded-3 game-mode"  <%#  %>style="height: 170px">
-            <h2>💣</h2>
-            <p>No help</p>
-          </div>
-          <div class="col-12 col-lg-5 d-flex justify-content-center align-items-center m-1 rounded-3 game-mode"  <%#  %>style="height: 170px">
-            <h2>💀</h2>
-            <p>R.I.P</p>
-          </div>
+        <div class="d-flex align-items-md-center">
+        <%= button_to '← Back', destroy_user_session_path, method: "delete", class: 'btn-enter-outline me-4', data: {remote: false} %>
+        <%= link_to 'Start', start_path, class: 'btn-enter me-5' %>
         </div>
       </div>
-        <div class="col-11 align-self-center mt-4">
+
+      <div class="container m-0" style="height: 70%;">
+        <div class="row d-flex bg-light settings w-75">
+            <div class="row">
+              <div class="col-4">
+                <label for="Starting">Starting</label>
+                <input type="input" class="form-control" id="exampleInputArticle" aria-describedby="emailHelp" placeholder="Joe Biden">
+              </div>
+              <div class="col-4">
+                <label for="Ending">Ending</label>
+                <input type="input" class="form-control" id="exampleInputArticle" aria-describedby="emailHelp" placeholder="Jazz">
+              </div>
+              <div class="col-1 align-items-center mt-3">
+                <p>Random</p>
+                <label class="switch">
+                <input type="checkbox">
+                <span class="slider round"></span>
+                </label>
+              </div>
+            </div>
+            <div class="row d-flex">
+              <div class="dropdown col-4 mt-4">
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  Game mode
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" href="#">Wikipedia</a></li>
+                  <li><a class="dropdown-item" href="#">IMDB</a></li>
+                  <li><a class="dropdown-item" href="#">Something else</a></li>
+                </ul>
+              </div>
+              <div class="timer col-4">
+                <label for="Timer">Time limit</label>
+                <input type="input" class="form-control" id="exampleInputArticle" aria-describedby="emailHelp" placeholder="05:00">
+              </div>
+              <div class="timer col-2 mb-3">
+                <label for="Rounds">Rounds</label>
+                <input type="input" class="form-control" id="exampleInputArticle" aria-describedby="emailHelp" placeholder="03">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-4">
           <div class="overflow-scroll row message_board" style="height:25vh">
             This is the message board
             <div class="input-group align-content-end mb-2">
@@ -87,9 +111,9 @@
             </div>
           </div>
         </div>
+      </div>
     </div>
   </div>
-</div>
 </div>
 <!-- <h1>Lobbies#show</h1>
 <p>Find me in app/views/lobbies/show.html.erb</p>
