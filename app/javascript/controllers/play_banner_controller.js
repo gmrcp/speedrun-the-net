@@ -2,12 +2,11 @@ import { Controller } from '@hotwired/stimulus'
 import CableReady from 'cable_ready'
 
 export default class extends Controller {
-  static target = ['clicks', 'players']
+  static targets = ['clicks', 'players']
   static values = { id: Number }
 
   connect() {
-    console.log('ola')
-    this.channel = this.application.consumer.subscriptions.create(
+    this.clicksTarget.channel = this.application.consumer.subscriptions.create(
       {
         channel: 'PlayChannel',
         id: this.idValue
@@ -15,11 +14,11 @@ export default class extends Controller {
       {
         received(data) { if (data.cableReady) CableReady.perform(data.operations) }
       }
-    )
-    console.log('adeus')
+      )
+    console.log('play-banner#clicks subscribed to PlayChannel')
   }
 
   disconnect() {
-    this.channel.unsubscribe()
+    this.clicksTarget.channel.unsubscribe()
   }
 }
