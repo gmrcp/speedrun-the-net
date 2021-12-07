@@ -40,6 +40,10 @@
     align-items: center;
   }
 
+  .alert {
+    width: max-content;
+  }
+
   .modes-container {
     border-radius: 20px;
   }
@@ -113,40 +117,41 @@
     background: white;
     border-right: white;
     border-radius: 10px;
-  button {
-    border: none;
-  }
+    button {
+      border: none;
+    }
 
-  .modal-dialog {
-    top: 40vh;
-  }
+    .modal-dialog {
+      top: 40vh;
+    }
 
-  .modal-content {
-    border-radius: 20px;
-    width: 250px;
-    height: 200px;
-    letter-spacing: 0.1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .edit_lobby {
+    .modal-content {
+      border-radius: 20px;
+      width: 250px;
+      height: 200px;
+      letter-spacing: 0.1rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
-    }
 
-    abbr {
-      display: none;
-    }
+      .edit_lobby {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
 
-    .form-group {
-      text-align: center;
-      margin-bottom: 20px;
+      abbr {
+        display: none;
+      }
 
-      label {
+      .form-group {
+        text-align: center;
         margin-bottom: 20px;
+
+        label {
+          margin-bottom: 20px;
+        }
       }
     }
   }

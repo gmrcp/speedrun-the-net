@@ -1,6 +1,9 @@
 class LobbiesController < ApplicationController
+  include CableReady::Broadcaster
+
   before_action :authenticate_user!
   before_action :find_lobby, only: :show
+
 
   def create
   end
@@ -31,7 +34,12 @@ class LobbiesController < ApplicationController
 
     GameSession.create!(game: @lobby.games.where(running?: false).first,
                         user: current_user)
-
+    cable_ready['players'].insert_adjacent_html(
+      selector: '#players',
+      position: 'afterbegin',
+      html: render_to_string(partial: "player", locals: { player: current_user })
+    )
+    cable_ready.broadcast
     redirect_to lobby_code_path(@lobby.code)
   end
 
