@@ -30,7 +30,7 @@ class LobbiesController < ApplicationController
   end
 
   def remove_player
-    game_session = current_user.game_sessions.find_by(status: 'open').first
+    game_session = current_user.game_sessions.find_by(status: 'open')
     cable_ready['players'].remove(
       selector: "#data-player-id=#{game_session.user.id}"
     )

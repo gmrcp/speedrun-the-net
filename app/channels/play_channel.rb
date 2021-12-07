@@ -1,5 +1,5 @@
 class PlayChannel < ApplicationCable::Channel
   def subscribed
-    stream_or_reject_for GameSession.find_by(id: params[:id])
+    stream_or_reject_for GameSession.find(params[:id])
   end
 end

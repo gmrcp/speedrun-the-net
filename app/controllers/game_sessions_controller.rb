@@ -4,18 +4,40 @@ class GameSessionsController < ApplicationController
   include CableReady::Broadcaster
 
   def start_game
-    @game_session = GameSession.create!({ user: current_user,
-                                          game: Game.first,
-                                          started_at: Time.now })
-    game = @game_session.game
-    @img_start_url = get_image_wiki(game.start_url)
-    @img_end_url = get_image_wiki(game.end_url)
-    @html_game = format_wiki_article(game.start_url)
-    render :play
+    @game_session = GameSession.includes(:game).find_by(
+      {
+        user: current_user,
+        status: 0
+      }
+    )
+    if params[:start_url] && params[:end_url]
+      params.permit(:start_url, :end_url)
+      @game_session.game.update(
+        {
+          start_url: params[:start_url],
+          end_url: params[:end_url]
+        }
+      )
+      @game_session.update(
+        {
+          started_at: Time.now,
+          status: 1
+        }
+      )
+
+      @img_start_url = get_image_wiki(@game_session.game.start_url)
+      @img_end_url =   get_image_wiki(@game_session.game.end_url)
+      @html_game =     format_wiki_article(@game_session.game.start_url)
+
+      render :play
+    else
+      redirect_to lobby_path(code: @game_session.lobby.code), alert: "You're stuck here!"
+    end
   end
 
   def play
-    @game_session = GameSession.includes(:game).find(params[:id])
+    @game_session = GameSession.includes(:game).find_by({ user: current_user,
+                                                          status: 1 })
     if params[:article] == @game_session.game.end_url
       @game_session.ended_at = Time.now
       @game_session.save
@@ -26,6 +48,7 @@ class GameSessionsController < ApplicationController
     else
       html_game = wiki
       render operations: cable_car
+        .text_content('#user-counter', text: @game_session.clicks.count.to_s)
         .inner_html('#game-page', html: html_game)
         .dispatch_event(name: 'article:refresh')
     end
@@ -39,12 +62,6 @@ class GameSessionsController < ApplicationController
 
     @game_session.clicks << params[:article]
     @game_session.save
-
-
-    cable_ready[PlayChannel].text_content(
-      selector: dom_id(@game_session),
-      text: @game_session.clicks.count.to_s # render(partial: "games/game_detail", locals: { game: self})
-    ).broadcast_to(@game_session)
 
     # Check win condition
 

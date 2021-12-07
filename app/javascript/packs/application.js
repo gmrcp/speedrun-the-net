@@ -33,6 +33,7 @@ import { changeMainContainerHeight } from '../components/change_main_container_h
 import { displayTime } from '../components/timer';
 import { preventBack } from '../components/prevent_back';
 import { copyCode } from '../components/copy_clipboard';
+import { selectWikiArticle } from '../components/select_wiki_article';
 
 // $(document).on('turbolinks:load', function(){ $.rails.refreshCSRFTokens(); });
 
@@ -41,13 +42,12 @@ document.addEventListener('turbolinks:load', () => {
     changeMainContainerHeight();
     bootstrapTooltips();
     preventBack();
-  }
-
-  if (document.getElementById('timer')) {
     displayTime();
   }
 
   if (document.getElementById("lobbyCode")) {
     document.getElementById("lobbyCode").addEventListener('click', copyCode);
+    const selectUrl = document.querySelectorAll('.tom-select')
+    selectWikiArticle(selectUrl);
   }
 });

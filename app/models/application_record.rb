@@ -1,6 +1,6 @@
 class ApplicationRecord < ActiveRecord::Base
-  self.abstract_class = true
   include CableReady::Broadcaster
+  self.abstract_class = true
   delegate :render, to: :ApplicationController
 
   def sgid
