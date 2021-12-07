@@ -6,7 +6,7 @@ export default class extends Controller {
   static values = { id: Number }
 
   connect() {
-    this.clicksTarget.channel = this.application.consumer.subscriptions.create(
+    this.channel = this.application.consumer.subscriptions.create(
       {
         channel: 'PlayChannel',
         id: this.idValue
@@ -14,11 +14,11 @@ export default class extends Controller {
       {
         received(data) { if (data.cableReady) CableReady.perform(data.operations) }
       }
-      )
-    console.log('play-banner#clicks subscribed to PlayChannel')
+    )
+    console.log(`User has subscribed to PlayChannel ${this.idValue}`)
   }
 
   disconnect() {
-    this.clicksTarget.channel.unsubscribe()
+    this.channel.unsubscribe()
   }
 }
