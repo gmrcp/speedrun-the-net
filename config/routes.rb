@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   # resource :lobby, only: :show
 
   resources :lobbies, only: %i[create update destroy] do
-    resources :game_sessions, only: %i[show create update]
+    resources :game_sessions, only: %i[show create update destroy]
   end
 
   resources :games, only: %i[create update]

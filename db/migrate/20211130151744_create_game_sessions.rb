@@ -7,6 +7,7 @@ class CreateGameSessions < ActiveRecord::Migration[6.1]
       t.datetime :ended_at
       t.string :clicks, array: true, default: []
       t.boolean :ready?, default: false
+      t.column :status, :integer, default: 0
       t.timestamps
     end
   end
