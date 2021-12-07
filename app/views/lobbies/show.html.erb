@@ -1,6 +1,5 @@
 <div data-controller="lobby"
      data-lobby-id-value="<%= @lobby.id %>"
-     id="<%= dom_id(@lobby) %>"
      class='lobby-div'
 >
 <div class="container-lobby mh-100">
@@ -24,7 +23,8 @@
             </div>
           </div>
         </div>
-        <div class='players' id='lobby-<%= @lobby.id %>'>
+        <div class='players' id='<%= dom_id(@lobby) %>'>
+
         </div>
       </div>
       <div class="row mt-2">

@@ -29,17 +29,6 @@ class LobbiesController < ApplicationController
   def start_game
   end
 
-  # def join_lobby
-  #   if params['code'].nil?
-  #     create_lobby
-  #   else
-  #     @lobby = Lobby.find_by(code: params['code'])
-  #   end
-  #   @game_session = GameSession.create!(game: @lobby.games.first,
-  #                                       user: current_user)
-  #   redirect_to lobby_code_path(@lobby.code)
-  # end
-
   private
 
   def find_lobby

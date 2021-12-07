@@ -5,6 +5,16 @@ class Lobby < ApplicationRecord
   before_validation :generate_code
   has_many :games
 
+  after_update do
+    cable_ready['players'].morph(
+      # message: 'teste',
+      # level: 'string'
+      selector: "##{ActionView::RecordIdentifier.dom_id(self)}",
+      html: ApplicationController.render(self)
+    )
+    cable_ready.broadcast
+  end
+
   private
 
   def generate_code
