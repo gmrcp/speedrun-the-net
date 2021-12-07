@@ -1,0 +1,18 @@
+<% return if @lobby.owner == player %>
+<div class="d-flex align-items-center py-3 bg-white p-1 mb-1 lobby-owner lobby-player">
+  <div class="avatar avatar-small me-3">
+    <%= image_tag "avatar.png", class: 'img-fluid rounded-circle border-2 border-primary border' %>
+  </div>
+  <div class="name flex-grow-1">
+    <p class="lh-1">Apprentice</p>
+    <h4 class="m-0 lh-1"><%= player.username %></h4>
+  </div>
+  <div class="d-flex flex-column justify-content-between align-items-center">
+    <div class="user-badge">
+      <i class="far fa-check-circle"></i>
+      <% if current_user == @lobby.owner  %>
+        <i class="fas fa-user-slash"></i>
+      <% end %>
+    </div>
+  </div>
+</div>

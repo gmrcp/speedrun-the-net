@@ -1,3 +1,6 @@
+<div data-controller="lobby"
+     data-lobby-code-value="<%= @lobby.code %>"
+     id="<%= dom_id(@lobby) %>">
 <div class="container-lobby mh-100">
   <div class="row mh-100">
     <div class="col-5 col-md-5 col-lg-4 col-xl-3">
@@ -19,48 +22,34 @@
             </div>
           </div>
         </div>
-        <% @lobby.games[0].users.each do |player| %>
-          <% next if player == @lobby.owner %>
-          <div class="d-flex align-items-center py-3 bg-white p-1 mb-1 lobby-owner lobby-player">
-            <div class="avatar avatar-small me-3">
-              <%= image_tag "avatar.png", class: 'img-fluid rounded-circle border-2 border-primary border' %>
-            </div>
-            <div class="name flex-grow-1">
-              <p class="lh-1">Apprentice</p>
-              <h4 class="m-0 lh-1"><%= player.username %></h4>
-            </div>
-            <div class="d-flex flex-column justify-content-between align-items-center">
-              <div class="user-badge">
-                <i class="far fa-check-circle"></i>
-              </div>
-            </div>
-          </div>
-        <% end %>
+        <div id="players">
+          <%= render partial: 'player', collection: @lobby.games[0].users, as: :player %>
+        </div>
       </div>
       <div class="row mt-2">
         <div class="col d-flex justify-content-center">
-         <%= button_tag 'INVITE', value: @lobby.code, id: 'lobbyCode', sclass: 'button large empty me-3' %>
+          <%= button_tag 'INVITE', value: @lobby.code, id: 'lobbyCode', class: 'button large empty me-3' %>
           <%= button_tag "JOIN", data: { bs_toggle: "modal", bs_target: '#askLobby' }, class: 'button large filled' %>
+        </div>
+        <div id="alert-container">
         </div>
       </div>
     </div>
-
-    <div class="col-7 col-md-7 col-lg-8 col-xl-9 d-flex flex-column mt-2" style="height: 60vh;">
-      <div class="d-flex mb-2 ms-5 align-items-center justify-content-between">
-    <!-- Modal -->
+    <!-- MODAL -->
     <div class="modal fade" id="askLobby" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
-            <%= simple_form_for(@lobby, url: lobby_code_path(@lobby.code)) do |f| %>
-              <%= f.input :code,
-                          required: true,
-                          class: 'form-control p-2',
-                          placeholder: 'lobby code' %>
-              <%= f.submit 'JOIN', class: 'button large filled' %>
-            <% end %>
+          <%= simple_form_for(@lobby, url: lobby_code_path(@lobby.code)) do |f| %>
+            <%= f.input :code,
+                        required: true,
+                        class: 'form-control p-2',
+                        placeholder: 'lobby code' %>
+            <%= f.submit 'JOIN', class: 'button large filled' %>
+          <% end %>
         </div>
       </div>
     </div>
+    <!-- MODAL -->
     <div class="col-7 col-md-7 col-lg-8 col-xl-9 d-flex flex-column mt-3" style="height: 60vh;">
       <div class="d-flex mb-2 ms-4 align-items-center justify-content-between mt-2">
         <div class="d-flex justify-content-center align-items-center position-relative">
@@ -100,6 +89,7 @@
         </div>
     </div>
   </div>
+</div>
 </div>
 <!-- <h1>Lobbies#show</h1>
 <p>Find me in app/views/lobbies/show.html.erb</p>
