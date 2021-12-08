@@ -1,6 +1,6 @@
 <div data-controller="lobby"
-     data-lobby-id-value="<%= @lobby.id %>"
-     id="<%= dom_id(@lobby) %>"
+     data-lobby-id-value="<%= @game_session.lobby.id %>"
+     id="<%= dom_id(@game_session.lobby) %>"
      class='lobby-div'
 >
   <div class="container-lobby mh-100">
@@ -13,7 +13,7 @@
             </div>
             <div class="name flex-grow-1">
               <p class="lh-1">Apprentice</p>
-              <h4 class="m-0 lh-1"><%= @lobby.owner.username %></h4>
+              <h4 class="m-0 lh-1"><%= @game_session.lobby.owner.username %></h4>
             </div>
             <div class="d-flex flex-column justify-content-between align-items-center me-2">
               <div class="user-badge mb-3">
@@ -25,15 +25,15 @@
             </div>
           </div>
           <div class='players'>
-            <% @lobby.games.first.game_sessions.where(status: 'open').each do |session| %>
-              <% next if @lobby.owner == session.user %>
+            <% @game_session.game.game_sessions.open.includes(:user).each do |session| %>
+              <% next if @game_session.lobby.owner == session.user %>
               <%= render partial: 'shared/game_session', locals: {session: session} %>
             <% end %>
           </div>
         </div>
         <div class="row mt-2">
           <div class="col d-flex justify-content-center">
-            <%= button_tag 'INVITE', value: @lobby.code, id: 'lobbyCode', class: 'button large empty me-3' %>
+            <%= button_tag 'INVITE', value: @game_session.lobby.code, id: 'lobbyCode', class: 'button large empty me-3' %>
             <%= button_tag "JOIN", data: { bs_toggle: "modal", bs_target: '#askLobby' }, class: 'button large filled' %>
           </div>
           <div id="alert-container">
@@ -63,8 +63,7 @@
           </div>
           <div class="d-flex align-items-md-center">
           <%= button_to '← Back', destroy_user_session_path, method: "delete", class: 'btn-enter-outline me-4', data: {remote: false} %>
-          <%= link_to 'Ready', ready_path, class: 'btn-enter-outline me-4', data: {remote: true} %>
-          <%= link_to 'Start', start_path(start_url: 'Joe_Biden', end_url: 'Jazz'), class: 'btn-enter me-5', id: 'start-game-for-all' %>
+          <%= render partial: 'shared/ready_start_button', locals: { session: @game_session, user: current_user } %>
           </div>
         </div>
 
@@ -124,9 +123,3 @@
     </div>
   </div>
 </div>
-<!-- <h1>Lobbies#show</h1>
-<p>Find me in app/views/lobbies/show.html.erb</p>
-<p>Logged in as: <%= current_user.email %></p>
-<p>Lobby owner: <%= @lobby.owner.email %></p>
-<p>Lobby owner: <%= @lobby.owner.username %></p>
-<p>Lobby code: <%= @lobby.code %></p>  ––>

@@ -2,8 +2,8 @@ class LobbiesController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    redirect_to create_lobby_path and return if current_user.only_open_session.nil?
-    @lobby = current_user.only_open_session.lobby
+    @game_session = current_user.only_open_session
+    redirect_to root_path, alert: 'Something went wrong...' and return if @game_session.nil?
   end
 
   def create
@@ -19,7 +19,6 @@ class LobbiesController < ApplicationController
   def join
     lobby = Lobby.find_by(code: params[:lobby][:code])
     if lobby.nil?
-      @lobby = current_user.only_open_session.lobby
       redirect_to lobby_path, alert: 'Sorry! Invalid code.'
     else
       @lobby = lobby
@@ -34,11 +33,17 @@ class LobbiesController < ApplicationController
   end
 
   def ready
-    game_session = current_user.game_sessions.open.first
+    game_session = current_user.only_open_session
+    game_session.update!(ready?: !game_session.ready?)
+    total_game_sessions = game_session.sibling_game_sessions
     cable_ready[LobbyChannel]
-      # .append("<a href='/start?end_url=Jazz&amp;start_url=Joe_Biden'></a>")
-      .console_log(message: "User with game_session #{game_session.id} is ready")
-      .dispatch_event(name: 'start:game')
+      .console_log(
+        message: "User with game_session #{game_session.id} is #{game_session.ready? ? 'ready' : 'not ready'}"
+      )
+      .text_content(
+        selector: "#ready-button",
+        text: "#{total_game_sessions.where(ready?: true).count}/#{total_game_sessions.count}"
+      )
       .broadcast_to(game_session.lobby)
   end
 end

@@ -49,6 +49,6 @@ class User < ApplicationRecord
   end
 
   def only_open_session
-    game_sessions.open.first if game_sessions.open.length == 1
+    game_sessions.includes(:lobby, lobby: :owner).open.last
   end
 end

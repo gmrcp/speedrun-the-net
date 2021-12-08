@@ -15,7 +15,7 @@ export default class extends Controller {
       }
     )
     console.log(`You have subscribed to Lobby Channel ${this.idValue}`)
-    document.addEventListener('start:game', () => {
+    document.addEventListener('ready:game', () => {
       this.startGame();
     })
   }

@@ -29,4 +29,8 @@ class GameSession < ApplicationRecord
     formated_string.unshift("#{minutes}min ") if minutes != '00'
     formated_string
   end
+
+  def sibling_game_sessions
+    GameSession.where(game: game).open
+  end
 end
