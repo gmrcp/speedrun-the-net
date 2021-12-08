@@ -5,16 +5,21 @@ class MessagesController < ApplicationController
     @message.lobby = @lobby
     @message.user = current_user
     if @message.save
-      LobbieChannel.broadcast_to(@lobby, render_to_string(partial: "message", locals: { message: @message }))
-      redirect_to lobbie_path(@lobby, anchor: "message-#{@message.id}")
+      redirect_to :messages
+      # LobbieChannel.broadcast_to(@lobby, render_to_string(partial: "message", locals: { message: @message }))
+      # redirect_to lobbie_path(@lobby, anchor: "message-#{@message.id}")
     else
       render "lobbies/show"
     end
   end
 
+  def show
+    @message = Message.new
+    @messages = Message.order('created_at DESC')
+  end
   private
 
   def message_params
-    params.require(:message).permit(:content)
+    params.require(:message).permit(:content, :user)
   end
 end
