@@ -1,15 +1,37 @@
 <div class="modal-header">
   <h1 class="modal-title">CONGRATULATIONS</h1>
 </div>
-<div class="modal-body">
+<div class="modal-subheader">
   <p>You have reached the goal</p>
-  <div class="spacer">
-    <hr>
-    <img class="avatar" src="https://via.placeholder.com/60">
-    <p><%= @game_session.game.end_url.gsub(/_/, ' ') %></p>
-    <hr>
+</div>
+<div class="modal-body">
+  <div>
+    <h1 class="justify-content-center d-flex mb-3">
+      <img class="avatar-large rounded-4 me-2" src="<%= @img_end_url %>">
+      <%= @game_session.game.end_url.gsub(/_/, ' ') %>
+    </h1>
   </div>
+  <div>
   <p>with <strong><%= @game_session.clicks.count %></strong> clicks in <strong><%= @game_session.calculate_finish_time %></strong>!</p>
+  </div>
+</div>
+<div class="table d-flex justify-content-center">
+  <table>
+    <tr>
+      <th class="pe-4">Player</th>
+      <th class="pe-4">Clicks</th>
+      <th class="pe-4">Time</th>
+      <th class="pe-4">Score</th>
+    </tr>
+    <tr>
+    <% @game_session.game.users.each do |user|%>
+      <td> <%= user.username%> </td>
+      <td> <%= user.game_sessions.playing.first.clicks.count %> </td>
+      <td> <%= user.game_sessions.playing.first.calculate_finish_time%> </td>
+      <td>287</td>
+    <% end  %>
+    </tr>
+  </table>
 </div>
 <div class="modal-footer">
   <%= link_to "BACK TO LOBBY", lobby_path, class: 'button large filled'  %>

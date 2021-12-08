@@ -35,7 +35,7 @@ class GameSession < ApplicationRecord
     seconds = format('%02d', total.floor % 60)
     minutes = format('%02d', total.floor / 60)
     formated_string = "#{seconds}s"
-    formated_string.unshift("#{minutes}min ") if minutes != '00'
+    formated_string = "#{minutes}min #{seconds}s" if minutes != '00'
     formated_string
   end
 end
