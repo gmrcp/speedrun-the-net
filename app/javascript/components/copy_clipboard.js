@@ -15,4 +15,20 @@ function copyCode() {
   ;
 }
 
-export { copyCode }
+
+function showCode() {
+  function mouseOn() {
+    const lobbyCode = document.getElementById("lobbyCode");
+    lobbyCode.innerText = lobbyCode.value
+  }
+
+  document.getElementById("lobbyCode").addEventListener("mouseover", mouseOn);
+
+  function mouseOut() {
+    const lobbyCode = document.getElementById("lobbyCode");
+    lobbyCode.innerText = 'INVITE'
+  }
+
+  document.getElementById("lobbyCode").addEventListener("mouseover", mouseOut);
+}
+export { copyCode, showCode }

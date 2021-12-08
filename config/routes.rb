@@ -14,7 +14,8 @@ Rails.application.routes.draw do
   get 'lobby', to: 'lobbies#create_lobby', as: :lobby
   get 'lobby/:code', to: 'lobbies#join_lobby', as: :lobby_code
   patch 'lobby/:code', to: 'lobbies#join_lobby'
-  resource :lobby, only: :show
+  get 'refresh', to: 'lobbies#refresh'
+  # resource :lobby, only: :show
 
   resources :lobbies, only: %i[create update destroy] do
     resources :game_sessions, only: %i[show create update destroy]

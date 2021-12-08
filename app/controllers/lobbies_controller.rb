@@ -8,15 +8,11 @@ class LobbiesController < ApplicationController
   end
 
   def show
-    # @lobby.games.first.game_sessions.first.save!
   end
 
   def create_lobby
     @lobby = Lobby.create!(owner: current_user)
     @game = Game.create!(lobby: @lobby)
-    # @game_session = GameSession.create!(game: @lobby.games.first,
-    #                                     user: current_user)
-    #                                     @game_session.save!
     redirect_to lobby_code_path(@lobby.code)
   end
 
@@ -25,6 +21,11 @@ class LobbiesController < ApplicationController
                                         user: current_user)
     render :show
     @game_session.save!
+  end
+
+  def refresh
+    current_user.game_sessions.open.first.closed!
+    redirect_to root_path
   end
 
   def start_game

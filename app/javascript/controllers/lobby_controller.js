@@ -5,7 +5,6 @@ export default class extends Controller {
   static values = { id: Number }
 
   connect() {
-    console.log('coiso');
     // debugger
     this.channel = this.application.consumer.subscriptions.create(
       {
@@ -16,7 +15,6 @@ export default class extends Controller {
         received (data) { if (data.cableReady) CableReady.perform(data.operations) }
       }
     )
-    console.log('coiso');
   }
 
   disconnect () {

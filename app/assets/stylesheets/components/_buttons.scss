@@ -2,7 +2,6 @@
   border-radius: 30px;
   text-decoration: none;
   font-family: 'Source Sans Pro', sans-serif;
-  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
   border: none;
 }
 
@@ -11,21 +10,33 @@
 }
 
 .button.large.filled {
-  background: $purple-gradient;
+  background: $purple-primary;
   color: white;
   font-size: 16px;
-  padding: 10px 35px;
+  padding: 7px 35px;
+
+  &:hover {
+    background-color: darken($purple-primary, $amount: 5%);
+    transition: all .15s cubic-bezier(.22,.61,.2,1);
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 3px 5px;
+  }
 }
 
 .button.large.empty {
-  background-color: $button-gray;
+  background-color: $white;
   border-color: $purple-primary;
   border-width: 2px;
   border-style: solid;
   color: $purple-primary;
-  font-weight: bolder;
-  font-size: 18px;
+  font-size: 16px;
   padding: 7px 35px;
+
+  &:hover {
+    color: $white;
+    background-color: $purple-primary;
+    transition: all .15s cubic-bezier(.22,.61,.2,1);
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 3px 5px;
+  }
 }
 
 .button.small {
