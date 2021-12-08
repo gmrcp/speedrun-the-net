@@ -12,12 +12,6 @@ class User < ApplicationRecord
   validates :email, uniqueness: false
   validates :username, presence: true, length: { minimum: 2, maximum: 10 }
 
-  after_create do
-    cable_ready["visitors"]
-      .console_log(message: "Welcome #{self} to the site!")
-      .broadcast # send queued console_log operation to all PlayChannel subscribers
-  end
-
   attr_writer :login
 
   def login

@@ -7,20 +7,22 @@ class LobbiesController < ApplicationController
   end
 
   def create
-    current_user.game_sessions.open.destroy_all
+    current_user.game_sessions.open.destroy_all # Destroy all open game_sessions
 
     @lobby = Lobby.create!(owner: current_user)
-    @game = Game.create!(lobby: @lobby)
-    redirect_to lobby_code_path(@lobby.code)
+    game = Game.create!(lobby: @lobby)
+    GameSession.create!(game: game,
+                        user: current_user)
+    redirect_to lobby_path
   end
 
   def join
     current_user.game_sessions.open.destroy_all # Destroy all open game_sessions
 
     @lobby = Lobby.find_by(code: params[:code])
-    @game_session = GameSession.create!(game: @lobby.games.first,
-                                        user: current_user)
-    render :show
+    GameSession.create!(game: @lobby.games.first,
+                        user: current_user)
+    redirect_to lobby_path
   end
 
   def start_game

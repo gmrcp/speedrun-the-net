@@ -7,14 +7,12 @@ Rails.application.routes.draw do
   root to: 'pages#home'
 
   get :ready, to: 'lobbies#ready'
+  get :lobby, to: 'lobbies#show'
+  get :create, to: 'lobbies#create', as: :create_lobby
+  get :join, to: 'lobbies#join', as: :join_lobby
 
   get :start, to: 'game_sessions#start_game'
   post :start, to: 'game_sessions#start_game'
 
   get 'game_session/:id/:article', to: 'game_sessions#play', as: :play
-
-  get 'lobby', to: 'lobbies#create_lobby', as: :lobby
-  get 'lobby/:code', to: 'lobbies#join_lobby', as: :lobby_code
-  patch 'lobby/:code', to: 'lobbies#join_lobby'
-
 end
