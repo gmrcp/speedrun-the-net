@@ -1,6 +1,4 @@
 function copyCode() {
-  /* Get the text field */
-
   const lobbyCode = document.getElementById("lobbyCode");
   const container = document.querySelector("#alert-container");
 
@@ -29,6 +27,6 @@ function showCode() {
     lobbyCode.innerText = 'INVITE'
   }
 
-  document.getElementById("lobbyCode").addEventListener("mouseover", mouseOut);
+  document.getElementById("lobbyCode").addEventListener("mouseleave", mouseOut);
 }
 export { copyCode, showCode }

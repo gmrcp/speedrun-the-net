@@ -6,12 +6,33 @@
   background-color: $white;
   height: 100%;
 
+  .ts-control {
+      width: 200px;
+
+      .ts-dropdown{
+        width: 60%;
+      }
+      .ts-dropdown-content {
+        max-height: 120px !important;
+      }
+    }
+
   .settings {
-    background: #f9f8f8;
-    box-shadow: -10px 10px 25px rgba(255, 116, 69, 0.03);
+    background: $white;
+    box-shadow: -10px 10px 25px rgba(255, 116, 69, 0.05);
+    padding: 15px 20px;
     border-radius: 25px;
     color: $purple-primary;
     border: none;
+
+    &-row-1 {
+      display: flex;
+
+      #select-start {
+
+
+      }
+    }
   }
 
   .dropdown-toggle {
@@ -22,7 +43,7 @@
     border: none;
   }
 
-  .form-control{
+  .form-control {
     background-color: rgb(255, 255, 255);
     border: none;
   }
@@ -93,50 +114,16 @@
     }
   }
 
-  .btn-enter {
-    position: relative;
-    align-items: center;
-    padding: 1.1rem 2.5rem;
-    border-radius: 100px;
-    color: $white;
-    font-size: 1rem;
-    text-decoration: none;
-    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
-    background: $fire-gradient;
-    transition: box-shadow 0.15s ease-in-out;
-    border: none;
-    margin-top: 0.9rem;
-    margin-bottom: 1rem;
-    letter-spacing: 0.1rem;
-
-    &-outline {
-      background-color: white;
-      color: $purple-primary;
-      border: 2px solid $purple-primary;
-      align-items: center;
-      padding: 0.5rem 1rem;
-      border-radius: 100px;
-      left: -5px;
-      top: -55px;
-
-      &:hover {
-        color: $white;
-        background-color: $purple-primary;
-      }
-    }
-
-    &:hover {
-      color: $white;
-      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.45);
-      background: linear-gradient(180deg, $orange-dark 0%, $orange-dark 100%);
-      transition: all 0.15s ease-in-out;
-    }
-  }
-
   .message_board {
     border-radius: 10px;
     background: linear-gradient(179.75deg, #fefefe 50.19%, #f0f0f9 99.76%);
     box-shadow: 25px 25px 34px rgba(63, 54, 155, 0.08);
+    align-content: space-between;
+    display: flex;
+
+    .input-group {
+      height: min-content;
+    }
 
     .input-group-text {
       background: white;
@@ -189,65 +176,65 @@
     }
   }
   /* The switch - the box around the slider */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 30px;
-  height: 17px;
-}
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 17px;
+  }
 
-/* Hide default HTML checkbox */
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
 
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+  }
 
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 13px;
-  width: 13px;
-  left: 2px;
-  bottom: 2px;
-  background-color: rgb(159, 137, 180);
-  -webkit-transition: .4s;
-  transition: .4s;
-}
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 13px;
+    width: 13px;
+    left: 2px;
+    bottom: 2px;
+    background-color: rgb(159, 137, 180);
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+  }
 
-input:checked + .slider {
-  background-color: $purple-primary;
-}
+  input:checked + .slider {
+    background-color: $purple-primary;
+  }
 
-input:focus + .slider {
-  box-shadow: 0 0 1px $purple-primary;
-}
+  input:focus + .slider {
+    box-shadow: 0 0 1px $purple-primary;
+  }
 
-input:checked + .slider:before {
-  -webkit-transform: translateX(13px);
-  -ms-transform: translateX(13px);
-  transform: translateX(13px);
-}
+  input:checked + .slider:before {
+    -webkit-transform: translateX(13px);
+    -ms-transform: translateX(13px);
+    transform: translateX(13px);
+  }
 
-/* Rounded sliders */
-.slider.round {
-  border-radius: 17px;
-}
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 17px;
+  }
 
-.slider.round:before {
-  border-radius: 50%;
-}
+  .slider.round:before {
+    border-radius: 50%;
+  }
 }
