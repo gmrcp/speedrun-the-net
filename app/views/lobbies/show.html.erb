@@ -27,7 +27,7 @@
           <div class='players'>
             <% @lobby.games.first.game_sessions.where(status: 'open').each do |session| %>
               <% next if @lobby.owner == session.user %>
-              <%= render partial: 'game_session', locals: {session: session} %>
+              <%= render partial: 'shared/game_session', locals: {session: session} %>
             <% end %>
           </div>
         </div>
@@ -44,9 +44,10 @@
       <div class="modal fade" id="askLobby" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
-            <%= simple_form_for(@lobby, url: join_lobby_path(@lobby.code)) do |f| %>
+            <%= simple_form_for(:lobby, url: join_lobby_path(:lobby)) do |f| %>
               <%= f.input :code,
                           required: true,
+                          input_html: {value: '', autocomplete: 'off'},
                           class: 'form-control p-2',
                           placeholder: 'lobby code' %>
               <%= f.submit 'JOIN', class: 'button large filled' %>
@@ -63,7 +64,7 @@
           <div class="d-flex align-items-md-center">
           <%= button_to '← Back', destroy_user_session_path, method: "delete", class: 'btn-enter-outline me-4', data: {remote: false} %>
           <%= link_to 'Ready', ready_path, class: 'btn-enter-outline me-4', data: {remote: true} %>
-          <%= link_to 'Start', start_path, class: 'btn-enter me-5' %>
+          <%= link_to 'Start', start_path(start_url: 'Joe_Biden', end_url: 'Jazz'), class: 'btn-enter me-5', id: 'start-game-for-all' %>
           </div>
         </div>
 

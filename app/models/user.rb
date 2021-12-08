@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-  include CableReady::Broadcaster
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -10,7 +9,7 @@ class User < ApplicationRecord
   has_many :lobbies # , foreign_key: :owner_id
   has_many :game_sessions
   validates :email, uniqueness: false
-  validates :username, presence: true, length: { minimum: 2, maximum: 10 }
+  validates :username, presence: true, length: { minimum: 2, maximum: 10 }, uniqueness: true
 
   attr_writer :login
 

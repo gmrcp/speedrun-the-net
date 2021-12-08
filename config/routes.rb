@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get :ready, to: 'lobbies#ready'
   get :lobby, to: 'lobbies#show'
   get :create, to: 'lobbies#create', as: :create_lobby
-  get :join, to: 'lobbies#join', as: :join_lobby
+  post :join, to: 'lobbies#join', as: :join_lobby
 
   get :start, to: 'game_sessions#start_game'
   post :start, to: 'game_sessions#start_game'
