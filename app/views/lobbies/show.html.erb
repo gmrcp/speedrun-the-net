@@ -109,10 +109,21 @@
         </div>
         <div class="mt-4">
           <div class="overflow-scroll row message_board" style="height:25vh">
-            This is the message board
-            <div class="input-group align-content-end mb-2">
-              <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
-              <span class="input-group-text"><i class="fas fa-paper-plane"></i></span>
+          <div>
+            <% @lobby.messages.each do |message| %>
+            <p><strong>
+            <%= message.user.username %>:</strong> <%= message.content %> </p>
+            <%end%>
+          </div>
+          <div class="row align-content-end mb-2">
+            <div class = "col-11 me-0 message-input">
+              <%= simple_form_for [ @lobby, @message ], remote: true do |f| %>
+                <% f.input :content, label: false, class: "form-control-input", placeholder: "Message" %>
+              <% end %>
+              </div>
+              <div class = "col-1 ms-0">
+                <span class="input-group-text"><i class="fas fa-paper-plane"></i></span>
+              </div>
             </div>
           </div>
         </div>

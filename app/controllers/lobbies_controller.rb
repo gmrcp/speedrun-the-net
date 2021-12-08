@@ -12,6 +12,7 @@ class LobbiesController < ApplicationController
   end
 
   def create_lobby
+    @message = Message.new
     @lobby = Lobby.create!(owner: current_user)
     @game = Game.create!(lobby: @lobby)
     # @game_session = GameSession.create!(game: @lobby.games.first,
@@ -21,6 +22,7 @@ class LobbiesController < ApplicationController
   end
 
   def join_lobby
+    @message = Message.new
     @game_session = GameSession.create!(game: @lobby.games.first,
                                         user: current_user)
     render :show

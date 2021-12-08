@@ -18,9 +18,7 @@
     color: $purple-primary;
   }
 
-  .input-group-text {
-    border: none;
-  }
+
 
   .form-control{
     background-color: rgb(255, 255, 255);
@@ -142,16 +140,26 @@
       background: white;
       border-left: white;
       color: $purple-primary;
-      border-radius: 10px;
+      margin-right: 24px;
+      border: none;
+      width: 38px;
+      height: 36px;
+      margin-left: -24px;
+      border-left: white;
     }
 
-    .form-control {
+    .form-control-input {
+      width: 100%;
       background: white;
       border-right: white;
       border-radius: 10px;
       button {
         border: none;
       }
+    }
+
+    .message-input {
+      margin-right: 1px;
     }
   }
   .modal-dialog {

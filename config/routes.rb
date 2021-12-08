@@ -18,9 +18,11 @@ Rails.application.routes.draw do
 
   resources :lobbies, only: %i[create update destroy] do
     resources :game_sessions, only: %i[show create update destroy]
+    resources :messages, only: :create
   end
 
   resources :games, only: %i[create update]
+
 
   # Check gem 'devise-guests' and 'auth discord'...
   # ActionCable messages ???
