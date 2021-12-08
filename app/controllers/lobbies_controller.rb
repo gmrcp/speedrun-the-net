@@ -30,6 +30,13 @@ class LobbiesController < ApplicationController
   def start_game
   end
 
+  def ready
+    game_session = current_user.game_sessions.open.first
+    cable_ready[LobbyChannel]
+      .console_log("User with game_session #{game_session.id} is ready")
+      .broadcast_to(game_session.lobby)
+  end
+
   private
 
   def find_lobby

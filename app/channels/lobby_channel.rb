@@ -1,6 +1,6 @@
-class PlayersChannel < ApplicationCable::Channel
+class LobbyChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "players"
+    stream_or_reject_for Lobby.find(params[:id])
   end
 
   def unsubscribed

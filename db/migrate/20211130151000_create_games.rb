@@ -7,6 +7,7 @@ class CreateGames < ActiveRecord::Migration[6.1]
       t.string :end_url
       t.boolean :running?, default: false
       t.string :winner
+      t.column :status, :integer, default: 0
 
       t.timestamps
     end

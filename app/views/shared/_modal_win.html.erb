@@ -12,7 +12,7 @@
     </h1>
   </div>
   <div>
-  <p>with <strong><%= @game_session.clicks.count %></strong> clicks in <strong><%= @game_session.calculate_finish_time %></strong>!</p>
+  <p>with <strong><%= @game_session.clicks %></strong> clicks in <strong><%= @game_session.calculate_finish_time %></strong>!</p>
   </div>
 </div>
 <div class="table d-flex justify-content-center">
@@ -26,7 +26,7 @@
     <tr>
     <% @game_session.game.users.each do |user|%>
       <td> <%= user.username%> </td>
-      <td> <%= user.game_sessions.playing.first.clicks.count %> </td>
+      <td> <%= user.game_sessions.playing.first.clicks %> </td>
       <td> <%= user.game_sessions.playing.first.calculate_finish_time%> </td>
       <td>287</td>
     <% end  %>
