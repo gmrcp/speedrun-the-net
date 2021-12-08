@@ -1,16 +1,29 @@
 class GameSession < ApplicationRecord
+  include CableReady::Broadcaster
+
   belongs_to :game
   belongs_to :user
   has_one :lobby, through: :game
 
   enum status: { open: 0, playing: 1, closed: 2 }
 
-  after_save do
-    # cable_ready[PlayChannel].text_content(
-    #   selector: dom_id(self),
-    #   text: self.clicks.count.to_s # render(partial: "games/game_detail", locals: { game: self})
-    # ).broadcast_to(self)
+  after_update do
+    if open?
+      cable_ready['players'].append(
+        selector: "#lobby-id-#{game.lobby.id}",
+        html: render(partial: self, locals: { session: self })
+      )
+      cable_ready.broadcast
 
+    elsif closed?
+      cable_ready['players'].remove(
+        selector: "#lobby-id-#{game.lobby.id}"
+      )
+      cable_ready.broadcast
+    end
+  end
+
+  after_save do
     cable_ready[PlayChannel].morph(
       selector: "#{dom_id(self)} .num-clicks",
       html: "<p class='num-clicks'>#{clicks.count}</p>"

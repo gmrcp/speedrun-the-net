@@ -1,4 +1,6 @@
 class Lobby < ApplicationRecord
+  include CableReady::Broadcaster
+
   belongs_to :owner, class_name: "User", foreign_key: :owner_id
   before_validation :generate_code
   has_many :games

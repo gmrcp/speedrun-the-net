@@ -1,6 +1,5 @@
 <div data-controller="lobby"
-     data-lobby-code-value="<%= @lobby.code %>"
-     id="<%= dom_id(@lobby) %>"
+     data-lobby-id-value="<%= @lobby.id %>"
      class='lobby-div'
 >
 <div class="container-lobby mh-100">
@@ -24,8 +23,11 @@
             </div>
           </div>
         </div>
-        <div id="players">
-          <%= render partial: 'player', locals: { lobby: @lobby }%>
+        <div class='players' id='lobby-id-<%= @lobby.id %>'>
+          <% @lobby.games.first.game_sessions.where(status: 'open').each do |session| %>
+            <% next if @lobby.owner == session.user %>
+            <%= render partial: 'game_session', locals: {session: session} %>
+          <% end %>
         </div>
       </div>
       <div class="row mt-2">
