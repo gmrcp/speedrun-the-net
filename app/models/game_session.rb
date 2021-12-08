@@ -8,11 +8,19 @@ class GameSession < ApplicationRecord
   enum status: { open: 0, playing: 1, closed: 2 }
 
   after_update do
-    cable_ready['players'].morph(
-      selector: "#lobby-id-#{self.game.lobby.id}",
-      html: render(partial: self, locals: { session: self })
-    )
-    cable_ready.broadcast
+    if open?
+      cable_ready['players'].append(
+        selector: "#lobby-id-#{game.lobby.id}",
+        html: render(partial: self, locals: { session: self })
+      )
+      cable_ready.broadcast
+
+    elsif closed?
+      cable_ready['players'].remove(
+        selector: "#lobby-id-#{game.lobby.id}"
+      )
+      cable_ready.broadcast
+    end
   end
 
   after_save do
