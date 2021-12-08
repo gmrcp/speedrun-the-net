@@ -1,118 +1,121 @@
 <div data-controller="lobby"
      data-lobby-id-value="<%= @lobby.id %>"
+     id="<%= dom_id(@lobby) %>"
      class='lobby-div'
 >
-<div class="container-lobby mh-100">
-  <div class="row mh-100" style="height: 100%;">
-    <div class="col-5 col-md-5 col-lg-4 col-xl-3" style="height: 100%;">
-      <div class="overflow-scroll bg-light p-2 players-container">
-        <div class="d-flex align-items-center py-3 bg-white p-1 mb-1 lobby-owner lobby-player">
-          <div class="avatar avatar-small me-3 ms-2">
-            <%= image_tag "avatar.png", class: 'img-fluid rounded-circle border-2 border-primary border' %>
-          </div>
-          <div class="name flex-grow-1">
-            <p class="lh-1">Apprentice</p>
-            <h4 class="m-0 lh-1"><%= @lobby.owner.username %></h4>
-          </div>
-          <div class="d-flex flex-column justify-content-between align-items-center me-2">
-            <div class="user-badge mb-3">
-              <%= image_tag "Vector.svg" %>
+  <div class="container-lobby mh-100">
+    <div class="row mh-100" style="height: 100%;">
+      <div class="col-5 col-md-5 col-lg-4 col-xl-3" style="height: 100%;">
+        <div class="overflow-scroll bg-light p-2 players-container">
+          <div class="d-flex align-items-center py-3 bg-white p-1 mb-1 lobby-owner lobby-player">
+            <div class="avatar avatar-small me-3 ms-2">
+              <%= image_tag "avatar.png", class: 'img-fluid rounded-circle border-2 border-primary border' %>
             </div>
-            <div class="user-badge">
-              <i class="far fa-check-circle"></i>
+            <div class="name flex-grow-1">
+              <p class="lh-1">Apprentice</p>
+              <h4 class="m-0 lh-1"><%= @lobby.owner.username %></h4>
+            </div>
+            <div class="d-flex flex-column justify-content-between align-items-center me-2">
+              <div class="user-badge mb-3">
+                <%= image_tag "Vector.svg" %>
+              </div>
+              <div class="user-badge">
+                <i class="far fa-check-circle"></i>
+              </div>
             </div>
           </div>
+          <div class='players'>
+            <% @lobby.games.first.game_sessions.where(status: 'open').each do |session| %>
+              <% next if @lobby.owner == session.user %>
+              <%= render partial: 'game_session', locals: {session: session} %>
+            <% end %>
+          </div>
         </div>
-        <div class='players' id='lobby-id-<%= @lobby.id %>'>
-          <% @lobby.games.first.game_sessions.where(status: 'open').each do |session| %>
-            <% next if @lobby.owner == session.user %>
-            <%= render partial: 'game_session', locals: {session: session} %>
-          <% end %>
-        </div>
-      </div>
-      <div class="row mt-2">
-        <div class="col d-flex justify-content-center">
-          <%= button_tag 'INVITE', value: @lobby.code, id: 'lobbyCode', class: 'button large empty me-3' %>
-          <%= button_tag "JOIN", data: { bs_toggle: "modal", bs_target: '#askLobby' }, class: 'button large filled' %>
-        </div>
-        <div id="alert-container">
-        </div>
-      </div>
-    </div>
-    <!-- MODAL -->
-    <div class="modal fade" id="askLobby" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <%= simple_form_for(@lobby, url: lobby_code_path(@lobby.code)) do |f| %>
-            <%= f.input :code,
-                        required: true,
-                        class: 'form-control p-2',
-                        placeholder: 'lobby code' %>
-            <%= f.submit 'JOIN', class: 'button large filled' %>
-          <% end %>
+        <div class="row mt-2">
+          <div class="col d-flex justify-content-center">
+            <%= button_tag 'INVITE', value: @lobby.code, id: 'lobbyCode', class: 'button large empty me-3' %>
+            <%= button_tag "JOIN", data: { bs_toggle: "modal", bs_target: '#askLobby' }, class: 'button large filled' %>
+          </div>
+          <div id="alert-container">
+          </div>
         </div>
       </div>
-    </div>
-    <!-- MODAL -->
-    <div class="col-7 col-md-7 col-lg-8 col-xl-9 d-flex flex-column mt-1" style="height: 60vh;">
-      <div class="d-flex mb-1 ms-4 align-items-center justify-content-between mt-1">
-        <div class="d-flex justify-content-center align-items-center position-relative">
-          <h2 class="text-uppercase font-weight-bold me-5 fs-4"> Game modes</h2>
-        </div>
-        <div class="d-flex align-items-md-center">
-        <%= button_to '← Back', destroy_user_session_path, method: "delete", class: 'btn-enter-outline me-4', data: {remote: false} %>
-        <%= link_to 'Start', start_path, class: 'btn-enter me-5' %>
+      <!-- MODAL -->
+      <div class="modal fade" id="askLobby" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <%= simple_form_for(@lobby, url: lobby_code_path(@lobby.code)) do |f| %>
+              <%= f.input :code,
+                          required: true,
+                          class: 'form-control p-2',
+                          placeholder: 'lobby code' %>
+              <%= f.submit 'JOIN', class: 'button large filled' %>
+            <% end %>
+          </div>
         </div>
       </div>
+      <!-- MODAL -->
+      <div class="col-7 col-md-7 col-lg-8 col-xl-9 d-flex flex-column mt-1" style="height: 60vh;">
+        <div class="d-flex mb-1 ms-4 align-items-center justify-content-between mt-1">
+          <div class="d-flex justify-content-center align-items-center position-relative">
+            <h2 class="text-uppercase font-weight-bold me-5 fs-4"> Game modes</h2>
+          </div>
+          <div class="d-flex align-items-md-center">
+          <%= button_to '← Back', destroy_user_session_path, method: "delete", class: 'btn-enter-outline me-4', data: {remote: false} %>
+          <%= link_to 'Ready', ready_path, class: 'btn-enter-outline me-4', data: {remote: true} %>
+          <%= link_to 'Start', start_path, class: 'btn-enter me-5' %>
+          </div>
+        </div>
 
-      <div class="container m-0" style="height: 70%;">
-        <div class="row d-flex settings w-75">
-            <div class="row">
-              <div class="col-8">
-                <%= form_with url: start_path, method: :post do |form| %>
-                  <select class="tom-select" id="select-start" name="start_url" placeholder="Where to start..." multiple></select>
-                  <select class="tom-select" id="select-end" name="end_url" placeholder="Where to end..." multiple></select>
-                  <input type="submit" value="START" class="">
-                  <link href="https://cdn.jsdelivr.net/npm/tom-select@2.0.0/dist/css/tom-select.css" rel="stylesheet">
-                  <script src="https://cdn.jsdelivr.net/npm/tom-select@2.0.0/dist/js/tom-select.complete.min.js"></script>
-                <% end %>
+        <div class="container m-0" style="height: 70%;">
+          <div class="row d-flex settings w-75">
+              <div class="row">
+                <div class="col-8">
+                  <%= form_with url: start_path, method: :post do |form| %>
+                    <select class="tom-select" id="select-start" name="start_url" placeholder="Where to start..." multiple></select>
+                    <select class="tom-select" id="select-end" name="end_url" placeholder="Where to end..." multiple></select>
+                    <input type="submit" value="START" class="">
+                    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.0.0/dist/css/tom-select.css" rel="stylesheet">
+                    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.0.0/dist/js/tom-select.complete.min.js"></script>
+                  <% end %>
+                </div>
+                <div class="col-1 align-items-center mt-3">
+                  <p>Random</p>
+                  <label class="switch">
+                  <input type="checkbox">
+                  <span class="slider round"></span>
+                  </label>
+                </div>
               </div>
-              <div class="col-1 align-items-center mt-3">
-                <p>Random</p>
-                <label class="switch">
-                <input type="checkbox">
-                <span class="slider round"></span>
-                </label>
-              </div>
-            </div>
-            <div class="row d-flex">
-              <div class="dropdown col-4 mt-4">
-                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                  Game mode
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li><a class="dropdown-item" href="#">Wikipedia</a></li>
-                  <li><a class="dropdown-item" href="#">IMDB</a></li>
-                  <li><a class="dropdown-item" href="#">Something else</a></li>
-                </ul>
-              </div>
-              <div class="timer col-4">
-                <label for="Timer">Time limit</label>
-                <input type="input" class="form-control" id="exampleInputArticle" aria-describedby="emailHelp" placeholder="05:00">
-              </div>
-              <div class="timer col-2 mb-3">
-                <label for="Rounds">Rounds</label>
-                <input type="input" class="form-control" id="exampleInputArticle" aria-describedby="emailHelp" placeholder="03">
+              <div class="row d-flex">
+                <div class="dropdown col-4 mt-4">
+                  <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    Game mode
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="#">Wikipedia</a></li>
+                    <li><a class="dropdown-item" href="#">IMDB</a></li>
+                    <li><a class="dropdown-item" href="#">Something else</a></li>
+                  </ul>
+                </div>
+                <div class="timer col-4">
+                  <label for="Timer">Time limit</label>
+                  <input type="input" class="form-control" id="exampleInputArticle" aria-describedby="emailHelp" placeholder="05:00">
+                </div>
+                <div class="timer col-2 mb-3">
+                  <label for="Rounds">Rounds</label>
+                  <input type="input" class="form-control" id="exampleInputArticle" aria-describedby="emailHelp" placeholder="03">
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="mt-4">
-          <div class="overflow-scroll row message_board" style="height:25vh">
-            This is the message board
-            <div class="input-group align-content-end mb-2">
-              <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
-              <span class="input-group-text"><i class="fas fa-paper-plane"></i></span>
+          <div class="mt-4">
+            <div class="overflow-scroll row message_board" style="height:25vh">
+              This is the message board
+              <div class="input-group align-content-end mb-2">
+                <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
+                <span class="input-group-text"><i class="fas fa-paper-plane"></i></span>
+              </div>
             </div>
           </div>
         </div>

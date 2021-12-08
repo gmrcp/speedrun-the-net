@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   root to: 'pages#home'
 
+  get :ready, to: 'lobbies#ready'
+
   get :start, to: 'game_sessions#start_game'
   post :start, to: 'game_sessions#start_game'
 

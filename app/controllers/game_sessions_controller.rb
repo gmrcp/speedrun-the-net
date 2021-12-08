@@ -24,14 +24,13 @@ class GameSessionsController < ApplicationController
           status: 1
         }
       )
-
       @img_start_url = get_image_wiki(@game_session.game.start_url)
       @img_end_url =   get_image_wiki(@game_session.game.end_url)
       @html_game =     format_wiki_article(@game_session.game.start_url)
 
       render :play
     else
-      redirect_to lobby_path(code: @game_session.lobby.code), alert: "You're stuck here!"
+      redirect_to lobby_path(code: @game_session.lobby.code), alert: "That didn't work... Try again!"
     end
   end
 
@@ -48,7 +47,7 @@ class GameSessionsController < ApplicationController
     else
       html_game = wiki
       render operations: cable_car
-        .text_content('#user-counter', text: @game_session.clicks.count.to_s)
+        .text_content('#user-counter', text: @game_session.clicks.to_s)
         .inner_html('#game-page', html: html_game)
         .dispatch_event(name: 'article:refresh')
     end
@@ -57,11 +56,17 @@ class GameSessionsController < ApplicationController
   private
 
   def wiki
-    # TODO, certify that game_session is related to user (be it guest or logged user) -> Devise?
     # TODO, array to confirm link clicked is present in previous page
-
-    @game_session.clicks << params[:article]
+    @game_session.path << params[:article]
+    @game_session.clicks += 1
     @game_session.save
+
+    # Modify Back button
+    # render operations: cable_car
+    #     .text_content('#back-button', text: @game_session.clicks.count.to_s)
+    #     .inner_html('#game-page', html: html_game)
+    #     .dispatch_event(name: 'article:refresh')
+
 
     # Check win condition
 
@@ -89,6 +94,8 @@ class GameSessionsController < ApplicationController
     html_doc = html_doc.search('#content')
     # Remove references list and category links
     html_doc.search('div.reflist', '#catlinks', '.printfooter').remove
+    # Add back button
+
     html_doc.search('a').map do |link|
       next unless link.attributes.include?('href')
 
@@ -106,6 +113,7 @@ class GameSessionsController < ApplicationController
         link[:href] = "/game_session/#{@game_session.id}/#{href}"
       end
     end
+
     return html_doc.to_s.html_safe
   end
 end
