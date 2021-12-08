@@ -54,4 +54,8 @@ class User < ApplicationRecord
   def password_required?
     false
   end
+
+  def only_open_session
+    game_sessions.open.first if game_sessions.open.length == 1
+  end
 end

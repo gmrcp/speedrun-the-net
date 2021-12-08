@@ -1,7 +1,6 @@
 require 'open-uri'
 
 class GameSessionsController < ApplicationController
-  include CableReady::Broadcaster
 
   def start_game
     @game_session = GameSession.includes(:game).find_by(
@@ -37,6 +36,10 @@ class GameSessionsController < ApplicationController
   def play
     @game_session = GameSession.includes(:game).find_by({ user: current_user,
                                                           status: 1 })
+    @game_session.path << params[:article]
+    @game_session.clicks += 1
+    @game_session.save
+
     if params[:article] == @game_session.game.end_url
       @game_session.ended_at = Time.now
       @game_session.save
@@ -57,9 +60,6 @@ class GameSessionsController < ApplicationController
 
   def wiki
     # TODO, array to confirm link clicked is present in previous page
-    @game_session.path << params[:article]
-    @game_session.clicks += 1
-    @game_session.save
 
     # Modify Back button
     # render operations: cable_car

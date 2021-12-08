@@ -11,7 +11,7 @@ const formatTime = (startTime, element) => {
   const total = Date.now() - Date.parse(startTime);
   // let milliseconds = total % 1000;
   let seconds = Math.floor(total / 1000 % 60);
-  let minutes = Math.floor(seconds / 60);
+  let minutes = Math.floor(total / 1000 / 60);
   // milliseconds = milliseconds.toString().padStart(3, "0");
   seconds = seconds.toString().padStart(2, "0");
   minutes = minutes.toString().padStart(2, "0");
