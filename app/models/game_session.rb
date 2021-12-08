@@ -5,51 +5,17 @@ class GameSession < ApplicationRecord
   belongs_to :user
   has_one :lobby, through: :game
 
+  enum status: { open: 0, playing: 1, closed: 2 }
+
   after_update do
     cable_ready['players'].morph(
-      # message: 'teste',
-      # level: 'string'
-      selector: "##{ActionView::RecordIdentifier.dom_id(self)}",
-      html: ApplicationController.render(self)
+      selector: "#lobby-id-#{self.game.lobby.id}",
+      html: render(partial: self, locals: { session: self })
     )
     cable_ready.broadcast
   end
-  # after_update do
-  #   cable_ready['players'].inner_html(
-  #     selector: "#game-id-#{self.game_id}",
-  #     position: 'afterbegin',
-  #     html: render(partial: 'game_session', locals: { session: self })
-  #   )
-  #   cable_ready.broadcast
-  # end
-
-
-
-    #     cable_ready['players'].insert_adjacent_html(
-    #   selector: '#players',
-    #   position: 'afterbegin',
-    #   html: render_to_string(partial: "player", locals: { player: current_user })
-    # )
-    # cable_ready.broadcast
-
-  # after_update do
-  #   cable_ready['players'].morph(
-  #     # message: 'teste',
-  #     # level: 'string'
-  #     selector: "##{ActionView::RecordIdentifier.dom_id(self)}",
-  #     html: ApplicationController.render(self)
-  #   )
-  #   cable_ready.broadcast
-  # end
-
-  enum status: { open: 0, playing: 1, closed: 2 }
 
   after_save do
-    # cable_ready[PlayChannel].text_content(
-    #   selector: dom_id(self),
-    #   text: self.clicks.count.to_s # render(partial: "games/game_detail", locals: { game: self})
-    # ).broadcast_to(self)
-
     cable_ready[PlayChannel].morph(
       selector: "#{dom_id(self)} .num-clicks",
       html: "<p class='num-clicks'>#{clicks.count}</p>"

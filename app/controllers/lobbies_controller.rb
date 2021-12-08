@@ -14,15 +14,17 @@ class LobbiesController < ApplicationController
   def create_lobby
     @lobby = Lobby.create!(owner: current_user)
     @game = Game.create!(lobby: @lobby)
-    @game_session = GameSession.create!(game: @lobby.games.first,
-                                        user: current_user)
-    render :show
+    # @game_session = GameSession.create!(game: @lobby.games.first,
+    #                                     user: current_user)
+    #                                     @game_session.save!
+    redirect_to lobby_code_path(@lobby.code)
   end
 
   def join_lobby
     @game_session = GameSession.create!(game: @lobby.games.first,
                                         user: current_user)
     @game_session.save!
+
     render :show
   end
 
@@ -32,6 +34,11 @@ class LobbiesController < ApplicationController
   private
 
   def find_lobby
-    @lobby = Lobby.find_by(code: params[:lobby][:code])
+    current_user.game_sessions.open.destroy_all
+    if params[:_method] == 'patch'
+      @lobby = Lobby.find_by(code: params[:lobby][:code])
+    else
+      @lobby = Lobby.find_by(code: params[:code])
+    end
   end
 end

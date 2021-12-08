@@ -23,8 +23,11 @@
             </div>
           </div>
         </div>
-        <div class='players' id='<%= dom_id(@lobby) %>'>
-
+        <div class='players' id='lobby-id-<%= @lobby.id %>'>
+          <% @lobby.games.first.game_sessions.each do |session| %>
+            <% next if @lobby.owner == session.user %>
+            <%= render partial: 'game_session', locals: {session: session} %>
+          <% end %>
         </div>
       </div>
       <div class="row mt-2">
