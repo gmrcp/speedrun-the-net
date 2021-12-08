@@ -1,14 +1,14 @@
-import consumer from "./consumer";
+// import consumer from "./consumer";
 
-document.addEventListener('turbolinks:load', () => {
-  const messagesContainer = document.getElementById('messages');
-  if (messagesContainer) {
-    const id = messagesContainer.dataset.lobbyID;
+// document.addEventListener('turbolinks:load', () => {
+//   const messagesContainer = document.getElementById('messages');
+//   if (messagesContainer) {
+//     const id = messagesContainer.dataset.lobbyID;
 
-    consumer.subscriptions.create({ channel: "LobbyChannel", id: id }, {
-      received(data) {
-        messagesContainer.insertAdjacentHTML('beforeend', data); // called when data is broadcast in the cable
-      }
-    });
-  }
-});
+//     consumer.subscriptions.create({ channel: "PlayersChannel", id: id }, {
+//       received(data) {
+//         messagesContainer.insertAdjacentHTML('beforeend', data); // called when data is broadcast in the cable
+//       }
+//     });
+//   }
+// });

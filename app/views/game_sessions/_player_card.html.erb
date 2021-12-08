@@ -1,6 +1,7 @@
 <div data-play-banner-target="players"
-     class="d-flex align-items-center p-1" <%= "id=current-player" if current_user == player %>>
-  <h5 class="flex-fill text-truncate"><%= player.username %></h5>
-  <p><%= game_session.clicks.count %></p>
+     class="d-flex align-items-center p-1" <%= "class=current-player" if current_user == user %>
+     id="<%= dom_id(user.game_sessions.playing.first) %>">
+  <h5 class="flex-fill text-truncate"><%= user.username %></h5>
+  <p class="num-clicks"><%= user.game_sessions.playing.first.clicks.count %></p>
   <i class="fas fa-hand-point-up ms-1"></i>
 </div>

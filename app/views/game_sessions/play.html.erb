@@ -20,10 +20,7 @@
       <div>
         <p><strong>CLICKS</strong></p>
         <hr class="my-2">
-        <p data-play-banner-target="clicks"
-           id="<%= dom_id(@game_session) %>">
-           <%= @game_session.clicks.count %>
-        </p>
+        <p data-play-banner-target="clicks" id="user-counter">0</p>
       </div>
       <div>
         <p><strong>TIMER</strong></p>
@@ -33,8 +30,8 @@
     </div>
     <p class="text-center fw-bold">LOBBY</p>
     <div id="player-list">
-      <% @game_session.game.users.each do |player| %>
-        <%= render 'player_card', { player: player, game_session: @game_session } %>
+      <% @game_session.game.users.each do |user| %>
+        <%= render 'player_card', { user: user } %>
       <% end  %>
     </div>
     <div class="d-flex justify-content-center">

@@ -1,6 +1,5 @@
 <div data-controller="lobby"
-     data-lobby-code-value="<%= @lobby.code %>"
-     id="<%= dom_id(@lobby) %>"
+     data-lobby-id-value="<%= @lobby.id %>"
      class='lobby-div'
 >
 <div class="container-lobby mh-100">
@@ -24,8 +23,11 @@
             </div>
           </div>
         </div>
-        <div id="players">
-          <%= render partial: 'player', locals: { lobby: @lobby }%>
+        <div class='players' id='lobby-id-<%= @lobby.id %>'>
+          <% @lobby.games.first.game_sessions.where(status: 'open').each do |session| %>
+            <% next if @lobby.owner == session.user %>
+            <%= render partial: 'game_session', locals: {session: session} %>
+          <% end %>
         </div>
       </div>
       <div class="row mt-2">
@@ -66,13 +68,14 @@
       <div class="container m-0" style="height: 70%;">
         <div class="row d-flex settings w-75">
             <div class="row">
-              <div class="col-4">
-                <label for="Starting">Starting</label>
-                <input type="input" class="form-control" id="exampleInputArticle" aria-describedby="emailHelp" placeholder="Joe Biden">
-              </div>
-              <div class="col-4">
-                <label for="Ending">Ending</label>
-                <input type="input" class="form-control" id="exampleInputArticle" aria-describedby="emailHelp" placeholder="Jazz">
+              <div class="col-8">
+                <%= form_with url: start_path, method: :post do |form| %>
+                  <select class="tom-select" id="select-start" name="start_url" placeholder="Where to start..." multiple></select>
+                  <select class="tom-select" id="select-end" name="end_url" placeholder="Where to end..." multiple></select>
+                  <input type="submit" value="START" class="">
+                  <link href="https://cdn.jsdelivr.net/npm/tom-select@2.0.0/dist/css/tom-select.css" rel="stylesheet">
+                  <script src="https://cdn.jsdelivr.net/npm/tom-select@2.0.0/dist/js/tom-select.complete.min.js"></script>
+                <% end %>
               </div>
               <div class="col-1 align-items-center mt-3">
                 <p>Random</p>
