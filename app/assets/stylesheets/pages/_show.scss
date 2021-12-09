@@ -256,3 +256,13 @@ input:checked + .slider:before {
 .lobby-current-user {
   background: $fire-gradient;
 }
+
+
+.player-is-ready {
+  color: green;
+  transform: scale(1.3);
+}
+
+.fa-check-circle {
+  transition: transform 300ms ease-in-out;
+}

@@ -49,16 +49,19 @@ class LobbiesController < ApplicationController
 
   def ready
     game_session = current_user.only_open_session
-    game_session.update!(ready?: !game_session.ready?)
-    total_game_sessions = game_session.sibling_game_sessions
-    cable_ready[LobbyChannel]
-      .console_log(
-        message: "User with game_session #{game_session.id} is #{game_session.ready? ? 'ready' : 'not ready'}"
-      )
-      .text_content(
-        selector: "#ready-button",
-        text: "#{total_game_sessions.where(ready?: true).count}/#{total_game_sessions.count}"
-      )
-      .broadcast_to(game_session.lobby)
+    current_state = game_session.ready
+    game_session.update!(ready: !current_state)
+    # render :nothing
+    #render operations: cable_car.console_log(message: "You just clicked the ready  button")
+    # total_game_sessions = game_session.sibling_game_sessions
+    # cable_ready[LobbyChannel]
+    #   .console_log(
+    #     message: "User with game_session #{game_session.id} is #{game_session.ready? ? 'ready' : 'not ready'}"
+    #   )
+    #   .text_content(
+    #     selector: "#ready-button",
+    #     text: "#{total_game_sessions.where(ready?: true).count}/#{total_game_sessions.count}"
+    #   )
+    #   .broadcast_to(game_session.lobby)
   end
 end

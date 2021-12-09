@@ -18,6 +18,7 @@ export default class extends Controller {
 
     document.addEventListener('start:game', () => {
       this.startGame();
+
     })
   }
 

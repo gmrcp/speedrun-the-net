@@ -9,7 +9,7 @@
   </div>
   <div class="d-flex flex-column justify-content-between align-items-center me-2">
     <div class="user-badge">
-      <i class="far fa-check-circle"></i>
+      <i class="far fa-check-circle <%= "player-is-ready" if session.ready  %>"></i>
     </div>
     <% if session.user == session.lobby.owner %>
       <div class="user-badge mt-3">
