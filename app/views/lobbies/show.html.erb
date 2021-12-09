@@ -1,22 +1,22 @@
 <link href="https://cdn.jsdelivr.net/npm/tom-select@2.0.0/dist/css/tom-select.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/tom-select@2.0.0/dist/js/tom-select.complete.min.js"></script>
 <div data-controller="lobby"
-     data-lobby-id-value="<%= @lobby.id %>"
-     id="<%= dom_id(@lobby) %>"
+     data-lobby-id-value="<%= @game_session.lobby.id %>"
+     id="<%= dom_id(@game_session.lobby) %>"
      class='lobby-div'
 >
   <div class="container-lobby mh-100">
     <div class="row mh-100" style="height: 100%;">
-      <!-- LEFT COLUMN - PLAYERS + BUTTONS -->
       <div class="col-5 col-md-4 col-lg-4 col-xl-3 left-column" style="height: 100%;">
         <div class="bg-light p-2 players-container">
-          <div class="d-flex align-items-center py-3 bg-white p-1 mb-1 lobby-owner lobby-player">
+          <div class="d-flex align-items-center py-3 bg-white p-1 mb-1 lobby-owner lobby-player"
+            id="<%= dom_id(@game_session.lobby.owner) %>">
             <div class="avatar avatar-small me-3 ms-2">
               <%= image_tag "avatar.png", class: 'img-fluid rounded-circle border-2 border-primary border' %>
             </div>
             <div class="name flex-grow-1">
               <p class="lh-1">Apprentice</p>
-              <h4 class="m-0 lh-1"><%= @lobby.owner.username %></h4>
+              <h4 class="m-0 lh-1"><%= @game_session.lobby.owner.username %></h4>
             </div>
             <div class="d-flex flex-column justify-content-between align-items-center me-2">
               <div class="user-badge mb-3">
@@ -29,16 +29,17 @@
           </div>
           <!-- LISFT OF LOBBY PLAYERS -->
           <div class='players'>
-            <% @lobby.games.first.game_sessions.where(status: 'open').each do |session| %>
-              <% next if @lobby.owner == session.user %>
-              <%= render partial: 'game_session', locals: {session: session} %>
+            <% @game_session.game.game_sessions.open.includes(:user).each do |session| %>
+              <% next if @game_session.lobby.owner == session.user %>
+              <%= render partial: 'shared/game_session', locals: {session: session} %>
             <% end %>
           </div>
           <!-- LISFT OF LOBBY PLAYERS -->
         </div>
-        <div class="inv-buttons">
-          <%= button_tag 'INVITE', value: @lobby.code, id: 'lobbyCode', class: 'button small empty me-2' %>
-          <%= button_tag "JOIN", data: { bs_toggle: "modal", bs_target: '#askLobby' }, class: 'button small filled' %>
+          <div class="inv-buttons">
+            <%= button_tag 'INVITE', value: @game_session.lobby.code, id: 'lobbyCode', class: 'button small empty me-2' %>
+            <%= button_tag "JOIN", data: { bs_toggle: "modal", bs_target: '#askLobby' }, class: 'button small filled' %>
+          </div>
           <div id="alert-container">
           </div>
         </div>
@@ -48,9 +49,10 @@
       <div class="modal fade" id="askLobby" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
-            <%= simple_form_for(@lobby, url: lobby_code_path(@lobby.code)) do |f| %>
+            <%= simple_form_for(:lobby, url: join_lobby_path(:lobby)) do |f| %>
               <%= f.input :code,
                           required: true,
+                          input_html: {value: '', autocomplete: 'off'},
                           class: 'form-control p-2',
                           placeholder: 'lobby code' %>
               <%= f.submit 'JOIN', class: 'button large filled' %>
@@ -68,6 +70,14 @@
           <div class="d-flex align-items-md-center">
             <%#= link_to 'Ready', ready_path, class: 'btn-enter-outline me-4', data: {remote: true} %>
             <%= button_to '← Back', destroy_user_session_path, method: "delete", class: 'btn-back', data: {remote: false} %>
+            <% if current_user == @game_session.lobby.owner %>
+              <%= render partial: 'shared/start_button' %>
+            <% end %>
+            <% if @game_session.sibling_game_sessions.count > 1 %>
+              <%= render partial: 'ready_button', locals: { session: @game_session } %>
+            <% end %>
+          </div>
+        </div>
             <%#= link_to 'Start', start_path, class: 'btn-enter me-5' %>
           </div>
         </div>
@@ -78,9 +88,3 @@
     </div>
   </div>
 </div>
-<!-- <h1>Lobbies#show</h1>
-<p>Find me in app/views/lobbies/show.html.erb</p>
-<p>Logged in as: <%= current_user.email %></p>
-<p>Lobby owner: <%= @lobby.owner.email %></p>
-<p>Lobby owner: <%= @lobby.owner.username %></p>
-<p>Lobby code: <%= @lobby.code %></p>  ––>

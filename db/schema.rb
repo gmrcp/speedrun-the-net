@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2021_12_02_225259) do
     t.datetime "ended_at"
     t.integer "clicks", default: 0
     t.string "path", default: [], array: true
-    t.boolean "ready?", default: false
+    t.boolean "ready", default: false
     t.integer "status", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
