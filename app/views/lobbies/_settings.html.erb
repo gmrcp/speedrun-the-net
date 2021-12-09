@@ -10,7 +10,6 @@
           <label for="select-end">Goal:</label>
           <input class="tom-select" id="select-end" name="end_url" placeholder="Where to end..." multiple>
         </div>
-      <% end %>
       <div class="toggle-switch">
         <label for="">Random<br>Article</label>
         <label class="switch">
@@ -39,5 +38,10 @@
         <input type="input" class="form-control" id="exampleInputArticle" aria-describedby="emailHelp" placeholder="03">
       </div>
     </div>
+  </div>
+  <div class="buttons-wrapper">
+    <%= link_to 'Ready', ready_path, class: 'btn-enter-outline', data: {remote: true} %>
+    <input type="submit" value="START" class="btn-enter start">
+    <% end %>
   </div>
 </div>
