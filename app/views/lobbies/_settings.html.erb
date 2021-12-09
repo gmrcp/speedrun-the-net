@@ -1,0 +1,47 @@
+<div class="wrapper">
+  <div class="settings">
+    <div class="settings-row-1">
+      <%= form_with url: start_path, method: :post, class: 'settings-form' do |form| %>
+        <div class="start-article">
+          <label for="select-start">Starting:</label>
+          <input type="text" class="tom-select" id="select-start" name="start_url" placeholder="Where to start..." multiple>
+        </div>
+        <div class="goal-article">
+          <label for="select-end">Goal:</label>
+          <input class="tom-select" id="select-end" name="end_url" placeholder="Where to end..." multiple>
+        </div>
+      <div class="toggle-switch">
+        <label for="">Random<br>Article</label>
+        <label class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+        </label>
+      </div>
+    </div>
+    <div class="settings-row-2">
+      <div class="dropdown">
+        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          Game mode
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" href="#">Wikipedia</a></li>
+          <li><a class="dropdown-item" href="#">IMDB</a></li>
+          <li><a class="dropdown-item" href="#">Something else</a></li>
+        </ul>
+      </div>
+      <div class="timer">
+        <label for="Timer">Time limit</label>
+        <input type="input" class="form-control" id="exampleInputArticle" aria-describedby="emailHelp" placeholder="05:00">
+      </div>
+      <div class="rounds">
+        <label for="Rounds">Rounds</label>
+        <input type="input" class="form-control" id="exampleInputArticle" aria-describedby="emailHelp" placeholder="03">
+      </div>
+    </div>
+  </div>
+  <div class="buttons-wrapper">
+    <%= link_to 'Ready', ready_path, class: 'btn-enter-outline', data: {remote: true} %>
+    <input type="submit" value="START" class="btn-enter start">
+    <% end %>
+  </div>
+</div>

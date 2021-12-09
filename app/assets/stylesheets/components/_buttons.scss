@@ -14,8 +14,10 @@
   color: white;
   font-size: 16px;
   padding: 7px 35px;
+  border: 2px $purple-primary solid;
 
   &:hover {
+    border: 2px lighten($purple-primary, $amount: 10%) solid;
     background-color: lighten($purple-primary, $amount: 10%);
     transition: all 0.15s cubic-bezier(0.22, 0.61, 0.2, 1);
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 3px 5px;
@@ -24,13 +26,12 @@
 
 .button.large.empty {
   background-color: $white;
-  border-color: $purple-primary;
-  border-width: 2px;
-  border-style: solid;
+  border: 2px $purple-primary solid;
   color: $purple-primary;
   font-size: 16px;
   padding: 7px 35px;
   min-width: 130px;
+  box-sizing: border-box;
 
   &:hover {
     color: $white;
@@ -47,17 +48,30 @@
 }
 
 .button.small.filled {
-  background-color: #fd4e18;
+  background-color: $purple-primary;
+  border: 2px $purple-primary solid;
   color: white;
+
+  &:hover {
+    border: 2px lighten($purple-primary, $amount: 10%) solid;
+    background-color: lighten($purple-primary, $amount: 10%);
+    transition: all 0.15s cubic-bezier(0.22, 0.61, 0.2, 1);
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 3px 5px;
+  }
+
 }
 
 .button.small.empty {
-  background-color: $button-gray;
-  border-color: #fd4e18;
-  border-width: 2px;
-  border-style: solid;
-  color: #fd4e18;
-  border-width: thin;
+  background-color: $white;
+  border: 2px solid $purple-primary;
+  color: $purple-primary;
+
+  &:hover {
+    color: $white;
+    background-color: $purple-primary;
+    transition: all 0.15s cubic-bezier(0.22, 0.61, 0.2, 1);
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 3px 5px;
+  }
 }
 
 .btn-enter {
@@ -75,12 +89,6 @@
   margin-top: 0.9rem;
   margin-bottom: 1rem;
   letter-spacing: 0.1rem;
-
-  .btn-back {
-    position: absolute;
-    top: -45px;
-    left: 22px;
-  }
 
   &-outline {
     background-color: white;
@@ -107,20 +115,16 @@
 }
 
 .btn-back {
-  background-color: $purple-primary;
-  color: $white;
-  border: 0px;
-  left: 35px;
-  top: -40px;
-  align-items: center;
-  padding: 0.2rem 0.1rem;
-  position: absolute;
-  border-bottom: 0px $white solid;
+  background: $purple-primary;
+  color: white;
+  font-size: 16px;
+  padding: 5px 15px;
+  border: none;
+  border-radius: 25px;
 
   &:hover {
-    // color: $purple-primary;
-    // background-color: $white;
-    transition: all .05s linear;
-    border-bottom: 2px $white solid;
+    background-color: lighten($purple-primary, $amount: 10%);
+    transition: all 0.15s cubic-bezier(0.22, 0.61, 0.2, 1);
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 3px 5px;
   }
 }

@@ -7,9 +7,9 @@
 >
   <div class="container-lobby mh-100">
     <div class="row mh-100" style="height: 100%;">
-      <div class="col-5 col-md-5 col-lg-4 col-xl-3" style="height: 100%;">
-        <%= button_to '← Back', destroy_user_session_path, method: "delete", class: 'btn-back', data: {remote: false} %>
-        <div class="overflow-scroll bg-light p-2 players-container">
+      <!-- LEFT COLUMN - PLAYERS + BUTTONS -->
+      <div class="col-5 col-md-4 col-lg-4 col-xl-3 left-column" style="height: 100%;">
+        <div class="bg-light p-2 players-container">
           <div class="d-flex align-items-center py-3 bg-white p-1 mb-1 lobby-owner lobby-player">
             <div class="avatar avatar-small me-3 ms-2">
               <%= image_tag "avatar.png", class: 'img-fluid rounded-circle border-2 border-primary border' %>
@@ -34,15 +34,14 @@
             <% end %>
           </div>
         </div>
-        <div class="row mt-2">
-          <div class="col d-flex justify-content-center">
-            <%= button_tag 'INVITE', value: @lobby.code, id: 'lobbyCode', class: 'button large empty me-3' %>
-            <%= button_tag "JOIN", data: { bs_toggle: "modal", bs_target: '#askLobby' }, class: 'button large filled' %>
-          </div>
+        <div class="inv-buttons">
+          <%= button_tag 'INVITE', value: @lobby.code, id: 'lobbyCode', class: 'button small empty me-2' %>
+          <%= button_tag "JOIN", data: { bs_toggle: "modal", bs_target: '#askLobby' }, class: 'button small filled' %>
           <div id="alert-container">
           </div>
         </div>
       </div>
+      <!-- LEFT COLUMN - PLAYERS + BUTTONS -->
       <!-- MODAL -->
       <div class="modal fade" id="askLobby" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -58,67 +57,22 @@
         </div>
       </div>
       <!-- MODAL -->
-      <div class="col-7 col-md-7 col-lg-8 col-xl-9 d-flex flex-column mt-1 lobby-settings-container">
+      <!-- RIGHT COLUMN - SETTINGS + BUTTONS + CHAT -->
+      <div class="col-7 col-md-8 col-lg-8 col-xl-9 d-flex flex-column mt-1 lobby-settings-container">
         <div class="d-flex mb-1 ms-4 align-items-center justify-content-between mt-1">
           <div class="d-flex justify-content-center align-items-center position-relative">
             <h2 class="text-uppercase font-weight-bold me-5 fs-4"> Game modes</h2>
           </div>
           <div class="d-flex align-items-md-center">
-            <%= link_to 'Ready', ready_path, class: 'btn-enter-outline me-4', data: {remote: true} %>
-            <%= link_to 'Start', start_path, class: 'btn-enter me-5' %>
+            <%#= link_to 'Ready', ready_path, class: 'btn-enter-outline me-4', data: {remote: true} %>
+            <%= button_to '← Back', destroy_user_session_path, method: "delete", class: 'btn-back', data: {remote: false} %>
+            <%#= link_to 'Start', start_path, class: 'btn-enter me-5' %>
           </div>
         </div>
-        <div class="row d-flex flex-direction-column settings w-75">
-          <div class="row setting-row-1">
-            <%= form_with url: start_path, method: :post do |form| %>
-              <div class="p-4 start-article">
-                <input type="text" class="tom-select" id="select-start" name="start_url" placeholder="How cool is this?" multiple>
-              </div>
-              <div class="goal-article">
-                <select class="tom-select" id="select-end" name="end_url" placeholder="Where to end..." multiple></select>
-              </div>
-              <input type="submit" value="START" class="">
-            <% end %>
-            <div class="col-1 align-items-center mt-3">
-              <p>Random</p>
-              <label class="switch">
-              <input type="checkbox">
-              <span class="slider round"></span>
-              </label>
-            </div>
-          </div>
-            <div class="row d-flex">
-              <div class="dropdown col-4 mt-4">
-                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                  Game mode
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li><a class="dropdown-item" href="#">Wikipedia</a></li>
-                  <li><a class="dropdown-item" href="#">IMDB</a></li>
-                  <li><a class="dropdown-item" href="#">Something else</a></li>
-                </ul>
-              </div>
-              <div class="timer col-4">
-                <label for="Timer">Time limit</label>
-                <input type="input" class="form-control" id="exampleInputArticle" aria-describedby="emailHelp" placeholder="05:00">
-              </div>
-              <div class="timer col-2 mb-3">
-                <label for="Rounds">Rounds</label>
-                <input type="input" class="form-control" id="exampleInputArticle" aria-describedby="emailHelp" placeholder="03">
-              </div>
-            </div>
-          </div>
-          <div class="overflow-scroll row message_board" style="height:100%">
-            <div class="message-board">
-              This is the message board
-            </div>
-            <div class="input-group align-content-end mb-2">
-              <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
-              <span class="input-group-text"><i class="fas fa-paper-plane"></i></span>
-            </div>
-          </div>
-        </div>
+        <%= render partial: 'settings' %>
+        <%= render partial: 'chat' %>
       </div>
+      <!-- RIGHT COLUMN - SETTINGS + BUTTONS + CHAT -->
     </div>
   </div>
 </div>

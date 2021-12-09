@@ -1,0 +1,73 @@
+.chat {
+  border-radius: 10px;
+  background: linear-gradient(179.75deg, #fefefe 50.19%, #f0f0f9 99.76%);
+  box-shadow: 25px 25px 34px rgba(63, 54, 155, 0.08);
+  align-content: space-between;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  max-height: 100%;
+
+  .message-board {
+    margin-left: 10px;
+    font-size: 0.9rem;
+    padding: 10px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    max-height: 100%;
+    overflow: scroll;
+    height: 50px;
+  }
+
+  .message {
+    color: $dark-text;
+
+    span {
+      font-weight: 600;
+    }
+  }
+
+  .input-group {
+    height: min-content;
+    padding: 0 15px;
+    padding-bottom: 15px;
+
+    input[type="text"] {
+      border: none;
+    }
+
+    span {
+      border: none;
+    }
+  }
+
+  .message-content {
+    position: relative;
+    width: 100%;
+
+    span {
+      position: absolute;
+      right: 11px;
+      bottom: 6px;
+      color: $purple-primary;
+    }
+  }
+
+  .input-group-text {
+    background: white;
+    border-left: white;
+    color: $purple-primary;
+    border-radius: 10px;
+  }
+
+  .form-control {
+    background: white;
+    border-right: white;
+    border-radius: 10px;
+    button {
+      border: none;
+    }
+  }
+}

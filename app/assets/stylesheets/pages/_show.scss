@@ -5,48 +5,7 @@
 .container-lobby {
   background-color: $white;
   height: 100%;
-
-  .ts-control {
-      width: 200px;
-
-      .ts-dropdown{
-        width: 60%;
-      }
-      .ts-dropdown-content {
-        max-height: 120px !important;
-      }
-    }
-
-  .settings {
-    background: $white;
-    box-shadow: -10px 10px 25px rgba(255, 116, 69, 0.05);
-    padding: 15px 20px;
-    border-radius: 25px;
-    color: $purple-primary;
-    border: none;
-
-    &-row-1 {
-      display: flex;
-
-      #select-start {
-
-
-      }
-    }
-  }
-
-  .dropdown-toggle {
-    color: $purple-primary;
-  }
-
-  .input-group-text {
-    border: none;
-  }
-
-  .form-control {
-    background-color: rgb(255, 255, 255);
-    border: none;
-  }
+  padding: 30px 60px 0px 10px;
 
   .placehold {
     background: $fire-gradient;
@@ -64,14 +23,22 @@
     height: 85px;
   }
 
+  .left-column {
+    padding-bottom: 30px;
+  }
+
   .players-container {
     max-height: calc(100% - 65px);
     height: 100%;
     border-radius: 20px 20px 0 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
 
   .lobby-settings-container {
     max-height: calc(100% - 25px);
+    padding-left: 30px;
+    justify-content: space-between;
   }
 
   .game-mode {
@@ -85,10 +52,21 @@
     }
   }
 
+  .inv-buttons {
+    margin-top: 15px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+  }
+
   .buttons {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  #lobbyCode {
+    min-width: 115px;
   }
 
   .alert {
@@ -114,33 +92,6 @@
     }
   }
 
-  .message_board {
-    border-radius: 10px;
-    background: linear-gradient(179.75deg, #fefefe 50.19%, #f0f0f9 99.76%);
-    box-shadow: 25px 25px 34px rgba(63, 54, 155, 0.08);
-    align-content: space-between;
-    display: flex;
-
-    .input-group {
-      height: min-content;
-    }
-
-    .input-group-text {
-      background: white;
-      border-left: white;
-      color: $purple-primary;
-      border-radius: 10px;
-    }
-
-    .form-control {
-      background: white;
-      border-right: white;
-      border-radius: 10px;
-      button {
-        border: none;
-      }
-    }
-  }
   .modal-dialog {
     top: 40vh;
   }
@@ -174,67 +125,5 @@
         margin-bottom: 20px;
       }
     }
-  }
-  /* The switch - the box around the slider */
-  .switch {
-    position: relative;
-    display: inline-block;
-    width: 30px;
-    height: 17px;
-  }
-
-  /* Hide default HTML checkbox */
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-
-  /* The slider */
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
-  }
-
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 13px;
-    width: 13px;
-    left: 2px;
-    bottom: 2px;
-    background-color: rgb(159, 137, 180);
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
-  }
-
-  input:checked + .slider {
-    background-color: $purple-primary;
-  }
-
-  input:focus + .slider {
-    box-shadow: 0 0 1px $purple-primary;
-  }
-
-  input:checked + .slider:before {
-    -webkit-transform: translateX(13px);
-    -ms-transform: translateX(13px);
-    transform: translateX(13px);
-  }
-
-  /* Rounded sliders */
-  .slider.round {
-    border-radius: 17px;
-  }
-
-  .slider.round:before {
-    border-radius: 50%;
   }
 }
