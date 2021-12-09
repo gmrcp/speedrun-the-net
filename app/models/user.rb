@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-  include CableReady::Broadcaster
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -10,13 +9,7 @@ class User < ApplicationRecord
   has_many :lobbies # , foreign_key: :owner_id
   has_many :game_sessions
   validates :email, uniqueness: false
-  validates :username, presence: true, length: { minimum: 2, maximum: 10 }
-
-  after_create do
-    cable_ready["visitors"]
-      .console_log(message: "Welcome #{self} to the site!")
-      .broadcast # send queued console_log operation to all PlayChannel subscribers
-  end
+  validates :username, presence: true, length: { minimum: 2, maximum: 12 }, uniqueness: true, format: { with: /\A[a-zA-Z0-9]+\Z/ }
 
   attr_writer :login
 
@@ -53,5 +46,9 @@ class User < ApplicationRecord
 
   def password_required?
     false
+  end
+
+  def only_open_session
+    game_sessions.includes(:lobby, lobby: :owner).open.last
   end
 end
