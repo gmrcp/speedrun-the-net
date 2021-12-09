@@ -13,6 +13,10 @@
 @import "components/index";
 @import "pages/index";
 
+// LOBBY
+@import 'components/settings';
+@import 'components/chat';
+
 body {
   height: 100vh;
 }
