@@ -20,8 +20,8 @@ class GameSession < ApplicationRecord
     cable_ready[LobbyChannel]
       .morph(selector: dom_id(self),
              html: render(partial: 'shared/game_session', locals: { session: self }))
-      .morph(selector: "#ready-start-buttons",
-             html: render(partial: 'shared/ready_start_button', locals: { session: self, user: user }))
+      .morph(selector: "#ready-button",
+             html: render(partial: 'shared/ready_button', locals: { session: self }))
       .broadcast_to(lobby)
 
     if sibling_game_sessions.where(ready: true).count >= sibling_game_sessions.count / 2
