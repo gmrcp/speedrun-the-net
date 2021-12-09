@@ -31,6 +31,25 @@
     background: $fire-gradient;
   }
 
+  .ts-control  {
+    border-radius: 12px;
+    border-color: $purple-primary;
+  }
+
+  .submit-start{
+    border-radius: 30px;
+    text-decoration: none;
+    font-family: 'Source Sans Pro', sans-serif;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+    border: none;
+    letter-spacing: 2px;
+    background-color: #FD4E18;
+    color: white;
+    padding: 10px 20px;
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+
+
   .text-uppercase {
     border-bottom: 2px $orange-dark solid;
   }
@@ -118,6 +137,7 @@
       border-radius: 100px;
       left: -5px;
       top: -55px;
+      text-decoration: none;
 
       &:hover {
         color: $white;

@@ -58,23 +58,22 @@
       <div class="col-7 col-md-7 col-lg-8 col-xl-9 d-flex flex-column mt-1" style="height: 60vh;">
         <div class="d-flex mb-1 ms-4 align-items-center justify-content-between mt-1">
           <div class="d-flex justify-content-center align-items-center position-relative">
+            <%= form_with url: start_path, method: :post do |form| %>
             <h2 class="text-uppercase font-weight-bold me-5 fs-4"> Game modes</h2>
           </div>
           <div class="d-flex align-items-md-center">
-          <%= button_to '← Back', destroy_user_session_path, method: "delete", class: 'btn-enter-outline me-4', data: {remote: false} %>
-          <%= link_to 'Ready', ready_path, class: 'btn-enter-outline me-4', data: {remote: true} %>
-          <%= link_to 'Start', start_path, class: 'btn-enter me-5' %>
+            <%= button_to '← Back', destroy_user_session_path, method: "delete", class: 'btn-enter-outline me-4', data: {remote: false} %>
+            <%= link_to 'Ready', ready_path, class: 'btn-enter-outline me-4', data: {remote: true} %>
+            <input type="submit" value="START" class="submit-start">
           </div>
         </div>
 
-        <div class="container m-0" style="height: 70%;">
+        <div class="container mt-3" style="height: 70%;">
           <div class="row d-flex settings w-75">
               <div class="row">
                 <div class="col-8">
-                  <%= form_with url: start_path, method: :post do |form| %>
-                    <select class="tom-select" id="select-start" name="start_url" placeholder="Where to start..." multiple></select>
-                    <select class="tom-select" id="select-end" name="end_url" placeholder="Where to end..." multiple></select>
-                    <input type="submit" value="START" class="">
+                    <select class="tom-select mt-3" id="select-start" name="start_url" placeholder="Where to start..." multiple></select>
+                    <select class="tom-select mt-1 mb-2" id="select-end" name="end_url" placeholder="Where to end..." multiple></select>
                     <link href="https://cdn.jsdelivr.net/npm/tom-select@2.0.0/dist/css/tom-select.css" rel="stylesheet">
                     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.0.0/dist/js/tom-select.complete.min.js"></script>
                   <% end %>
@@ -109,7 +108,7 @@
               </div>
             </div>
           </div>
-          <div class="mt-4">
+          <div class="mt-2">
             <div class="overflow-scroll row message_board" style="height:25vh">
               This is the message board
               <div class="input-group align-content-end mb-2">
