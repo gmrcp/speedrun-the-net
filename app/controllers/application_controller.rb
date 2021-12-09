@@ -22,4 +22,8 @@ class ApplicationController < ActionController::Base
   def skip_pundit?
     devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
   end
+
+  def default_url_options
+    { host: ENV["http://www.speedrunthe.net/"] || "localhost:3000" }
+  end
 end
