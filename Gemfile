@@ -29,6 +29,7 @@ gem 'redis', ">= 3.2.0", require: ["redis", "redis/connection/hiredis"]
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
+gem "typhoeus"
 
 gem 'stimulus-rails'
 gem "cable_ready", github: "stimulusreflex/cable_ready"

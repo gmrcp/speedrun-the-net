@@ -9,8 +9,8 @@ class LobbiesController < ApplicationController
   def create
     current_user.game_sessions.open.destroy_all # Destroy all open game_sessions
 
-    @lobby = Lobby.create!(owner: current_user)
-    game = Game.create!(lobby: @lobby)
+    lobby = Lobby.create!(owner: current_user)
+    game = Game.create!(lobby: lobby)
     GameSession.create!(game: game,
                         user: current_user)
     redirect_to lobby_path
@@ -21,15 +21,30 @@ class LobbiesController < ApplicationController
     if lobby.nil?
       redirect_to lobby_path, alert: 'Sorry! Invalid code.'
     else
-      @lobby = lobby
       current_user.game_sessions.open.destroy_all # Destroy all open game_sessions
-      GameSession.create!(game: @lobby.games.first,
+      GameSession.create!(game: lobby.games.first,
                           user: current_user)
       redirect_to lobby_path
     end
   end
 
-  def start_game
+  def owner_start
+    owner_session = current_user.only_open_session
+    if owner_session.lobby.owner == current_user && params[:start_url] && params[:end_url]
+      game = owner_session.game
+      params.permit(:start_url, :end_url)
+      game.update!({ start_url: params[:start_url], end_url: params[:end_url] })
+      cable_ready[LobbyChannel]
+        .console_log(message: "Owner is starting the game!")
+        .append(
+          selector: "body",
+          html: "<a class='d-none' id='start-game-for-all' href='/start?end_url=#{game.end_url}&start_url=#{game.start_url}'></a>"
+        )
+        .dispatch_event(name: 'start:game')
+        .broadcast_to(current_user.only_open_session.lobby)
+    else
+      redirect_to lobby_path, alert: 'Something went wrong while starting the game...'
+    end
   end
 
   def ready

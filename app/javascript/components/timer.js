@@ -1,7 +1,7 @@
 const displayTime = async () => {
   const timer = document.getElementById('timer')
   const startTime = timer.dataset.startTime
-  for (let i = 0; i < 100000; i++) {
+  while(true) {
     formatTime(startTime, timer);
     await new Promise(r => setTimeout(r, 1000));
   };

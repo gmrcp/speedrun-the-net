@@ -71,7 +71,7 @@
           <div class="row d-flex settings w-75">
               <div class="row">
                 <div class="col-8">
-                  <%= form_with url: start_path, method: :post do |form| %>
+                  <%= form_with url: owner_start_path, method: :post do |form| %>
                     <select class="tom-select" id="select-start" name="start_url" placeholder="Where to start..." multiple></select>
                     <select class="tom-select" id="select-end" name="end_url" placeholder="Where to end..." multiple></select>
                     <input type="submit" value="START" class="">

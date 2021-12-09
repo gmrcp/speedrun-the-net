@@ -1,5 +1,6 @@
 <% if user == session.lobby.owner %>
-  <%= link_to 'Start', start_path(start_url: 'Joe_Biden', end_url: 'Jazz'), class: 'btn-enter me-5', id: 'start-game-for-all' %>
+  <%= button_to 'Start', owner_start_path(start_url: 'Joe_Biden', end_url: 'Jazz'),
+  class: 'btn-enter me-5' %>
 <% else %>
   <%= link_to "0/#{session.sibling_game_sessions.count} Ready", ready_path, id: 'ready-button', class: 'btn-enter-outline me-4', data: {remote: true} %>
 <% end %>

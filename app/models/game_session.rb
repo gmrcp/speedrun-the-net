@@ -10,14 +10,22 @@ class GameSession < ApplicationRecord
     cable_ready[LobbyChannel]
       .append(selector: "#{dom_id(lobby)} .players",
               html: render(partial: 'shared/game_session', locals: { session: self }))
-      .console_log("User with game_session #{id} just joined")
+      .console_log(message: "User with game_session #{id} just joined")
+      .broadcast_to(lobby)
+  end
+
+  after_update do
+    cable_ready[PlayChannel]
+      .text_content(selector: "#{dom_id(self)}>.num-clicks",
+                    text: clicks.to_s)
+      .console_log(message: "#{id} has #{clicks} clicks")
       .broadcast_to(lobby)
   end
 
   after_destroy do
     cable_ready[LobbyChannel]
       .remove(selector: "#{dom_id(self)}")
-      .console_log("User with game_session #{id} just left the lobby")
+      .console_log(message: "User with game_session #{id} just left the lobby")
       .broadcast_to(lobby)
   end
 

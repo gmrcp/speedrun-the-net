@@ -3,34 +3,15 @@ require 'open-uri'
 class GameSessionsController < ApplicationController
 
   def start_game
-    @game_session = GameSession.includes(:game).find_by(
-      {
-        user: current_user,
-        status: 0
-      }
-    )
-    if params[:start_url] && params[:end_url]
-      params.permit(:start_url, :end_url)
-      @game_session.game.update(
-        {
-          start_url: params[:start_url],
-          end_url: params[:end_url]
-        }
-      )
-      @game_session.update(
-        {
-          started_at: Time.now,
-          status: 1
-        }
-      )
-      @img_start_url = get_image_wiki(@game_session.game.start_url)
-      @img_end_url =   get_image_wiki(@game_session.game.end_url)
-      @html_game =     format_wiki_article(@game_session.game.start_url)
+    @game_session = current_user.only_open_session
 
-      render :play
-    else
-      redirect_to lobby_path(code: @game_session.lobby.code), alert: "That didn't work... Try again!"
-    end
+    @img_start_url, @img_end_url = request_wiki_images(
+      [@game_session.game.start_url, @game_session.game.end_url]
+    )
+    @html_game = get_wiki_article(@game_session.game.start_url)
+    @game_session.update({ started_at: Time.now, status: 1 })
+
+    render :play
   end
 
   def play
@@ -48,7 +29,7 @@ class GameSessionsController < ApplicationController
         .inner_html('#score-modal', html: html)
         .dispatch_event(name: 'win:game')
     else
-      html_game = wiki
+      html_game = get_wiki_article(params[:article])
       render operations: cable_car
         .text_content('#user-counter', text: @game_session.clicks.to_s)
         .inner_html('#game-page', html: html_game)
@@ -58,36 +39,10 @@ class GameSessionsController < ApplicationController
 
   private
 
-  def wiki
-    # TODO, array to confirm link clicked is present in previous page
-
-    # Modify Back button
-    # render operations: cable_car
-    #     .text_content('#back-button', text: @game_session.clicks.count.to_s)
-    #     .inner_html('#game-page', html: html_game)
-    #     .dispatch_event(name: 'article:refresh')
-
-
-    # Check win condition
-
-    return format_wiki_article(params[:article])
-  end
-
-  def get_image_wiki(option)
-    url = "https://en.wikipedia.org/w/api.php?action=query&titles=#{option}&prop=pageimages&format=json&pithumbsize=100"
-    html = URI.parse(url).open
-    json = JSON.parse(html.read)
-    begin
-      return json['query']['pages'].values[0]['thumbnail']['source']
-    rescue
-      return "https://via.placeholder.com/80"
-    end
-  end
-
-  def format_wiki_article(url)
+  def get_wiki_article(url)
     # TODO, add geolocation to modify behaviour for different wikipedia languages
     url = "https://en.wikipedia.org/wiki/#{url}"
-    html_file = URI.parse(url).open
+    html_file = request_wiki(url)
     html_doc = Nokogiri::HTML(html_file)
 
     # Display only article
@@ -113,7 +68,42 @@ class GameSessionsController < ApplicationController
         link[:href] = "/game_session/#{@game_session.id}/#{href}"
       end
     end
-
     return html_doc.to_s.html_safe
+  end
+
+  def request_wiki(url)
+    request = Typhoeus::Request.new(url, followlocation: true)
+    request.on_complete do |response|
+      if response.success?
+        return response.body
+      elsif response.timed_out?
+        log("got a time out")
+      elsif response.code == 0
+        # Could not get an http response, something's wrong.
+        log(response.return_message)
+      else
+        # Received a non-successful http response.
+        log("HTTP request failed: " + response.code.to_s)
+      end
+    end
+    request.run
+  end
+
+  def request_wiki_images(options)
+    hydra = Typhoeus::Hydra.new
+    requests = options.map do |option|
+      request = Typhoeus::Request.new("https://en.wikipedia.org/w/api.php?action=query&titles=#{option}&prop=pageimages&format=json&pithumbsize=100", followlocation: true)
+      hydra.queue(request)
+      request
+    end
+    hydra.run
+    responses = requests.map do |request|
+      json = JSON.parse(request.response.body)
+      begin
+        json['query']['pages'].values[0]['thumbnail']['source']
+      rescue
+        "https://img.favpng.com/25/6/12/question-mark-computer-icons-button-png-favpng-pxSnEqGEqwH1zKRAbd60X41gX.jpg"
+      end
+    end
   end
 end

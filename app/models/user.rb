@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :lobbies # , foreign_key: :owner_id
   has_many :game_sessions
   validates :email, uniqueness: false
-  validates :username, presence: true, length: { minimum: 2, maximum: 10 }, uniqueness: true
+  validates :username, presence: true, length: { minimum: 2, maximum: 12 }, uniqueness: true, format: { with: /\A[a-zA-Z0-9]+\Z/ }
 
   attr_writer :login
 
