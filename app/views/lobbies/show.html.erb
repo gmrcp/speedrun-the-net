@@ -109,7 +109,7 @@
         </div>
         <div class="mt-4">
           <div class="overflow-scroll row message_board" style="height:25vh">
-          <div>
+          <div id="messages">
             <% @lobby.messages.each do |message| %>
             <p><strong>
             <%= message.user.username %>:</strong> <%= message.content %> </p>

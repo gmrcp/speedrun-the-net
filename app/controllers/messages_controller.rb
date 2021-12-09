@@ -11,6 +11,7 @@ class MessagesController < ApplicationController
     @message.user = current_user
 
     @message.save!
+    @message.broadcast
     # if @message.save
     #   redirect_to :messages
     #   # LobbieChannel.broadcast_to(@lobby, render_to_string(partial: "message", locals: { message: @message }))
