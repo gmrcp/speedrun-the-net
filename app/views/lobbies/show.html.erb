@@ -27,12 +27,14 @@
               </div>
             </div>
           </div>
+          <!-- LISFT OF LOBBY PLAYERS -->
           <div class='players'>
             <% @lobby.games.first.game_sessions.where(status: 'open').each do |session| %>
               <% next if @lobby.owner == session.user %>
               <%= render partial: 'game_session', locals: {session: session} %>
             <% end %>
           </div>
+          <!-- LISFT OF LOBBY PLAYERS -->
         </div>
         <div class="inv-buttons">
           <%= button_tag 'INVITE', value: @lobby.code, id: 'lobbyCode', class: 'button small empty me-2' %>
