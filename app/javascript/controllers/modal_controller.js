@@ -1,19 +1,22 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from '@hotwired/stimulus'
 
-
-// Connects to data-controller="modal"
 export default class extends Controller {
-  static targets = ['container'];
+  static values = { id: Number }
 
   connect() {
-    // const modal = new bootstrap.Modal(document.getElementById('score-modal'));
     document.addEventListener("win:game", () => {
-      this.open()
+      this.highlight();
+      this.openModal()
     }, { once: true });
   }
 
-  open() {
+  openModal() {
     const modal = new bootstrap.Modal(document.getElementById('main-modal'));
     modal.show();
+  }
+
+  highlight() {
+    const player_card = document.getElementById(`game_session_${this.idValue}-finish`)
+    player_card.classList.add('user-highlight-lobby')
   }
 }

@@ -1,9 +1,7 @@
-require 'open-uri'
-
 class GameSessionsController < ApplicationController
-
   def start_game
     @game_session = current_user.only_open_session
+    redirect_to root_path, alert: "Something went wrong..." if @game_session.nil?
 
     @img_start_url, @img_end_url = request_wiki_images(
       [@game_session.game.start_url, @game_session.game.end_url]
@@ -22,12 +20,17 @@ class GameSessionsController < ApplicationController
     @game_session.save
 
     if params[:article] == @game_session.game.end_url
-      @game_session.ended_at = Time.now
-      @game_session.save
-      html = render_to_string(partial: 'shared/modal_win', locals: { game_session: @game_session })
+      @game_session.update(ended_at: Time.now, status: 2)
+      html = render_to_string(partial: 'game_sessions/modal_win', locals: { game_session: @game_session })
       render operations: cable_car
         .inner_html('#score-modal', html: html)
         .dispatch_event(name: 'win:game')
+      cable_ready[PlayChannel]
+        .morph(
+          selector: "#{dom_id(@game_session)}-finish",
+          html: render(partial: 'game_sessions/modal_score', locals: { session: GameSession.includes(:user).find(@game_session.id) })
+        )
+        .broadcast_to(@game_session.lobby)
     else
       html_game = get_wiki_article(params[:article])
       render operations: cable_car
@@ -97,7 +100,7 @@ class GameSessionsController < ApplicationController
       request
     end
     hydra.run
-    responses = requests.map do |request|
+    requests.map do |request|
       json = JSON.parse(request.response.body)
       begin
         json['query']['pages'].values[0]['thumbnail']['source']

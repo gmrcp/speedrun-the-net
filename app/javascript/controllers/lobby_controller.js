@@ -1,3 +1,5 @@
+// LOBBY id channel
+
 import { Controller } from '@hotwired/stimulus'
 import CableReady from 'cable_ready'
 

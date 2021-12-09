@@ -5,7 +5,7 @@
 <% end  %>
 
 <div data-play-banner-target="players"
-     class="d-flex align-items-center p-1" <%= "class=current-player" if current_user == user %>
+     class="d-flex align-items-center p-1 <%= 'user-highlight-play' if current_user == user %>",
      id="<%= dom_id(game_session) %>">
   <h5 class="flex-fill text-truncate"><%= user.username %></h5>
   <p class="num-clicks"><%= game_session.clicks %></p>

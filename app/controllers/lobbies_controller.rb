@@ -51,17 +51,26 @@ class LobbiesController < ApplicationController
     game_session = current_user.only_open_session
     current_state = game_session.ready
     game_session.update!(ready: !current_state)
-    # render :nothing
-    #render operations: cable_car.console_log(message: "You just clicked the ready  button")
-    # total_game_sessions = game_session.sibling_game_sessions
-    # cable_ready[LobbyChannel]
-    #   .console_log(
-    #     message: "User with game_session #{game_session.id} is #{game_session.ready? ? 'ready' : 'not ready'}"
-    #   )
-    #   .text_content(
-    #     selector: "#ready-button",
-    #     text: "#{total_game_sessions.where(ready?: true).count}/#{total_game_sessions.count}"
-    #   )
-    #   .broadcast_to(game_session.lobby)
+  end
+
+  def return
+    game_session = current_user.game_sessions.includes(:lobby, lobby: :owner).closed.last
+    game = Game.where(lobby: game_session.lobby, status: 0).last
+    game = Game.create(lobby: game_session.lobby, user: game_session.lobby.owner) if game.nil?
+    @game_session = GameSession.create(user: current_user, game: game)
+    render :show
+  end
+
+  def kick
+    params.permit(:id)
+    kicked_session = GameSession.find(params[:id])
+    cable_ready[PlayersChannel]
+      .dispatch_event(name: 'kick:player')
+      .broadcast_to(kicked_session)
+    kicked_session.destroy
+  end
+
+  def kicked
+    redirect_to create_lobby_path, alert: 'You got kicked from your previous lobby.'
   end
 end

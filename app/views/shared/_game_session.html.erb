@@ -1,4 +1,4 @@
-<div class="d-flex align-items-center py-3 bg-white p-1 mb-1 lobby-player <%= "lobby-current-user" if session.user %>"
+<div class="d-flex align-items-center py-3 bg-white p-1 mb-1 lobby-player"
      id="<%= dom_id(session) %>">
   <div class="avatar avatar-small me-3 ms-2">
     <%= image_tag "avatar.png", class: 'img-fluid rounded-circle border-2 border-primary border' %>
@@ -7,13 +7,13 @@
     <p class="lh-1">Apprentice</p>
     <h4 class="m-0 lh-1"><%= session.user.username %></h4>
   </div>
-  <div class="d-flex flex-column justify-content-between align-items-center me-2">
+  <div class="d-flex flex-column justify-content-between align-items-center me-2 badges">
     <div class="user-badge">
       <i class="far fa-check-circle <%= "player-is-ready" if session.ready  %>"></i>
     </div>
     <% if session.user == session.lobby.owner %>
-      <div class="user-badge mt-3">
-        <i class="fas fa-user-slash"></i>
+      <div class="user-badge mb-3">
+        <%= image_tag "Vector.svg" %>
       </div>
     <% end %>
   </div>

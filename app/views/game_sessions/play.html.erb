@@ -12,7 +12,7 @@
         <img class="avatar-large me-2" src="<%= @img_end_url %>">
         <div>
           <p>GOAL</p>
-          <h3><%= @game_session.game.end_url %></h3>
+          <h3><%= @game_session.game.end_url.gsub(%r{_}, ' ') %></h3>
         </div>
       </div>
     </div>
@@ -52,6 +52,6 @@
     </div>
   </div>
 </div>
-<div data-controller="modal">
-  <%= render 'layouts/modal' %>
+<div data-controller="modal" data-modal-id-value="<%= @game_session.id %>">
+  <%= render partial: 'modal_scores', locals: { all_sessions: @game_session.sibling_game_sessions, current_user: current_user } %>
 </div>
