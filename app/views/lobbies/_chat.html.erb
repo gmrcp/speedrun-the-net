@@ -6,7 +6,7 @@
   </div>
   <div class="input-group align-content-end">
     <div class="message-content">
-      <%= simple_form_for [ lobby, message ], remote: true do |f| %>
+      <%= simple_form_for [ lobby, message ], html: { autocomplete: 'off' }, remote: true do |f| %>
         <% f.input :content, label: false, class: "form-control" %>
       <% end %>
       <span><i class="fas fa-paper-plane"></i></span>
