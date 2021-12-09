@@ -36,10 +36,9 @@
           </div>
           <!-- LISFT OF LOBBY PLAYERS -->
         </div>
-          <div class="inv-buttons">
-            <%= button_tag 'INVITE', value: @game_session.lobby.code, id: 'lobbyCode', class: 'button small empty me-2' %>
-            <%= button_tag "JOIN", data: { bs_toggle: "modal", bs_target: '#askLobby' }, class: 'button small filled' %>
-          </div>
+        <div class="inv-buttons">
+          <%= button_tag 'INVITE', value: @game_session.lobby.code, id: 'lobbyCode', class: 'button small empty me-2' %>
+          <%= button_tag "JOIN", data: { bs_toggle: "modal", bs_target: '#askLobby' }, class: 'button small filled' %>
           <div id="alert-container">
           </div>
         </div>
@@ -70,15 +69,13 @@
           <div class="d-flex align-items-md-center">
             <%#= link_to 'Ready', ready_path, class: 'btn-enter-outline me-4', data: {remote: true} %>
             <%= button_to '← Back', destroy_user_session_path, method: "delete", class: 'btn-back', data: {remote: false} %>
+            <%#= link_to 'Start', start_path, class: 'btn-enter me-5' %>
             <% if current_user == @game_session.lobby.owner %>
               <%= render partial: 'shared/start_button' %>
             <% end %>
             <% if @game_session.sibling_game_sessions.count > 1 %>
               <%= render partial: 'ready_button', locals: { session: @game_session } %>
             <% end %>
-          </div>
-        </div>
-            <%#= link_to 'Start', start_path, class: 'btn-enter me-5' %>
           </div>
         </div>
         <%= render partial: 'settings' %>

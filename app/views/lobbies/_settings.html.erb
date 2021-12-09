@@ -1,7 +1,7 @@
 <div class="wrapper">
   <div class="settings">
     <div class="settings-row-1">
-      <%= form_with url: start_path, method: :post, class: 'settings-form' do |form| %>
+      <%= form_with url: owner_start_path, method: :post, class: 'settings-form' do |form| %>
         <div class="start-article">
           <label for="select-start">Starting:</label>
           <input type="text" class="tom-select" id="select-start" name="start_url" placeholder="Where to start..." multiple>
@@ -10,6 +10,7 @@
           <label for="select-end">Goal:</label>
           <input class="tom-select" id="select-end" name="end_url" placeholder="Where to end..." multiple>
         </div>
+      <% end %>
       <div class="toggle-switch">
         <label for="">Random<br>Article</label>
         <label class="switch">
@@ -38,10 +39,5 @@
         <input type="input" class="form-control" id="exampleInputArticle" aria-describedby="emailHelp" placeholder="03">
       </div>
     </div>
-  </div>
-  <div class="buttons-wrapper">
-    <%= link_to 'Ready', ready_path, class: 'btn-enter-outline', data: {remote: true} %>
-    <input type="submit" value="START" class="btn-enter start">
-    <% end %>
   </div>
 </div>
