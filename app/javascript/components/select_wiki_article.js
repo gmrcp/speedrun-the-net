@@ -29,7 +29,7 @@ const selectWikiArticle = (urlFields) => {
       // custom rendering functions for options and items
       render: {
         option: function (item, escape) {
-          return `<div class="py-2 d-flex">
+          return `<div class="py-1 d-flex">
                   <div>
                     <div class="mb-1">
                       <span class="p">
@@ -40,7 +40,7 @@ const selectWikiArticle = (urlFields) => {
                 </div>`;
         },
         item: function (item, escape) {
-          return `<div class="py-2 d-flex">
+          return `<div class="py-1 d-flex">
                   <div>
                     <div class="mb-1">
                       <span class="p">

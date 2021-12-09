@@ -32,12 +32,18 @@ import { bootstrapTooltips } from '../components/bootstrap_tooltips';
 import { changeMainContainerHeight } from '../components/change_main_container_height';
 import { displayTime } from '../components/timer';
 import { preventBack } from '../components/prevent_back';
-import { copyCode } from '../components/copy_clipboard';
+import { preventReload } from '../components/prevent_reload';
+import { copyCode, showCode } from '../components/copy_clipboard';
 import { selectWikiArticle } from '../components/select_wiki_article';
 
 // $(document).on('turbolinks:load', function(){ $.rails.refreshCSRFTokens(); });
 
 document.addEventListener('turbolinks:load', () => {
+
+  if(document.querySelector('.container-lobby')) {
+    preventReload();
+  }
+
   if (document.getElementById('game-page')) {
     changeMainContainerHeight();
     bootstrapTooltips();
@@ -46,6 +52,7 @@ document.addEventListener('turbolinks:load', () => {
   }
 
   if (document.getElementById("lobbyCode")) {
+    showCode();
     document.getElementById("lobbyCode").addEventListener('click', copyCode);
     const selectUrl = document.querySelectorAll('.tom-select')
     selectWikiArticle(selectUrl);

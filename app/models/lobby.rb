@@ -5,6 +5,7 @@ class Lobby < ApplicationRecord
   before_validation :generate_code
   has_many :games
   has_many :messages
+  validates :code, length: { is: 4 }
 
   private
 

@@ -20,8 +20,9 @@ ActiveRecord::Schema.define(version: 2021_12_02_225259) do
     t.bigint "user_id", null: false
     t.datetime "started_at"
     t.datetime "ended_at"
-    t.string "clicks", default: [], array: true
-    t.boolean "ready?", default: false
+    t.integer "clicks", default: 0
+    t.string "path", default: [], array: true
+    t.boolean "ready", default: false
     t.integer "status", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -36,6 +37,7 @@ ActiveRecord::Schema.define(version: 2021_12_02_225259) do
     t.string "end_url"
     t.boolean "running?", default: false
     t.string "winner"
+    t.integer "status", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["lobby_id"], name: "index_games_on_lobby_id"

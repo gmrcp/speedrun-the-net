@@ -5,18 +5,25 @@ export default class extends Controller {
   static values = { id: Number }
 
   connect() {
-    console.log('coiso');
-    // debugger
     this.channel = this.application.consumer.subscriptions.create(
       {
-        channel: 'PlayersChannel',
+        channel: 'LobbyChannel',
         id: this.idValue
       },
       {
         received (data) { if (data.cableReady) CableReady.perform(data.operations) }
       }
     )
-    console.log('coiso');
+    console.log(`You have subscribed to Lobby Channel ${this.idValue}`)
+
+    document.addEventListener('start:game', () => {
+      this.startGame();
+
+    })
+  }
+
+  startGame() {
+    document.getElementById('start-game-for-all').click();
   }
 
   disconnect () {

@@ -1,6 +1,4 @@
 function copyCode() {
-  /* Get the text field */
-
   const lobbyCode = document.getElementById("lobbyCode");
   const container = document.querySelector("#alert-container");
 
@@ -15,4 +13,20 @@ function copyCode() {
   ;
 }
 
-export { copyCode }
+
+function showCode() {
+  function mouseOn() {
+    const lobbyCode = document.getElementById("lobbyCode");
+    lobbyCode.innerText = lobbyCode.value
+  }
+
+  document.getElementById("lobbyCode").addEventListener("mouseover", mouseOn);
+
+  function mouseOut() {
+    const lobbyCode = document.getElementById("lobbyCode");
+    lobbyCode.innerText = 'INVITE'
+  }
+
+  document.getElementById("lobbyCode").addEventListener("mouseleave", mouseOut);
+}
+export { copyCode, showCode }

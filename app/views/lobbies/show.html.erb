@@ -1,139 +1,87 @@
+<link href="https://cdn.jsdelivr.net/npm/tom-select@2.0.0/dist/css/tom-select.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.0.0/dist/js/tom-select.complete.min.js"></script>
 <div data-controller="lobby"
-     data-lobby-id-value="<%= @lobby.id %>"
+     data-lobby-id-value="<%= @game_session.lobby.id %>"
+     id="<%= dom_id(@game_session.lobby) %>"
      class='lobby-div'
 >
-<div class="container-lobby mh-100">
-  <div class="row mh-100" style="height: 100%;">
-    <div class="col-5 col-md-5 col-lg-4 col-xl-3" style="height: 100%;">
-      <div class="overflow-scroll bg-light p-2 players-container">
-        <div class="d-flex align-items-center py-3 bg-white p-1 mb-1 lobby-owner lobby-player">
-          <div class="avatar avatar-small me-3 ms-2">
-            <%= image_tag "avatar.png", class: 'img-fluid rounded-circle border-2 border-primary border' %>
-          </div>
-          <div class="name flex-grow-1">
-            <p class="lh-1">Apprentice</p>
-            <h4 class="m-0 lh-1"><%= @lobby.owner.username %></h4>
-          </div>
-          <div class="d-flex flex-column justify-content-between align-items-center me-2">
-            <div class="user-badge mb-3">
-              <%= image_tag "Vector.svg" %>
+  <div class="container-lobby mh-100">
+    <div class="row mh-100" style="height: 100%;">
+      <div class="col-5 col-md-4 col-lg-4 col-xl-3 left-column" style="height: 100%;">
+        <div class="bg-light p-2 players-container">
+          <div class="d-flex align-items-center py-3 bg-white p-1 mb-1 lobby-owner lobby-player"
+            id="<%= dom_id(@game_session.lobby.owner) %>">
+            <div class="avatar avatar-small me-3 ms-2">
+              <%= image_tag "avatar.png", class: 'img-fluid rounded-circle border-2 border-primary border' %>
             </div>
-            <div class="user-badge">
-              <i class="far fa-check-circle"></i>
+            <div class="name flex-grow-1">
+              <p class="lh-1">Apprentice</p>
+              <h4 class="m-0 lh-1"><%= @game_session.lobby.owner.username %></h4>
             </div>
-          </div>
-        </div>
-        <div class='players' id='lobby-id-<%= @lobby.id %>'>
-          <% @lobby.games.first.game_sessions.where(status: 'open').each do |session| %>
-            <% next if @lobby.owner == session.user %>
-            <%= render partial: 'game_session', locals: {session: session} %>
-          <% end %>
-        </div>
-      </div>
-      <div class="row mt-2">
-        <div class="col d-flex justify-content-center">
-          <%= button_tag 'INVITE', value: @lobby.code, id: 'lobbyCode', class: 'button large empty me-3' %>
-          <%= button_tag "JOIN", data: { bs_toggle: "modal", bs_target: '#askLobby' }, class: 'button large filled' %>
-        </div>
-        <div id="alert-container">
-        </div>
-      </div>
-    </div>
-    <!-- MODAL -->
-    <div class="modal fade" id="askLobby" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <%= simple_form_for(@lobby, url: lobby_code_path(@lobby.code)) do |f| %>
-            <%= f.input :code,
-                        required: true,
-                        class: 'form-control p-2',
-                        placeholder: 'lobby code' %>
-            <%= f.submit 'JOIN', class: 'button large filled' %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-    <!-- MODAL -->
-    <div class="col-7 col-md-7 col-lg-8 col-xl-9 d-flex flex-column mt-1" style="height: 60vh;">
-      <div class="d-flex mb-1 ms-4 align-items-center justify-content-between mt-1">
-        <div class="d-flex justify-content-center align-items-center position-relative">
-          <h2 class="text-uppercase font-weight-bold me-5 fs-4"> Game modes</h2>
-        </div>
-        <div class="d-flex align-items-md-center">
-        <%= button_to '← Back', destroy_user_session_path, method: "delete", class: 'btn-enter-outline me-4', data: {remote: false} %>
-        <%= link_to 'Start', start_path, class: 'btn-enter me-5' %>
-        </div>
-      </div>
-
-      <div class="container m-0" style="height: 70%;">
-        <div class="row d-flex settings w-75">
-            <div class="row">
-              <div class="col-8">
-                <%= form_with url: start_path, method: :post do |form| %>
-                  <select class="tom-select" id="select-start" name="start_url" placeholder="Where to start..." multiple></select>
-                  <select class="tom-select" id="select-end" name="end_url" placeholder="Where to end..." multiple></select>
-                  <input type="submit" value="START" class="">
-                  <link href="https://cdn.jsdelivr.net/npm/tom-select@2.0.0/dist/css/tom-select.css" rel="stylesheet">
-                  <script src="https://cdn.jsdelivr.net/npm/tom-select@2.0.0/dist/js/tom-select.complete.min.js"></script>
-                <% end %>
+            <div class="d-flex flex-column justify-content-between align-items-center me-2">
+              <div class="user-badge mb-3">
+                <%= image_tag "Vector.svg" %>
               </div>
-              <div class="col-1 align-items-center mt-3">
-                <p>Random</p>
-                <label class="switch">
-                <input type="checkbox">
-                <span class="slider round"></span>
-                </label>
-              </div>
-            </div>
-            <div class="row d-flex">
-              <div class="dropdown col-4 mt-4">
-                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                  Game mode
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li><a class="dropdown-item" href="#">Wikipedia</a></li>
-                  <li><a class="dropdown-item" href="#">IMDB</a></li>
-                  <li><a class="dropdown-item" href="#">Something else</a></li>
-                </ul>
-              </div>
-              <div class="timer col-4">
-                <label for="Timer">Time limit</label>
-                <input type="input" class="form-control" id="exampleInputArticle" aria-describedby="emailHelp" placeholder="05:00">
-              </div>
-              <div class="timer col-2 mb-3">
-                <label for="Rounds">Rounds</label>
-                <input type="input" class="form-control" id="exampleInputArticle" aria-describedby="emailHelp" placeholder="03">
+              <div class="user-badge">
+                <i class="far fa-check-circle"></i>
               </div>
             </div>
           </div>
-        </div>
-        <div class="mt-4">
-          <div class="overflow-scroll row message_board" style="height:25vh">
-          <div id="messages">
-            <% @lobby.messages.each do |message| %>
-            <p><strong>
-            <%= message.user.username %>:</strong> <%= message.content %> </p>
-            <%end%>
+          <!-- LISFT OF LOBBY PLAYERS -->
+          <div class='players'>
+            <% @game_session.game.game_sessions.open.includes(:user).each do |session| %>
+              <% next if @game_session.lobby.owner == session.user %>
+              <%= render partial: 'shared/game_session', locals: {session: session} %>
+            <% end %>
           </div>
-          <div class="row align-content-end mb-2">
-            <div class = "col-11 me-0 message-input">
-              <%= simple_form_for [ @lobby, @message ], remote: true do |f| %>
-                <% f.input :content, label: false, class: "form-control-input", placeholder: "Message" %>
-              <% end %>
-              </div>
-              <div class = "col-1 ms-0">
-                <span class="input-group-text"><i class="fas fa-paper-plane"></i></span>
-              </div>
-            </div>
+          <!-- LISFT OF LOBBY PLAYERS -->
+        </div>
+        <div class="inv-buttons">
+          <%= button_tag 'INVITE', value: @game_session.lobby.code, id: 'lobbyCode', class: 'button small empty me-2' %>
+          <%= button_tag "JOIN", data: { bs_toggle: "modal", bs_target: '#askLobby' }, class: 'button small filled' %>
+          <div id="alert-container">
           </div>
         </div>
       </div>
+      <!-- LEFT COLUMN - PLAYERS + BUTTONS -->
+      <!-- MODAL -->
+      <div class="modal fade" id="askLobby" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <%= simple_form_for(:lobby, url: join_lobby_path(:lobby)) do |f| %>
+              <%= f.input :code,
+                          required: true,
+                          input_html: {value: '', autocomplete: 'off'},
+                          class: 'form-control p-2',
+                          placeholder: 'lobby code' %>
+              <%= f.submit 'JOIN', class: 'button large filled' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <!-- MODAL -->
+      <!-- RIGHT COLUMN - SETTINGS + BUTTONS + CHAT -->
+      <div class="col-7 col-md-8 col-lg-8 col-xl-9 d-flex flex-column mt-1 lobby-settings-container">
+        <div class="d-flex mb-1 ms-4 align-items-center justify-content-between mt-1">
+          <div class="d-flex justify-content-center align-items-center position-relative">
+            <h2 class="text-uppercase font-weight-bold me-5 fs-4"> Game modes</h2>
+          </div>
+          <div class="d-flex align-items-md-center">
+            <%#= link_to 'Ready', ready_path, class: 'btn-enter-outline me-4', data: {remote: true} %>
+            <%= button_to '← Back', destroy_user_session_path, method: "delete", class: 'btn-back', data: {remote: false} %>
+            <%#= link_to 'Start', start_path, class: 'btn-enter me-5' %>
+            <% if current_user == @game_session.lobby.owner %>
+              <%= render partial: 'shared/start_button' %>
+            <% end %>
+            <% if @game_session.sibling_game_sessions.count > 1 %>
+              <%= render partial: 'ready_button', locals: { session: @game_session } %>
+            <% end %>
+          </div>
+        </div>
+        <%= render partial: 'settings' %>
+        <%= render partial: 'chat' %>
+      </div>
+      <!-- RIGHT COLUMN - SETTINGS + BUTTONS + CHAT -->
     </div>
   </div>
 </div>
-<!-- <h1>Lobbies#show</h1>
-<p>Find me in app/views/lobbies/show.html.erb</p>
-<p>Logged in as: <%= current_user.email %></p>
-<p>Lobby owner: <%= @lobby.owner.email %></p>
-<p>Lobby owner: <%= @lobby.owner.username %></p>
-<p>Lobby code: <%= @lobby.code %></p>  ––>

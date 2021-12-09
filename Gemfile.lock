@@ -108,6 +108,8 @@ GEM
       dotenv (= 2.7.6)
       railties (>= 3.2)
     erubi (1.10.0)
+    ethon (0.15.0)
+      ffi (>= 1.15.0)
     execjs (2.8.1)
     faraday (1.8.0)
       faraday-em_http (~> 1.0)
@@ -288,6 +290,8 @@ GEM
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
+    typhoeus (1.4.0)
+      ethon (>= 0.9.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     warden (1.2.9)
@@ -349,6 +353,7 @@ DEPENDENCIES
   spring
   stimulus-rails
   turbolinks (~> 5)
+  typhoeus
   tzinfo-data
   web-console (>= 4.1.0)
   webdrivers

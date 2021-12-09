@@ -85,16 +85,11 @@
       border-radius: 15px;
       text-align: center;
       letter-spacing: 0.1em;
-      margin: .8rem;
     }
 
     @media (max-height: 800px) {
       p {
         margin: .2rem;
-      }
-
-      input {
-        margin: .3rem;
       }
     }
   }

@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include CableReady::Broadcaster
+
   protect_from_forgery prepend: true
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
@@ -16,10 +18,14 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(_resource)
-    lobby_path
+    create_lobby_path
   end
 
   def skip_pundit?
     devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
+  end
+
+  def default_url_options
+    { host: ENV["http://www.speedrunthe.net/"] || "localhost:3000" }
   end
 end

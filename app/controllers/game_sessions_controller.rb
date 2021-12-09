@@ -1,43 +1,26 @@
 require 'open-uri'
 
 class GameSessionsController < ApplicationController
-  include CableReady::Broadcaster
 
   def start_game
-    @game_session = GameSession.includes(:game).find_by(
-      {
-        user: current_user,
-        status: 0
-      }
+    @game_session = current_user.only_open_session
+
+    @img_start_url, @img_end_url = request_wiki_images(
+      [@game_session.game.start_url, @game_session.game.end_url]
     )
-    if params[:start_url] && params[:end_url]
-      params.permit(:start_url, :end_url)
-      @game_session.game.update(
-        {
-          start_url: params[:start_url],
-          end_url: params[:end_url]
-        }
-      )
-      @game_session.update(
-        {
-          started_at: Time.now,
-          status: 1
-        }
-      )
+    @html_game = get_wiki_article(@game_session.game.start_url)
+    @game_session.update({ started_at: Time.now, status: 1 })
 
-      @img_start_url = get_image_wiki(@game_session.game.start_url)
-      @img_end_url =   get_image_wiki(@game_session.game.end_url)
-      @html_game =     format_wiki_article(@game_session.game.start_url)
-
-      render :play
-    else
-      redirect_to lobby_path(code: @game_session.lobby.code), alert: "You're stuck here!"
-    end
+    render :play
   end
 
   def play
     @game_session = GameSession.includes(:game).find_by({ user: current_user,
                                                           status: 1 })
+    @game_session.path << params[:article]
+    @game_session.clicks += 1
+    @game_session.save
+
     if params[:article] == @game_session.game.end_url
       @game_session.ended_at = Time.now
       @game_session.save
@@ -46,9 +29,9 @@ class GameSessionsController < ApplicationController
         .inner_html('#score-modal', html: html)
         .dispatch_event(name: 'win:game')
     else
-      html_game = wiki
+      html_game = get_wiki_article(params[:article])
       render operations: cable_car
-        .text_content('#user-counter', text: @game_session.clicks.count.to_s)
+        .text_content('#user-counter', text: @game_session.clicks.to_s)
         .inner_html('#game-page', html: html_game)
         .dispatch_event(name: 'article:refresh')
     end
@@ -56,39 +39,18 @@ class GameSessionsController < ApplicationController
 
   private
 
-  def wiki
-    # TODO, certify that game_session is related to user (be it guest or logged user) -> Devise?
-    # TODO, array to confirm link clicked is present in previous page
-
-    @game_session.clicks << params[:article]
-    @game_session.save
-
-    # Check win condition
-
-    return format_wiki_article(params[:article])
-  end
-
-  def get_image_wiki(option)
-    url = "https://en.wikipedia.org/w/api.php?action=query&titles=#{option}&prop=pageimages&format=json&pithumbsize=100"
-    html = URI.parse(url).open
-    json = JSON.parse(html.read)
-    begin
-      return json['query']['pages'].values[0]['thumbnail']['source']
-    rescue
-      return "https://via.placeholder.com/80"
-    end
-  end
-
-  def format_wiki_article(url)
+  def get_wiki_article(url)
     # TODO, add geolocation to modify behaviour for different wikipedia languages
     url = "https://en.wikipedia.org/wiki/#{url}"
-    html_file = URI.parse(url).open
+    html_file = request_wiki(url)
     html_doc = Nokogiri::HTML(html_file)
 
     # Display only article
     html_doc = html_doc.search('#content')
     # Remove references list and category links
     html_doc.search('div.reflist', '#catlinks', '.printfooter').remove
+    # Add back button
+
     html_doc.search('a').map do |link|
       next unless link.attributes.include?('href')
 
@@ -107,5 +69,41 @@ class GameSessionsController < ApplicationController
       end
     end
     return html_doc.to_s.html_safe
+  end
+
+  def request_wiki(url)
+    request = Typhoeus::Request.new(url, followlocation: true)
+    request.on_complete do |response|
+      if response.success?
+        return response.body
+      elsif response.timed_out?
+        log("got a time out")
+      elsif response.code == 0
+        # Could not get an http response, something's wrong.
+        log(response.return_message)
+      else
+        # Received a non-successful http response.
+        log("HTTP request failed: " + response.code.to_s)
+      end
+    end
+    request.run
+  end
+
+  def request_wiki_images(options)
+    hydra = Typhoeus::Hydra.new
+    requests = options.map do |option|
+      request = Typhoeus::Request.new("https://en.wikipedia.org/w/api.php?action=query&titles=#{option}&prop=pageimages&format=json&pithumbsize=100", followlocation: true)
+      hydra.queue(request)
+      request
+    end
+    hydra.run
+    responses = requests.map do |request|
+      json = JSON.parse(request.response.body)
+      begin
+        json['query']['pages'].values[0]['thumbnail']['source']
+      rescue
+        "https://img.favpng.com/25/6/12/question-mark-computer-icons-button-png-favpng-pxSnEqGEqwH1zKRAbd60X41gX.jpg"
+      end
+    end
   end
 end

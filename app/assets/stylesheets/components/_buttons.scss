@@ -1,8 +1,7 @@
 .button {
   border-radius: 30px;
   text-decoration: none;
-  font-family: 'Source Sans Pro', sans-serif;
-  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+  font-family: "Source Sans Pro", sans-serif;
   border: none;
 }
 
@@ -11,21 +10,35 @@
 }
 
 .button.large.filled {
-  background: $purple-gradient;
+  background: $purple-primary;
   color: white;
   font-size: 16px;
-  padding: 10px 35px;
+  padding: 7px 35px;
+  border: 2px $purple-primary solid;
+
+  &:hover {
+    border: 2px lighten($purple-primary, $amount: 10%) solid;
+    background-color: lighten($purple-primary, $amount: 10%);
+    transition: all 0.15s cubic-bezier(0.22, 0.61, 0.2, 1);
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 3px 5px;
+  }
 }
 
 .button.large.empty {
-  background-color: $button-gray;
-  border-color: $purple-primary;
-  border-width: 2px;
-  border-style: solid;
+  background-color: $white;
+  border: 2px $purple-primary solid;
   color: $purple-primary;
-  font-weight: bolder;
-  font-size: 18px;
+  font-size: 16px;
   padding: 7px 35px;
+  min-width: 130px;
+  box-sizing: border-box;
+
+  &:hover {
+    color: $white;
+    background-color: $purple-primary;
+    transition: all 0.15s cubic-bezier(0.22, 0.61, 0.2, 1);
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 3px 5px;
+  }
 }
 
 .button.small {
@@ -35,15 +48,83 @@
 }
 
 .button.small.filled {
-  background-color: #FD4E18;
+  background-color: $purple-primary;
+  border: 2px $purple-primary solid;
   color: white;
+
+  &:hover {
+    border: 2px lighten($purple-primary, $amount: 10%) solid;
+    background-color: lighten($purple-primary, $amount: 10%);
+    transition: all 0.15s cubic-bezier(0.22, 0.61, 0.2, 1);
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 3px 5px;
+  }
+
 }
 
 .button.small.empty {
-  background-color: $button-gray;
-  border-color: #FD4E18;
-  border-width: 2px;
-  border-style: solid;
-  color: #FD4E18;
-  border-width: thin;
+  background-color: $white;
+  border: 2px solid $purple-primary;
+  color: $purple-primary;
+
+  &:hover {
+    color: $white;
+    background-color: $purple-primary;
+    transition: all 0.15s cubic-bezier(0.22, 0.61, 0.2, 1);
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 3px 5px;
+  }
+}
+
+.btn-enter {
+  position: relative;
+  align-items: center;
+  padding: 1.1rem 2.5rem;
+  border-radius: 100px;
+  color: $white;
+  font-size: 1rem;
+  text-decoration: none;
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+  background: $fire-gradient;
+  transition: box-shadow 0.15s ease-in-out;
+  border: none;
+  margin-top: 0.9rem;
+  margin-bottom: 1rem;
+  letter-spacing: 0.1rem;
+
+  &-outline {
+    background-color: white;
+    color: $purple-primary;
+    border: 2px solid $purple-primary;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 100px;
+    left: -5px;
+    top: -55px;
+
+    &:hover {
+      color: $white;
+      background-color: $purple-primary;
+    }
+  }
+
+  &:hover {
+    color: $white;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.45);
+    background: linear-gradient(180deg, $orange-dark 0%, $orange-dark 100%);
+    transition: all 0.15s ease-in-out;
+  }
+}
+
+.btn-back {
+  background: $purple-primary;
+  color: white;
+  font-size: 16px;
+  padding: 5px 15px;
+  border: none;
+  border-radius: 25px;
+
+  &:hover {
+    background-color: lighten($purple-primary, $amount: 10%);
+    transition: all 0.15s cubic-bezier(0.22, 0.61, 0.2, 1);
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 3px 5px;
+  }
 }
