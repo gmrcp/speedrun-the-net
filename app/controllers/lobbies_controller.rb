@@ -23,7 +23,7 @@ class LobbiesController < ApplicationController
       redirect_to lobby_path, alert: 'Sorry! Invalid code.'
     else
       current_user.game_sessions.open.destroy_all # Destroy all open game_sessions
-      GameSession.create!(game: lobby.games.first,
+      GameSession.create!(game: lobby.games.open.last,
                           user: current_user)
       redirect_to lobby_path
     end
@@ -70,9 +70,8 @@ class LobbiesController < ApplicationController
     if game.nil?
       game = Game.create(lobby: game_session.lobby)
     end
-    @message = Message.new
-    @game_session = GameSession.create(user: current_user, game: game)
-    render :show
+    GameSession.create(user: current_user, game: game)
+    redirect_to lobby_path
   end
 
   def kick
