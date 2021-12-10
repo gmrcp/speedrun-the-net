@@ -73,7 +73,7 @@
           </div>
         </div>
         <%= render partial: 'settings', locals: {game_session: @game_session}%>
-        <%= render partial: 'chat' %>
+        <%= render partial: 'chat', locals: {lobby: @game_session.lobby, message: @message} %>
       </div>
       <!-- RIGHT COLUMN - SETTINGS + BUTTONS + CHAT -->
     </div>

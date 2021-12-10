@@ -8,6 +8,7 @@
   justify-content: start;
   max-height: 100%;
 
+
   .message-board {
     margin-left: 10px;
     font-size: 0.9rem;
@@ -17,9 +18,30 @@
     flex-direction: column;
     overflow-x: hidden;
     max-height: 100%;
-    overflow: scroll;
+    // overflow: scroll;
     height: 50px;
     line-height: 1.5rem;
+
+      overflow-y: scroll;
+  &::-webkit-scrollbar-track
+  {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.2);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+  }
+
+  &::-webkit-scrollbar
+  {
+    width: 8px;
+    background-color: #F5F5F5;
+  }
+
+  &::-webkit-scrollbar-thumb
+  {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.1);
+    border-radius: 10px;
+    background-color: $purple-primary;
+  }
   }
 
   .message {

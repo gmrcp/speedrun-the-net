@@ -2,6 +2,7 @@ class LobbiesController < ApplicationController
   before_action :authenticate_user!
 
   def show
+    @message = Message.new
     @game_session = current_user.only_open_session
     redirect_to root_path, alert: 'Something went wrong...' and return if @game_session.nil?
   end
