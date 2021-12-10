@@ -3,20 +3,31 @@
   background-color: $white;
   margin-top: 5rem;
   margin-right: 5rem;
+  font-size: 1.2rem;
+  margin: auto;
+  color: $dark-text;
 
   @media (max-width: 991px) {
     max-width: 200px;
   }
 
-  #carouselExampleIndicators{
+  h5 {
+    margin-bottom: 20px;
+  }
+
+  #carouselExampleIndicators {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 10px;
 
     @media (max-width: 991px) {
-    padding: 0px;
+      padding: 0px;
     }
+  }
+
+  .carousel-indicators {
+    margin-bottom: -2rem;
   }
 
   .carousel-indicators [data-bs-target] {
@@ -30,7 +41,7 @@
     margin-left: 3px;
     text-indent: -999px;
     cursor: pointer;
-    background-color: $button-gray;
+    background-color: #8c82f2;
     background-clip: padding-box;
     border: 0;
     border-top: 10px solid transparent;
@@ -40,13 +51,13 @@
   }
 
   .carousel-indicators .active {
-    background-color: #9EA7BE;
+    background-color: $purple-primary;
     opacity: 1;
     transition: opacity 0.6s ease;
   }
 
   .carousel-inner {
-
+    border-radius: 30px;
     width: 300px;
 
     @media (max-width: 991px) {
@@ -56,12 +67,32 @@
   }
 
   .carousel-item {
-    color: #9EA7BE;
+    position: relative;
+    color: #9ea7be;
     margin-top: 50px;
     text-align: center;
     height: 200px;
     width: 280px;
     letter-spacing: 0.1em;
+
+    img {
+      position: absolute;
+      width: 350px;
+      top: -133px;
+      left: -21px;
+      filter: grayscale(0.06) sepia(0.12) invert(0.02) blur(2.4px) opacity(0.23)
+        saturate(1.5) contrast(1.2);
+    }
+
+    p {
+      position: absolute;
+      z-index: 10;
+      margin-left: 20px;
+      bottom: 20px;
+      color: $dark-text;
+      font-weight: 600;
+      text-shadow: 0px 0px 45px rgba(63, 54, 154, 0.4);
+    }
 
     @media (max-width: 991px) {
       max-width: 180px;
