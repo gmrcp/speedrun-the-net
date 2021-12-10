@@ -28,7 +28,6 @@
         <p id="timer" data-start-time="<%= @game_session.started_at %>">00:00</p>
       </div>
     </div>
-    <p class="text-center fw-bold">LOBBY</p>
     <div id="player-list">
       <p class="text-center fw-bold">LOBBY</p>
       <% @game_session.sibling_game_sessions.includes(:user).each do |game_session| %>

@@ -66,7 +66,7 @@ class GameSession < ApplicationRecord
       seconds = total.floor % 60
       minutes = total.floor / 60
       formated_string = "#{seconds}s"
-      formated_string = "#{minutes}m #{seconds}s" if minutes != '00'
+      formated_string = "#{minutes}m #{seconds}s" if minutes != 0
       formated_string
     else
       'In Progress...'

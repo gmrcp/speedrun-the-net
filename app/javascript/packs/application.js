@@ -54,8 +54,9 @@ document.addEventListener('turbolinks:load', () => {
   if (document.getElementById("lobbyCode")) {
     showCode();
     document.getElementById("lobbyCode").addEventListener('click', copyCode);
-    const selectUrl = document.querySelectorAll('.tom-select')
-    selectWikiArticle(selectUrl);
+    const selectUrls = document.querySelectorAll('.tom-select')
+    selectWikiArticle(selectUrls);
+    bootstrapTooltips();
   }
 });
 

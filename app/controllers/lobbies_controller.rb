@@ -34,7 +34,7 @@ class LobbiesController < ApplicationController
     if owner_session.lobby.owner == current_user && params[:start_url] && params[:end_url]
       game = owner_session.game
       # params.permit(:start_url, :end_url)
-      game.update!({ start_url: params[:start_url], end_url: params[:end_url] })
+      game.update!({ start_url: params[:start_url], end_url: params[:end_url], status: 1 })
       cable_ready[LobbyChannel]
         .console_log(message: "Owner is starting the game!")
         .append(
@@ -67,7 +67,10 @@ class LobbiesController < ApplicationController
   def return
     game_session = current_user.game_sessions.includes(:lobby, lobby: :owner).closed.last
     game = Game.where(lobby: game_session.lobby, status: 0).last
-    game = Game.create(lobby: game_session.lobby, user: game_session.lobby.owner) if game.nil?
+    if game.nil?
+      game = Game.create(lobby: game_session.lobby)
+    end
+    @message = Message.new
     @game_session = GameSession.create(user: current_user, game: game)
     render :show
   end
