@@ -9,7 +9,7 @@
        data-controller="players"
        data-players-id-value="<%= @game_session.id %>">
     <div class="row mh-100" style="height: 100%;">
-      <div class="col-5 col-md-4 col-lg-4 col-xl-3 left-column" style="height: 100%;">
+      <div class="col-6 col-md-5 col-lg-5 col-xl-4 left-column" style="height: 100%;">
         <div class="bg-light p-2 players-container">
           <!-- LIST OF LOBBY PLAYERS -->
           <div class='players'>
@@ -31,7 +31,7 @@
       <div class="modal fade" id="askLobby" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
-            <%= simple_form_for(:lobby, url: join_lobby_path(:lobby)) do |f| %>
+            <%= simple_form_for(:lobby, url: join_lobby_path(:lobby), class: 'join-lobby-form') do |f| %>
               <%= f.input :code,
                           required: true,
                           input_html: {value: '', autocomplete: 'off'},
@@ -45,7 +45,7 @@
       <%= render partial: 'modal_confirm_exit' %>
       <!-- MODAL -->
       <!-- RIGHT COLUMN - SETTINGS + BUTTONS + CHAT -->
-      <div class="col-7 col-md-8 col-lg-8 col-xl-9 d-flex flex-column mt-1 lobby-settings-container">
+      <div class="col-6 col-md-7 col-lg-7 col-xl-8 d-flex flex-column mt-1 lobby-settings-container">
         <div class="d-flex mb-1 ms-4 align-items-center justify-content-between mt-1">
           <div class="d-flex justify-content-center align-items-center position-relative">
             <h2 class="text-uppercase font-weight-bold me-5 fs-4"> Game modes</h2>
@@ -54,15 +54,10 @@
             <%= render partial: 'lobbies/ready_counter', locals: { session: @game_session } %>
             <%= button_tag "← Leave Lobby", data: { bs_toggle: "modal", bs_target: '#confirmExit' }, class: 'btn-back' %>
             <%#= link_to 'Start', start_path, class: 'btn-enter me-5' %>
-            <% if current_user == @game_session.lobby.owner %>
-              <%= render partial: 'lobbies/start_button', locals: { game_session: @game_session } %>
-            <% else %>
-              <%= render partial: 'lobbies/ready_button', locals: { game_session: @game_session } %>
-            <% end %>
           </div>
         </div>
-        <%= render partial: 'settings' %>
-        <%= render partial: 'chat' %>
+        <%= render partial: 'settings', locals: {game_session: @game_session}%>
+        <%= render partial: 'chat', locals: {lobby: @game_session.lobby, message: @message} %>
       </div>
       <!-- RIGHT COLUMN - SETTINGS + BUTTONS + CHAT -->
     </div>

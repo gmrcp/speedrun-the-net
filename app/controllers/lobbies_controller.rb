@@ -2,6 +2,7 @@ class LobbiesController < ApplicationController
   before_action :authenticate_user!
 
   def show
+    @message = Message.new
     @game_session = current_user.only_open_session
     redirect_to root_path, alert: 'Something went wrong...' and return if @game_session.nil?
   end
@@ -32,7 +33,7 @@ class LobbiesController < ApplicationController
     owner_session = current_user.only_open_session
     if owner_session.lobby.owner == current_user && params[:start_url] && params[:end_url]
       game = owner_session.game
-      params.permit(:start_url, :end_url)
+      # params.permit(:start_url, :end_url)
       game.update!({ start_url: params[:start_url], end_url: params[:end_url] })
       cable_ready[LobbyChannel]
         .console_log(message: "Owner is starting the game!")

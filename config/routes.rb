@@ -20,5 +20,9 @@ Rails.application.routes.draw do
   get :start, to: 'game_sessions#start_game'
   post :start, to: 'game_sessions#start_game'
 
+  resources :lobbies do
+    resources :messages, only: :create
+  end
+
   get 'game_session/:id/:article', to: 'game_sessions#play', as: :play
 end

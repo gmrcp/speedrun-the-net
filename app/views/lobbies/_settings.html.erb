@@ -1,24 +1,7 @@
 <div class="wrapper">
   <div class="settings">
-    <div class="settings-row-1">
-      <%= form_with url: owner_start_path, method: :post, class: 'settings-form' do |form| %>
-        <div class="start-article">
-          <label for="select-start">Starting:</label>
-          <input type="text" class="tom-select" id="select-start" name="start_url" placeholder="Where to start..." multiple>
-        </div>
-        <div class="goal-article">
-          <label for="select-end">Goal:</label>
-          <input class="tom-select" id="select-end" name="end_url" placeholder="Where to end..." multiple>
-        </div>
-      <div class="toggle-switch">
-        <label for="">Random<br>Article</label>
-        <label class="switch">
-        <input type="checkbox">
-        <span class="slider round"></span>
-        </label>
-      </div>
-    </div>
-    <div class="settings-row-2">
+    <div class="settings-row-2 mb-3">
+     <!--
       <div class="dropdown">
         <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
           Game mode
@@ -36,9 +19,39 @@
         <label for="Rounds">Rounds</label>
         <input type="input" class="form-control" id="exampleInputArticle" aria-describedby="emailHelp" placeholder="03">
       </div>
+      -->
+      <%= form_with url: owner_start_path, method: :post, class: 'settings-form' do |form| %>
+        <div class="start-article">
+          <label for="select-start">Starting:</label>
+          <input type="text" class="tom-select" id="select-start" name="start_url" placeholder="Where to start..." multiple>
+        </div>
+    </div>
+    <div class="settings-row-1">
+        <div class="goal-article">
+          <label for="select-end">Goal:</label>
+          <input class="tom-select" id="select-end" name="end_url" placeholder="Where to end..." multiple>
+        </div>
+        <!-- <input type="submit" value="START" class="btn-enter start"> -->
     </div>
   </div>
+  <!--
+  <div class="toggle-switch">
+    <label for="random-article" class='mb-2'>Random Article</label>
+    <label class="switch">
+      <input type="checkbox">
+      <span class="slider round"></span>
+    </label>
+  </div> -->
   <div class="buttons-wrapper">
+    <%#= link_to 'Ready', ready_path, class: 'btn-enter-outline', data: {remote: true} %>
+    <% if current_user == @game_session.lobby.owner %>
+      <%= render partial: 'ready_button', locals: { game_session: game_session } %>
+    <% else %>
+      <input type="submit" value="START" class="btn-enter start"
+             id='owner-start-button'
+             <%= (game_session.sibling_game_sessions.where(ready: true).count < game_session.sibling_game_sessions.count / 2 ||
+                  game_session.sibling_game_sessions.count > 1) ? 'disabled' : ''  %>>
+    <% end %>
   <% end %>
   </div>
 </div>

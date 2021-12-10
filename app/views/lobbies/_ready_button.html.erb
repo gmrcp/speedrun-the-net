@@ -1,5 +1,5 @@
   <%= link_to "Ready",
       ready_path,
       id: 'ready-button',
-      class: "me-4 #{game_session.ready ? 'btn-enter-outline' : 'btn-back' }",
+      class: "#{game_session.ready ? 'btn-enter-outline' : 'btn-back' }",
       data: {remote: true} %>
