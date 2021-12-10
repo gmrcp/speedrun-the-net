@@ -1,16 +1,16 @@
 <div class="col-sm-12 col-md-3 mb-3" data-controller="play-banner" data-play-banner-id-value="<%= @game_session.lobby.id %>">
   <div id="game-banner">
-    <div>
-      <div class="d-flex align-items-center mb-2">
-        <img class="avatar-large me-2" src="<%= @img_start_url %>">
-        <div>
+    <div class='game-url-cards'>
+      <div class="url-card url-card-start">
+        <img class="avatar-large" src="<%= @img_start_url %>">
+        <div class='card-content'>
           <p>START</p>
           <h3><%= @game_session.game.start_url.gsub(%r{_}, ' ') %></h3>
         </div>
       </div>
-      <div class="d-flex align-items-center">
-        <img class="avatar-large me-2" src="<%= @img_end_url %>">
-        <div>
+      <div class="url-card url-card-end">
+        <img class="avatar-large" src="<%= @img_end_url %>">
+        <div class='card-content'>
           <p>GOAL</p>
           <h3><%= @game_session.game.end_url %></h3>
         </div>

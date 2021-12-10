@@ -1,5 +1,5 @@
   <%= link_to "#{session.sibling_game_sessions.where(ready: true).count}/#{session.sibling_game_sessions.count} ready",
       ready_path,
       id: 'ready-button',
-      class: 'btn-enter-outline me-4',
+      class: 'btn-enter-outline',
       data: {remote: true} %>
