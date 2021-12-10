@@ -17,7 +17,7 @@
       <i class="far fa-check-circle <%= "player-is-ready" if session.ready  %>"></i>
     </div>
     <% if user == session.lobby.owner && user != session.user %>
-      <%= render partial: 'shared/kick_button', locals: { session: session } %>
+        <%= render partial: 'shared/kick_button', locals: { session: session } %>
     <% end %>
   </div>
 </div>
