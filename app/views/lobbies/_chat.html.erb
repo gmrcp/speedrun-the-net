@@ -1,8 +1,8 @@
 <div class="chat" style="height:100%">
   <div class="message-board" id="messages">
-    <% lobby.messages.each do |message| %>
-        <p><strong><%= message.user.username %>:</strong> <%= message.content %> </p>
-    <%end%>
+    <!-- <% lobby.messages.each do |message| %>
+        <p id='message-<%= message.id %>'><strong><%= "#{message.user.username}: "%></strong><%= message.content %></p>
+    <%end%> -->
   </div>
   <div class="input-group align-content-end">
     <div class="message-content">

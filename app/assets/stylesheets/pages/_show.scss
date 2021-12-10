@@ -150,7 +150,9 @@
 
 
 .lobby-current-user {
-  background: $fire-gradient;
+  // background: $fire-gradient;
+  border-radius: 20px;
+  border: 2px solid $orange-dark;
 }
 
 
