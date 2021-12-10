@@ -51,8 +51,8 @@
             <h2 class="text-uppercase font-weight-bold me-5 fs-4"> Game modes</h2>
           </div>
           <div class="d-flex align-items-md-center">
-            <%= render partial: 'lobbies/ready_counter', locals: { session: @game_session } %>
-            <%= button_tag "← Leave Lobby", data: { bs_toggle: "modal", bs_target: '#confirmExit' }, class: 'btn-back' %>
+            <%#= render partial: 'lobbies/ready_counter', locals: { session: @game_session } %>
+            <%= button_tag "← Leave", data: { bs_toggle: "modal", bs_target: '#confirmExit' }, class: 'btn-back px-4 py-2' %>
             <%#= link_to 'Start', start_path, class: 'btn-enter me-5' %>
           </div>
         </div>

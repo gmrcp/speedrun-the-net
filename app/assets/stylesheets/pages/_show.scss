@@ -2,6 +2,32 @@
   height: 100%;
 }
 
+.user-badge {
+  width: 23px;
+  height: 23px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2px;
+  background-color: $button-gray;
+
+  .kick-button {
+    border: 0;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #f6f6fe;
+    width: 1px;
+  }
+
+  .fa-user-slash {
+    font-size: 0.7rem;
+  }
+}
+
 .container-lobby {
   background-color: $white;
   height: 100%;
@@ -20,6 +46,8 @@
   }
 
   .lobby-player {
+    background-color: white;
+    border-radius: 15px;
     height: 85px;
   }
 
@@ -94,21 +122,6 @@
     border-radius: 20px;
   }
 
-  .user-badge {
-    width: 23px;
-    height: 23px;
-    border-radius: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2px;
-    background-color: $button-gray;
-
-    .fa-user-slash {
-      font-size: 0.7rem;
-    }
-  }
-
   .modal-dialog {
     top: 40vh;
   }
@@ -123,14 +136,13 @@
     justify-content: center;
     padding: 20px;
 
-
     form {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
 
-      input[type=text] {
+      input[type="text"] {
         text-align: center;
       }
     }
@@ -159,7 +171,7 @@
 
 .user-highlight-lobby {
   border-radius: 20px;
-  border: 2px solid $orange-dark;
+  border: 2px solid $purple-primary;
 }
 
 .player-is-ready {
