@@ -34,8 +34,9 @@
         <%= render 'player_card', { game_session: game_session, current_user: current_user } %>
       <% end %>
     </div>
+    <div class="d-flex justify-content-center">
       <%= button_tag 'EXIT', data: { bs_toggle: "modal", bs_target: '#confirmExitPlay' }, class: 'button small empty exit-play' %>
-      <%= render partial: 'modal_exit_play' %>
+    </div>
   </div>
 </div>
 <div class="col-sm-12 col-md-9 h-100 article-container" data-controller="play-article">
@@ -52,6 +53,7 @@
   </div>
 </div>
 <div data-controller="modal" data-modal-id-value="<%= @game_session.id %>">
+  <%= render partial: 'modal_exit_play' %>
   <%= render partial: 'modal_scores', locals: { all_sessions: @game_session.sibling_game_sessions,
                                                 current_user: current_user,
                                                 game_session: @game_session } %>
