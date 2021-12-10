@@ -9,7 +9,12 @@ class Message < ApplicationRecord
     cable_ready["chat_channel"].insert_adjacent_html(
       selector: "#messages",
       position: 'beforeend',
-      html: "<p><strong>#{user.username}:</strong>#{content}</p>"
+      html: "<p id='message-#{id}'><strong>#{user.username}:</strong> #{content}</p>"
+    )
+
+    cable_ready["chat_channel"].scroll_into_view(
+      behavior: 'smooth',
+      selector: "#message-#{id}"
     )
 
     cable_ready.broadcast

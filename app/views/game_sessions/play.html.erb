@@ -28,18 +28,17 @@
         <p id="timer" data-start-time="<%= @game_session.started_at %>">00:00</p>
       </div>
     </div>
+    <p class="text-center fw-bold">LOBBY</p>
     <div id="player-list">
       <p class="text-center fw-bold">LOBBY</p>
       <% @game_session.game.users.each do |user| %>
         <%= render 'player_card', { user: user } %>
       <% end  %>
     </div>
-    <div class="d-flex justify-content-center">
-      <%= link_to 'EXIT', lobby_path, class: 'button small empty' %>
-    </div>
+      <%= link_to 'EXIT', lobby_path, class: 'button small empty exit-play' %>
   </div>
 </div>
-<div class="col-sm-12 col-md-9 h-100" data-controller="play-article">
+<div class="col-sm-12 col-md-9 h-100 article-container" data-controller="play-article">
   <div>
     <a href="" class="d-none">Back</a>
   </div>

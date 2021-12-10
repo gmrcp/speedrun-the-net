@@ -1,5 +1,6 @@
 GameSession.delete_all
 Game.delete_all
+Message.delete_all
 Lobby.delete_all
 User.delete_all
 
