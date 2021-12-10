@@ -24,11 +24,11 @@ class GameSession < ApplicationRecord
         .broadcast_to(lobby)
     end
 
-    # Give the owner of lobby -> Leader badge
+    # Give the owner of lobby kick privilege
     cable_ready[PlayersChannel]
       .append(
         selector: "#{dom_id(self)} .badges",
-        html: render(partial: 'shared/kick_button', locals: { session: self})
+        html: render(partial: 'shared/kick_button', locals: { session: self })
       )
       .broadcast_to(sibling_game_sessions.find_by(user: lobby.owner))
   end
@@ -45,7 +45,7 @@ class GameSession < ApplicationRecord
       .broadcast_to(lobby)
   end
 
-  after_destroy do
+  before_destroy do
     # remove player card from lobby
     cable_ready[LobbyChannel]
       .remove(selector: dom_id(self))
@@ -53,7 +53,7 @@ class GameSession < ApplicationRecord
       .broadcast_to(lobby)
 
     # if only 1 player in lobby, hide ready counter
-    if sibling_game_sessions.count <= 1
+    if sibling_game_sessions.count <= 2
       cable_ready[LobbyChannel]
         .add_css_class(selector: '#ready-counter', name: 'd-none')
         .broadcast_to(lobby)
@@ -84,16 +84,15 @@ class GameSession < ApplicationRecord
   private
 
   def check_owner_disabled_button_status
-    if sibling_game_sessions.where(ready: true).count >= sibling_game_sessions.count / 2
+    # Update state of button on lobby owner
+    if sibling_game_sessions.count == sibling_game_sessions.where(ready: true).count
       cable_ready[PlayersChannel]
-        .console_log(message: 'Majority is ready!')
-        .remove_attribute(selector: '#owner-start-button', name: 'disabled')
-        .broadcast_to(lobby.owner)
+        .remove_attribute(selector: '.owner-start-button', name: 'disabled')
+        .broadcast_to(sibling_game_sessions.find_by(user: lobby.owner))
     else
       cable_ready[PlayersChannel]
-        .console_log(message: 'Majority is NOT ready!')
-        .set_attribute(selector: '#owner-start-button', name: 'disabled')
-        .broadcast_to(lobby.owner)
+        .set_attribute(selector: '.owner-start-button', name: 'disabled')
+        .broadcast_to(sibling_game_sessions.find_by(user: lobby.owner))
     end
   end
 end

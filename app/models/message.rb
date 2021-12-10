@@ -5,7 +5,6 @@ class Message < ApplicationRecord
   include CableReady::Broadcaster
 
   def broadcast
-    # binding.pry
     cable_ready["chat_channel"].insert_adjacent_html(
       selector: "#messages",
       position: 'beforeend',

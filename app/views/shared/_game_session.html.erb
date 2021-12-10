@@ -1,7 +1,7 @@
 <div class="d-flex align-items-center py-3 bg-white p-1 mb-1 lobby-player"
      id="<%= dom_id(session) %>">
   <div class="avatar avatar-small me-3 ms-2">
-    <%= image_tag "avatars/Multiavatar-#{rand(1..48)}.png", class: 'img-fluid rounded-circle border-2 border-primary border' %>
+    <%= image_tag "avatars/Multiavatar-#{session.avatar}.png", class: 'img-fluid rounded-circle border-2 border-primary border' %>
   </div>
   <div class="name flex-grow-1">
     <p class="lh-1">Apprentice</p>

@@ -10,6 +10,7 @@ class CreateGameSessions < ActiveRecord::Migration[6.1]
       t.string :path, array: true, default: []
       t.boolean :ready, default: false
       t.column :status, :integer, default: 0
+      t.integer :avatar, null: false, default: 1
       t.timestamps
     end
   end

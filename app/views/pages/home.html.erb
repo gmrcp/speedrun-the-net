@@ -12,6 +12,7 @@
                       placeholder: 'username',
                       id: 'guest-username',
                       autocomplete: "off" %>
+          <%= f.hidden_field :avatar,  value: rand(1..48), as: :hidden %>
           <%= f.submit "ENTER", class:'btn-enter' %>
       <% end %>
       </div>

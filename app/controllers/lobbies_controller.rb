@@ -13,7 +13,8 @@ class LobbiesController < ApplicationController
     lobby = Lobby.create!(owner: current_user)
     game = Game.create!(lobby: lobby)
     GameSession.create!(game: game,
-                        user: current_user)
+                        user: current_user,
+                        avatar: rand(1..48))
     redirect_to lobby_path
   end
 
@@ -24,7 +25,8 @@ class LobbiesController < ApplicationController
     else
       current_user.game_sessions.open.destroy_all # Destroy all open game_sessions
       GameSession.create!(game: lobby.games.open.last,
-                          user: current_user)
+                          user: current_user,
+                          avatar: rand(1..48))
       redirect_to lobby_path
     end
   end
@@ -53,7 +55,8 @@ class LobbiesController < ApplicationController
     current_state = game_session.ready
     game_session.update!(ready: !current_state)
 
-    cable_ready[LobbyChannel] # Updates ready element
+    # Updates ready element
+    cable_ready[LobbyChannel]
       .text_content(selector: '#ready-counter',
                     text: "#{game_session.sibling_game_sessions.where(ready: true).count}/#{game_session.sibling_game_sessions.count} ready")
       .broadcast_to(game_session.lobby)
