@@ -18,9 +18,8 @@ class GameSession < ApplicationRecord
     if sibling_game_sessions.count > 1
       check_owner_disabled_button_status
       cable_ready[LobbyChannel]
-        .text_content(selector: '#ready-counter',
-                      text: "#{sibling_game_sessions.where(ready: true).count}/#{sibling_game_sessions.count} ready")
-        .remove_css_class(selector: '#ready-counter', name: 'd-none')
+        .remove_css_class(selector: '#ready-button', name: 'd-none')
+        .remove_attribute(selector: '#ready-button', name: 'disabled')
         .broadcast_to(lobby)
     end
 
@@ -55,7 +54,8 @@ class GameSession < ApplicationRecord
     # if only 1 player in lobby, hide ready counter
     if sibling_game_sessions.count <= 2
       cable_ready[LobbyChannel]
-        .add_css_class(selector: '#ready-counter', name: 'd-none')
+        .add_css_class(selector: '#ready-button', name: 'd-none')
+        .set_attribute(selector: '#ready-button', name: 'disabled')
         .broadcast_to(lobby)
     end
   end
@@ -87,11 +87,11 @@ class GameSession < ApplicationRecord
     # Update state of button on lobby owner
     if sibling_game_sessions.count == sibling_game_sessions.where(ready: true).count
       cable_ready[PlayersChannel]
-        .remove_attribute(selector: '.owner-start-button', name: 'disabled')
+        .remove_attribute(selector: '#owner-start-button', name: 'disabled')
         .broadcast_to(sibling_game_sessions.find_by(user: lobby.owner))
     else
       cable_ready[PlayersChannel]
-        .set_attribute(selector: '.owner-start-button', name: 'disabled')
+        .set_attribute(selector: '#owner-start-button', name: 'disabled')
         .broadcast_to(sibling_game_sessions.find_by(user: lobby.owner))
     end
   end
