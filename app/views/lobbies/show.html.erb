@@ -48,7 +48,7 @@
       <div class="modal fade" id="askLobby" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
-            <%= simple_form_for(:lobby, url: join_lobby_path(:lobby)) do |f| %>
+            <%= simple_form_for(:lobby, url: join_lobby_path(:lobby), class: 'join-lobby-form') do |f| %>
               <%= f.input :code,
                           required: true,
                           input_html: {value: '', autocomplete: 'off'},
