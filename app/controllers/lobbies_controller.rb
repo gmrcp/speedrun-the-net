@@ -33,7 +33,8 @@ class LobbiesController < ApplicationController
 
   def owner_start
     owner_session = current_user.only_open_session
-    if owner_session.lobby.owner == current_user && params[:start_url] && params[:end_url] && params[:start_url] != params[:end_url]
+    redirect_to root_path, alert: 'Something went wrong...' and return if owner_session.nil?
+    if owner_session.lobby.owner == current_user && params[:start_url] != '' && params[:end_url] != '' && params[:start_url] != params[:end_url]
       game = owner_session.game
       # params.permit(:start_url, :end_url)
       game.update!({ start_url: params[:start_url], end_url: params[:end_url], status: 1 })
@@ -80,7 +81,7 @@ class LobbiesController < ApplicationController
     if game.nil?
       game = Game.create(lobby: game_session.lobby)
     end
-    GameSession.create(user: current_user, game: game)
+    GameSession.create(user: current_user, game: game, avatar: rand(1..48))
     redirect_to lobby_path
   end
 
@@ -95,5 +96,10 @@ class LobbiesController < ApplicationController
 
   def kicked
     redirect_to create_lobby_path, alert: 'You got kicked from your previous lobby.'
+  end
+
+  def destroy
+    current_user.game_sessions.open.destroy_all
+    sign_out_and_redirect(current_user)
   end
 end

@@ -1,7 +1,8 @@
 class GameSessionsController < ApplicationController
   def start_game
     @game_session = current_user.only_open_session
-    redirect_to root_path, alert: "Something went wrong..." if @game_session.nil?
+
+    redirect_to create_lobby_path, alert: "Something went wrong..." and return if @game_session.nil?
 
     @img_start_url, @img_end_url = request_wiki_images(
       [@game_session.game.start_url,

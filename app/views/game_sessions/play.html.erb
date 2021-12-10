@@ -34,7 +34,8 @@
         <%= render 'player_card', { game_session: game_session, current_user: current_user } %>
       <% end %>
     </div>
-      <%= link_to 'EXIT', lobby_path, class: 'button small empty exit-play' %>
+      <%= button_tag 'EXIT', data: { bs_toggle: "modal", bs_target: '#confirmExitPlay' }, class: 'button small empty exit-play' %>
+      <%= render partial: 'modal_exit_play' %>
   </div>
 </div>
 <div class="col-sm-12 col-md-9 h-100 article-container" data-controller="play-article">
