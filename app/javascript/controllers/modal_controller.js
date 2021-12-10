@@ -5,9 +5,12 @@ export default class extends Controller {
 
   connect() {
     document.addEventListener("win:game", () => {
-      this.highlight();
       this.openModal()
     }, { once: true });
+
+    document.addEventListener("win:lobby", () => {
+      this.highlight();
+    })
   }
 
   openModal() {
@@ -16,7 +19,7 @@ export default class extends Controller {
   }
 
   highlight() {
-    const player_card = document.getElementById(`game_session_${this.idValue}-finish`)
-    player_card.classList.add('user-highlight-lobby')
+    const player_card = document.getElementById(`game_session_${this.idValue}_finish`)
+    player_card.classList.add('user-highlight-play')
   }
 }

@@ -1,4 +1,4 @@
-// GAME SESSION id channel
+// GAME SESSION id channel - lobby show view
 // allows INDIVIDUAL events
 
 import { Controller } from '@hotwired/stimulus'

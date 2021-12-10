@@ -1,0 +1,6 @@
+<% sessions = session.sibling_game_sessions %>
+  <h4 id="ready-counter" class="<%= sessions.count > 1 ? '' : 'd-none' %>">
+    <% if sessions.count > 1  %>
+      <%= "#{sessions.where(ready: true).count}/#{sessions.count} ready"  %>
+    <% end %>
+  </h4>

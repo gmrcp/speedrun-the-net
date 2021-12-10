@@ -1,4 +1,6 @@
 <%= button_to 'Start',
     owner_start_path(start_url: 'Joe_Biden', end_url: 'Jazz'),
     id: 'owner-start-button',
+    disabled: game_session.sibling_game_sessions.where(ready: true).count < game_session.sibling_game_sessions.count / 2 ||
+    game_session.sibling_game_sessions.count > 1,
     class: 'btn-enter me-5' %>

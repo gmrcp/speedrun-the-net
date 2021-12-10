@@ -1,6 +1,14 @@
-<tr id="<%= "#{dom_id(session)}-finish" %>">
-  <td> <%= session.user.username%> </td>
-  <td> <%= session.clicks %> </td>
-  <td> <%= session.calculate_finish_time %> </td>
-  <td> <%= session.calculate_final_score %> </td>
-</tr>
+  <tr>
+    <th class="pe-4">Player</th>
+    <th class="pe-4">Clicks</th>
+    <th class="pe-4">Time</th>
+    <th class="pe-4">Score</th>
+  </tr>
+<% all_sessions.each do |session|%>
+  <tr id="<%= "#{dom_id(session)}_finish" %>">
+    <td> <%= session.user.username%> </td>
+    <td> <%= session.clicks %> </td>
+    <td> <%= session.calculate_finish_time %> </td>
+    <td> <%= session.calculate_final_score.zero? ? '' : session.calculate_final_score %> </td>
+  </tr>
+<% end %>

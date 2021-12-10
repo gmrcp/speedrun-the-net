@@ -51,6 +51,16 @@ class LobbiesController < ApplicationController
     game_session = current_user.only_open_session
     current_state = game_session.ready
     game_session.update!(ready: !current_state)
+
+    cable_ready[LobbyChannel] # Updates ready element
+      .text_content(selector: '#ready-counter',
+                    text: "#{game_session.sibling_game_sessions.where(ready: true).count}/#{game_session.sibling_game_sessions.count} ready")
+      .broadcast_to(game_session.lobby)
+
+    # Updates ready button based on ready state
+    html = render_to_string(partial: 'lobbies/ready_button', locals: { game_session: game_session })
+    render operations: cable_car
+      .outer_html('#ready-button', html: html)
   end
 
   def return

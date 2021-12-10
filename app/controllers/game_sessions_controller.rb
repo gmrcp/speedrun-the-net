@@ -20,17 +20,18 @@ class GameSessionsController < ApplicationController
     @game_session.save
 
     if params[:article] == @game_session.game.end_url
-      @game_session.update(ended_at: Time.now, status: 2)
-      html = render_to_string(partial: 'game_sessions/modal_win', locals: { game_session: @game_session })
-      render operations: cable_car
-        .inner_html('#score-modal', html: html)
-        .dispatch_event(name: 'win:game')
+      @game_session.update(ended_at: Time.now)
+      @game_session.update(score: @game_session.calculate_final_score,
+                           status: 2)
+      html_message = render_to_string(partial: 'game_sessions/modal_win', locals: { game_session: @game_session })
+      html_scores = render_to_string(partial: 'game_sessions/modal_score', locals: { all_sessions: @game_session.sibling_game_sessions.order(:score).reverse })
       cable_ready[PlayChannel]
-        .morph(
-          selector: "#{dom_id(@game_session)}-finish",
-          html: render(partial: 'game_sessions/modal_score', locals: { session: GameSession.includes(:user).find(@game_session.id) })
-        )
+        .inner_html(selector: "#score-all-modal", html: html_scores)
+        .dispatch_event(name: 'win:lobby')
         .broadcast_to(@game_session.lobby)
+      render operations: cable_car
+        .inner_html('#score-modal', html: html_message)
+        .dispatch_event(name: 'win:game')
     else
       html_game = get_wiki_article(params[:article])
       render operations: cable_car
