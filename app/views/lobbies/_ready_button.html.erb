@@ -1,5 +1,7 @@
   <%= link_to "Ready",
       ready_path,
       id: 'ready-button',
-      class: "#{game_session.ready ? 'btn-enter' : 'btn-enter-outline' }",
+      attribute: 'disabled',
+      class: "#{game_session.ready ? 'btn-enter' : 'btn-enter-outline' }
+              #{game_session.sibling_game_sessions.count > 1 ? '' : 'd-none'}",
       data: {remote: true} %>

@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2021_12_02_225259) do
     t.string "path", default: [], array: true
     t.boolean "ready", default: false
     t.integer "status", default: 0
+    t.integer "avatar", default: 1, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["game_id"], name: "index_game_sessions_on_game_id"

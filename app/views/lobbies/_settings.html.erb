@@ -60,9 +60,8 @@
              <% if game_session.sibling_game_sessions.count > 1  %>
                <%= 'disabled' if game_session.sibling_game_sessions.where(ready: true).count < game_session.sibling_game_sessions.count %>
              <% end  %>>
-    <% else %>
-      <%= render partial: 'ready_button', locals: { game_session: game_session } %>
     <% end %>
+    <%= render partial: 'ready_button', locals: { game_session: game_session } %>
   <% end %>
   </div>
 </div>

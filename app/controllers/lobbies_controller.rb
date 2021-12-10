@@ -13,7 +13,8 @@ class LobbiesController < ApplicationController
     lobby = Lobby.create!(owner: current_user)
     game = Game.create!(lobby: lobby)
     GameSession.create!(game: game,
-                        user: current_user)
+                        user: current_user,
+                        avatar: rand(1..48))
     redirect_to lobby_path
   end
 
@@ -24,14 +25,15 @@ class LobbiesController < ApplicationController
     else
       current_user.game_sessions.open.destroy_all # Destroy all open game_sessions
       GameSession.create!(game: lobby.games.open.last,
-                          user: current_user)
+                          user: current_user,
+                          avatar: rand(1..48))
       redirect_to lobby_path
     end
   end
 
   def owner_start
     owner_session = current_user.only_open_session
-    if owner_session.lobby.owner == current_user && params[:start_url] && params[:end_url]
+    if owner_session.lobby.owner == current_user && params[:start_url] && params[:end_url] && params[:start_url] != params[:end_url]
       game = owner_session.game
       # params.permit(:start_url, :end_url)
       game.update!({ start_url: params[:start_url], end_url: params[:end_url], status: 1 })
@@ -53,10 +55,18 @@ class LobbiesController < ApplicationController
     current_state = game_session.ready
     game_session.update!(ready: !current_state)
 
-    cable_ready[LobbyChannel] # Updates ready element
-      .text_content(selector: '#ready-counter',
-                    text: "#{game_session.sibling_game_sessions.where(ready: true).count}/#{game_session.sibling_game_sessions.count} ready")
-      .broadcast_to(game_session.lobby)
+    # Update ready badge
+    if game_session.ready
+      cable_ready[LobbyChannel]
+        .add_css_class(selector: "#{dom_id(game_session)} .fa-check-circle",
+                       name: "player-is-ready")
+        .broadcast_to(game_session.lobby)
+    else
+      cable_ready[LobbyChannel]
+        .remove_css_class(selector: "#{dom_id(game_session)} .fa-check-circle",
+                          name: "player-is-ready")
+        .broadcast_to(game_session.lobby)
+    end
 
     # Updates ready button based on ready state
     html = render_to_string(partial: 'lobbies/ready_button', locals: { game_session: game_session })
