@@ -1,3 +1,5 @@
+// LOBBY id channel
+
 import { Controller } from '@hotwired/stimulus'
 import CableReady from 'cable_ready'
 
@@ -18,7 +20,6 @@ export default class extends Controller {
 
     document.addEventListener('start:game', () => {
       this.startGame();
-
     })
   }
 

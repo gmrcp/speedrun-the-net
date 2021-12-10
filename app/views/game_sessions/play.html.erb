@@ -12,7 +12,7 @@
         <img class="avatar-large" src="<%= @img_end_url %>">
         <div class='card-content'>
           <p>GOAL</p>
-          <h3><%= @game_session.game.end_url %></h3>
+          <h3><%= @game_session.game.end_url.gsub(%r{_}, ' ') %></h3>
         </div>
       </div>
     </div>
@@ -28,12 +28,11 @@
         <p id="timer" data-start-time="<%= @game_session.started_at %>">00:00</p>
       </div>
     </div>
-    <p class="text-center fw-bold">LOBBY</p>
     <div id="player-list">
       <p class="text-center fw-bold">LOBBY</p>
-      <% @game_session.game.users.each do |user| %>
-        <%= render 'player_card', { user: user } %>
-      <% end  %>
+      <% @game_session.sibling_game_sessions.includes(:user).each do |game_session| %>
+        <%= render 'player_card', { game_session: game_session, current_user: current_user } %>
+      <% end %>
     </div>
       <%= link_to 'EXIT', lobby_path, class: 'button small empty exit-play' %>
   </div>
@@ -51,6 +50,8 @@
     </div>
   </div>
 </div>
-<div data-controller="modal">
-  <%= render 'layouts/modal' %>
+<div data-controller="modal" data-modal-id-value="<%= @game_session.id %>">
+  <%= render partial: 'modal_scores', locals: { all_sessions: @game_session.sibling_game_sessions,
+                                                current_user: current_user,
+                                                game_session: @game_session } %>
 </div>

@@ -9,7 +9,6 @@
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
           <li><a class="dropdown-item" href="#">Wikipedia</a></li>
           <li><a class="dropdown-item" href="#">IMDB</a></li>
-          <li><a class="dropdown-item" href="#">Something else</a></li>
         </ul>
       </div>
       <div class="timer">
@@ -22,15 +21,25 @@
       </div>
       -->
       <%= form_with url: owner_start_path, method: :post, class: 'settings-form' do |form| %>
-        <div class="start-article">
+        <% if current_user != @game_session.lobby.owner %>
+          <div class="start-article" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Only the lobby leader can edit this!">
+        <% else %>
+          <div class="start-article">
+        <% end  %>
           <label for="select-start">Starting:</label>
-          <input type="text" class="tom-select" id="select-start" name="start_url" placeholder="Where to start..." multiple>
+            <input type="text" class="tom-select" id="select-start" name="start_url" placeholder="Where to start..." multiple
+            <%= 'disabled' if current_user != @game_session.lobby.owner %>>
         </div>
     </div>
     <div class="settings-row-1">
-        <div class="goal-article">
+        <% if current_user != @game_session.lobby.owner %>
+          <div class="goal-article" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Only the lobby leader can edit this!">
+        <% else %>
+          <div class="goal-article">
+        <% end  %>
           <label for="select-end">Goal:</label>
-          <input class="tom-select" id="select-end" name="end_url" placeholder="Where to end..." multiple>
+            <input class="tom-select" id="select-end" name="end_url" placeholder="Where to end..." multiple
+            <%= 'disabled' if current_user != @game_session.lobby.owner %>>
         </div>
         <!-- <input type="submit" value="START" class="btn-enter start"> -->
     </div>
@@ -45,11 +54,14 @@
   </div> -->
   <div class="buttons-wrapper">
     <%#= link_to 'Ready', ready_path, class: 'btn-enter-outline', data: {remote: true} %>
-    <% if @game_session.sibling_game_sessions.count > 1 %>
-      <%= render partial: 'ready_button', locals: { session: game_session } %>
-    <% end %>
     <% if current_user == @game_session.lobby.owner %>
-      <input type="submit" value="START" class="btn-enter start">
+      <input type="submit" value="START" class="btn-enter start"
+             id='owner-start-button'
+             <% if game_session.sibling_game_sessions.count > 1  %>
+               <%= 'disabled' if game_session.sibling_game_sessions.where(ready: true).count < game_session.sibling_game_sessions.count %>
+             <% end  %>>
+    <% else %>
+      <%= render partial: 'ready_button', locals: { game_session: game_session } %>
     <% end %>
   <% end %>
   </div>

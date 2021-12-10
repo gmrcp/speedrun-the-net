@@ -1,12 +1,11 @@
-require 'open-uri'
-
 class GameSessionsController < ApplicationController
-
   def start_game
     @game_session = current_user.only_open_session
+    redirect_to root_path, alert: "Something went wrong..." if @game_session.nil?
 
     @img_start_url, @img_end_url = request_wiki_images(
-      [@game_session.game.start_url, @game_session.game.end_url]
+      [@game_session.game.start_url,
+       @game_session.game.end_url]
     )
     @html_game = get_wiki_article(@game_session.game.start_url)
     @game_session.update({ started_at: Time.now, status: 1 })
@@ -15,21 +14,29 @@ class GameSessionsController < ApplicationController
   end
 
   def play
-    @game_session = GameSession.includes(:game).find_by({ user: current_user,
-                                                          status: 1 })
+    @game_session = GameSession.includes(:game).find_by({ user: current_user, status: 1 })
     @game_session.path << params[:article]
     @game_session.clicks += 1
     @game_session.save
-
+    # Win condition
     if params[:article] == @game_session.game.end_url
-      @game_session.ended_at = Time.now
-      @game_session.save
-      html = render_to_string(partial: 'shared/modal_win', locals: { game_session: @game_session })
+      @game_session.update(ended_at: Time.now)
+      @game_session.update(score: @game_session.calculate_final_score,
+                           status: 2)
+      html_message = render_to_string(partial: 'game_sessions/modal_win', locals: { game_session: @game_session })
+      html_scores = render_to_string(partial: 'game_sessions/modal_score', locals: { all_sessions: @game_session.sibling_game_sessions.order(:score).reverse })
+      # Broadcast score to lobby
+      cable_ready[PlayChannel]
+        .inner_html(selector: "#score-all-modal", html: html_scores)
+        .dispatch_event(name: 'win:lobby')
+        .broadcast_to(@game_session.lobby)
+      # Update finish message and show modal
       render operations: cable_car
-        .inner_html('#score-modal', html: html)
+        .inner_html('#score-modal', html: html_message)
         .dispatch_event(name: 'win:game')
     else
       html_game = get_wiki_article(params[:article])
+      # Ajax update article on container
       render operations: cable_car
         .text_content('#user-counter', text: @game_session.clicks.to_s)
         .inner_html('#game-page', html: html_game)
@@ -97,7 +104,7 @@ class GameSessionsController < ApplicationController
       request
     end
     hydra.run
-    responses = requests.map do |request|
+    requests.map do |request|
       json = JSON.parse(request.response.body)
       begin
         json['query']['pages'].values[0]['thumbnail']['source']
