@@ -58,3 +58,9 @@ document.addEventListener('turbolinks:load', () => {
     selectWikiArticle(selectUrl);
   }
 });
+
+$(document).ready(function () {
+  $("#new_message").on("ajax:success", function (event) {
+    $('#new_message')[0].reset();
+  });
+});

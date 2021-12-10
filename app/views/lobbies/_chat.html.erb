@@ -1,21 +1,15 @@
 <div class="chat" style="height:100%">
-  <div class="message-board">
-    <p class='message'><span>Username:</span> Let's play mothertruckers!</p>
-    <p class='message'><span>Username:</span> Let's play mothertruckers!</p>
-    <p class='message'><span>Username:</span> Let's play mothertruckers!</p>
-    <p class='message'><span>Username:</span> Let's play mothertruckers!</p>
-    <p class='message'><span>Username:</span> Let's play mothertruckers!</p>
-    <p class='message'><span>Username:</span> Let's play mothertruckers!</p>
-    <p class='message'><span>Username:</span> Let's play mothertruckers!</p>
-    <p class='message'><span>Username:</span> Let's play mothertruckers!</p>
-    <p class='message'><span>Username:</span> Let's play mothertruckers!</p>
-    <p class='message'><span>Username:</span> Let's play mothertruckers!</p>
-    <p class='message'><span>Username:</span> Let's play mothertruckers!</p>
-    <p class='message'><span>Username:</span> Let's play mothertruckers!</p>
-    <p class='message'><span>Username:</span> Let's play mothertruckers!</p>
-    <p class='message'><span>Username:</span> Let's play mothertruckers!</p>
+  <div class="message-board" id="messages">
+    <% lobby.messages.each do |message| %>
+        <p><strong><%= message.user.username %>:</strong> <%= message.content %> </p>
+    <%end%>
   </div>
   <div class="input-group align-content-end">
-    <div class="message-content"><input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)"><span><i class="fas fa-paper-plane"></i></span></div>
+    <div class="message-content">
+      <%= simple_form_for [ lobby, message ], html: { autocomplete: 'off' }, remote: true do |f| %>
+        <% f.input :content, label: false, class: "form-control" %>
+      <% end %>
+      <span><i class="fas fa-paper-plane"></i></span>
+    </div>
   </div>
 </div>

@@ -4,6 +4,7 @@ class Lobby < ApplicationRecord
   belongs_to :owner, class_name: "User", foreign_key: :owner_id
   before_validation :generate_code
   has_many :games
+  has_many :messages
   validates :code, length: { is: 4 }
 
   private
