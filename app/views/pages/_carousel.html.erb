@@ -4,24 +4,19 @@
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
   </div>
   <div class="carousel-inner">
-    <div class="carousel-item active">
-      <p>Log-in anonymously with a guest account or connect your discord/twitch account.</p>
+    <div class="carousel-item active first">
+      <%= image_tag 'page_01.png' %>
+      <p>Log-in, join your friends in a lobby and start playing!</p>
     </div>
-    <div class="carousel-item">
-      <p>Invite your friends to your lobby by sharing the code.</p>
+    <div class="carousel-item second">
+    <%= image_tag 'page_02.jpg' %>
+      <p>Try to reach the goal article by navigating through the links on the wikipedia page.</p>
     </div>
-    <div class="carousel-item">
-      <p>Choose a game mode, starting and ending article. Once everyone is ready it's time to start the game.</p>
-    </div>
-    <div class="carousel-item">
-      <p>Try to reach the goal article by navigating through the links on the page.</p>
-    </div>
-    <div class="carousel-item">
-      <p>The player who reaches the goal first wins the game.</p>
+    <div class="carousel-item third">
+    <%= image_tag 'page_03.jpg' %>
+      <p>The faster you reach the goal article the higher your score will be.</p>
     </div>
   </div>
   <button class="carousel-control-prev d-none" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">

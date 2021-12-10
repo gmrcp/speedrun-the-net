@@ -87,13 +87,14 @@
   margin-top: 0.9rem;
   margin-bottom: 1rem;
   letter-spacing: 0.1rem;
+  background-color: $orange-dark;
 
   &-outline {
     position: relative;
     align-items: center;
     padding: 1.1rem 2.5rem;
     border-radius: 100px;
-    color: $white;
+    color: $orange-dark;
     font-size: 1rem;
     text-decoration: none;
     box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
@@ -102,17 +103,17 @@
     margin-top: 0.9rem;
     margin-bottom: 1rem;
     letter-spacing: 0.1rem;
-    background-color: $purple-primary;
+    background-color: $white;
     white-space: nowrap;
+    border: 2px solid $orange-dark;
 
     &:hover {
-      color: $white;
-
+      color: $orange-dark;
     }
   }
 
   &:hover {
-    color: $white;
+    color: white;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.45);
     background: linear-gradient(180deg, $orange-dark 0%, $orange-dark 100%);
     transition: all 0.15s ease-in-out;

@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2021_12_02_225259) do
     t.datetime "started_at"
     t.datetime "ended_at"
     t.integer "clicks", default: 0
-    t.integer "score"
+    t.integer "score", default: 0
     t.string "path", default: [], array: true
     t.boolean "ready", default: false
     t.integer "status", default: 0

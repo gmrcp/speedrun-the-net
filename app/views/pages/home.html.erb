@@ -25,9 +25,6 @@
         account
         </p>
         <div class="icons">
-          <%= link_to "#", method: :post do%>
-          <div class="icon icon_twitch"><i class="fab fa-twitch"></i></div>
-          <% end %>
           <%= button_to user_discord_omniauth_authorize_path, data: {turbo: false, local: true }, method: :post, class: 'icon icon_discord' do%>
           <div class="icon icon_discord"><i class="fab fa-discord"></i></div>
           <% end%>
