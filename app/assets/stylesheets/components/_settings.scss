@@ -84,14 +84,14 @@
 .buttons-wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: end;
+  justify-content: space-between;
   align-items: end;
   flex-grow: 1;
   margin-bottom: -10px;
 
   .btn-enter {
     // width: 100%;
-    margin-top: 5px;
+    // margin-top: 5px;
     align-self: end;
   }
 

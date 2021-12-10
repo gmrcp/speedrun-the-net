@@ -279,13 +279,13 @@ Devise.setup do |config|
   config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'],
                                   ENV['GOOGLE_CLIENT_SECRET'],
                                   scope: 'userinfo.email,userinfo.profile',
-                                  redirect_uri: 'http://localhost:3000/users/auth/google_oauth2/callback',
+                                  redirect_uri: 'http://speedrunthe.net/users/auth/google_oauth2/callback',
                                   token_params: { parse: :json }
 
   config.omniauth :discord, ENV['DISCORD_CLIENT_ID'],
                             ENV['DISCORD_CLIENT_SECRET'],
                             scope: 'email identify',
-                            callback_url: 'http://localhost:3000/users/auth/discord/callback',
+                            callback_url: 'http://speedrunthe.net/users/auth/discord/callback',
                             token_params: { parse: :json }
 
   # Rails.application.config.middleware.use OmniAuth::Builder do

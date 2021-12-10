@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
   post :owner_start, to: 'lobbies#owner_start'
 
+  delete :destroy, to: 'lobbies#destroy'
+
   get :start, to: 'game_sessions#start_game'
   post :start, to: 'game_sessions#start_game'
 
