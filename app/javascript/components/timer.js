@@ -8,7 +8,7 @@ const displayTime = async () => {
 };
 
 const formatTime = (startTime, element) => {
-  const total = Date.now() - Date.parse(startTime);
+  const total = Date.now() - Date.parse(startTime.replace(/-/g, '/'));
   // let milliseconds = total % 1000;
   let seconds = Math.floor(total / 1000 % 60);
   let minutes = Math.floor(total / 1000 / 60);

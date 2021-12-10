@@ -1,0 +1,4 @@
+  <h1 class="justify-content-center d-flex mb-3">
+    <%= game_session.game.end_url.gsub(/_/, ' ') %>
+  </h1>
+  <p>with <strong><%= game_session.clicks %></strong> clicks in <strong><%= game_session.calculate_finish_time %></strong>!</p>

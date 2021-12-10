@@ -1,23 +1,37 @@
-// LOBBY id channel in Play page
+// GAME SESSION id channel - lobby show view
+// allows INDIVIDUAL events
 
 import { Controller } from '@hotwired/stimulus'
 import CableReady from 'cable_ready'
 
 export default class extends Controller {
-  static targets = ['clicks', 'players']
   static values = { id: Number }
 
   connect() {
     this.channel = this.application.consumer.subscriptions.create(
       {
-        channel: 'PlayChannel',
+        channel: 'PlayersChannel',
         id: this.idValue
       },
       {
         received(data) { if (data.cableReady) CableReady.perform(data.operations) }
       }
     )
-    console.log(`User has subscribed to PlayChannel ${this.idValue}`)
+
+    document.addEventListener('kick:player', () => {
+      this.kick();
+    })
+
+    this.highlight();
+  }
+
+  highlight() {
+    const player_card = document.getElementById(`game_session_${this.idValue}`)
+    player_card.classList.add('user-highlight-lobby')
+  }
+
+  kick() {
+    window.location = "/kicked";
   }
 
   disconnect() {

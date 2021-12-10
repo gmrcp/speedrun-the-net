@@ -23,7 +23,7 @@ class LobbiesController < ApplicationController
       redirect_to lobby_path, alert: 'Sorry! Invalid code.'
     else
       current_user.game_sessions.open.destroy_all # Destroy all open game_sessions
-      GameSession.create!(game: lobby.games.first,
+      GameSession.create!(game: lobby.games.open.last,
                           user: current_user)
       redirect_to lobby_path
     end
@@ -34,7 +34,7 @@ class LobbiesController < ApplicationController
     if owner_session.lobby.owner == current_user && params[:start_url] && params[:end_url]
       game = owner_session.game
       # params.permit(:start_url, :end_url)
-      game.update!({ start_url: params[:start_url], end_url: params[:end_url] })
+      game.update!({ start_url: params[:start_url], end_url: params[:end_url], status: 1 })
       cable_ready[LobbyChannel]
         .console_log(message: "Owner is starting the game!")
         .append(
@@ -52,17 +52,38 @@ class LobbiesController < ApplicationController
     game_session = current_user.only_open_session
     current_state = game_session.ready
     game_session.update!(ready: !current_state)
-    # render :nothing
-    #render operations: cable_car.console_log(message: "You just clicked the ready  button")
-    # total_game_sessions = game_session.sibling_game_sessions
-    # cable_ready[LobbyChannel]
-    #   .console_log(
-    #     message: "User with game_session #{game_session.id} is #{game_session.ready? ? 'ready' : 'not ready'}"
-    #   )
-    #   .text_content(
-    #     selector: "#ready-button",
-    #     text: "#{total_game_sessions.where(ready?: true).count}/#{total_game_sessions.count}"
-    #   )
-    #   .broadcast_to(game_session.lobby)
+
+    cable_ready[LobbyChannel] # Updates ready element
+      .text_content(selector: '#ready-counter',
+                    text: "#{game_session.sibling_game_sessions.where(ready: true).count}/#{game_session.sibling_game_sessions.count} ready")
+      .broadcast_to(game_session.lobby)
+
+    # Updates ready button based on ready state
+    html = render_to_string(partial: 'lobbies/ready_button', locals: { game_session: game_session })
+    render operations: cable_car
+      .outer_html('#ready-button', html: html)
+  end
+
+  def return
+    game_session = current_user.game_sessions.includes(:lobby, lobby: :owner).closed.last
+    game = Game.where(lobby: game_session.lobby, status: 0).last
+    if game.nil?
+      game = Game.create(lobby: game_session.lobby)
+    end
+    GameSession.create(user: current_user, game: game)
+    redirect_to lobby_path
+  end
+
+  def kick
+    params.permit(:id)
+    kicked_session = GameSession.find(params[:id])
+    cable_ready[PlayersChannel]
+      .dispatch_event(name: 'kick:player')
+      .broadcast_to(kicked_session)
+    kicked_session.destroy
+  end
+
+  def kicked
+    redirect_to create_lobby_path, alert: 'You got kicked from your previous lobby.'
   end
 end

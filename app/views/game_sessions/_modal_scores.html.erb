@@ -1,0 +1,27 @@
+<div class="modal fade noselect"
+     id="main-modal"
+     data-bs-backdrop="static"
+     data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title">CONGRATULATIONS</h1>
+      </div>
+      <div class="modal-subheader">
+        <p>You have reached the goal</p>
+      </div>
+      <div class="modal-body">
+        <div id="score-modal">
+        </div>
+        <div class="table d-flex justify-content-center mt-3">
+          <table id="score-all-modal">
+            <%= render partial: 'modal_score', locals: { all_sessions: all_sessions } %>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <%= button_to "BACK TO LOBBY", return_path, class: 'button large filled'  %>
+      </div>
+    </div>
+  </div>
+</div>
