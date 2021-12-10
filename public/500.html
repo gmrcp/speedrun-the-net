@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>We're sorry, but something went wrong (500)</title>
+  <title>The page you were looking for doesn't exist (404)</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <style>
   .rails-default-error-page {
@@ -9,7 +9,7 @@
     color: #2E2F30;
     text-align: center;
     font-family: arial, sans-serif;
-    margin: 0;
+    margin: 0px;
   }
 
   .rails-default-error-page div.dialog {
@@ -23,7 +23,7 @@
     border-right-color: #999;
     border-left-color: #999;
     border-bottom-color: #BBB;
-    border-top: #3F369B solid 10px;
+    border-top:#3F369B solid 10px;
     border-top-left-radius: 9px;
     border-top-right-radius: 9px;
     background-color: white;
@@ -39,8 +39,8 @@
 
   .rails-default-error-page div.dialog > p {
     margin: 0 0 1em;
-    padding: 1em;
-    background-color: #F7F7F7;
+    padding: 4px;
+    background-color: #6b6b6b;
     border: 1px solid #CCC;
     border-right-color: #999;
     border-left-color: #999;
@@ -48,27 +48,44 @@
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
     border-top-color: #DADADA;
-    color: #666;
+    color: rgb(255, 255, 255);
     box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
   }
 
   body {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('crashed_server.jpeg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('page_not_found.jpeg');
     background-size: cover;
     background-position: center;
     height: 650px;
   }
+
+  .container{
+    display: flex;
+    margin-top: 200px;
+  }
+
+  .error{
+    font-size: 70px;
+    color: #3F369B;
+    font-weight: bold;
+    margin: -40px;
+  }
+
   </style>
 </head>
 
 <body class="rails-default-error-page">
-  <!-- This file lives in public/500.html -->
+  <!-- This file lives in public/404.html -->
   <div class="container">
     <div class="dialog">
-      <div>
-        <h1>We're sorry, but something went wrong.</h1>
+      <div class="page">
+        <h1>The page you were looking for doesn't exist.</h1>
+        <p>You may have mistyped the address or the page may have moved.</p>
+        <div class="error">
+          <h1>500</h1>
+        </div>
       </div>
-      <p>If you are the application owner check the logs for more information.</p>
+        <p>If you are the application owner check the logs for more information.</p>
     </div>
   </div>
 </body>
