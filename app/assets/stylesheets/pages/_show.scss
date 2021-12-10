@@ -34,26 +34,23 @@
     overflow-y: scroll;
     overflow-x: hidden;
 
-    &::-webkit-scrollbar-track
-    {
-      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.2);
+    &::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
       border-radius: 10px;
-      background-color: #F5F5F5;
+      background-color: #f5f5f5;
     }
 
-    &::-webkit-scrollbar
-    {
+    &::-webkit-scrollbar {
       width: 8px;
-      background-color: #F5F5F5;
+      background-color: #f5f5f5;
     }
 
-    &::-webkit-scrollbar-thumb
-    {
-      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.1);
+    &::-webkit-scrollbar-thumb {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
       border-radius: 10px;
       background-color: $purple-primary;
     }
-    }
+  }
 
   .lobby-settings-container {
     max-height: calc(100% - 25px);
@@ -126,6 +123,18 @@
     justify-content: center;
     padding: 20px;
 
+
+    form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      input[type=text] {
+        text-align: center;
+      }
+    }
+
     .edit_lobby {
       display: flex;
       align-items: center;
@@ -148,13 +157,11 @@
   }
 }
 
-
 .lobby-current-user {
   // background: $fire-gradient;
   border-radius: 20px;
   border: 2px solid $orange-dark;
 }
-
 
 .player-is-ready {
   color: green;
